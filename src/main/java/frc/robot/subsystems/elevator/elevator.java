@@ -62,22 +62,22 @@ public class elevator extends SubsystemBase {
 
 
     public elevator() {
-        // pidController = new PIDController(0., 0.0, 0.00); // Kp, Ki, Kd
-        // setpoint = 1000; // Desired position
-        // var leftConfiguration = new TalonFXConfiguration();
-        // var rightConfiguration = new TalonFXConfiguration();
+        pidController = new PIDController(0., 0.0, 0.00); // Kp, Ki, Kd
+        setpoint = 000; // Desired position
+        var leftConfiguration = new TalonFXConfiguration();
+        var rightConfiguration = new TalonFXConfiguration();
     
-        // /* User can optionally change the configs or leave it alone to perform a factory default */
-        // leftConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        // rightConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        /* User can optionally change the configs or leave it alone to perform a factory default */
+        leftConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        rightConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     
-        // Leader.getConfigurator().apply(leftConfiguration);
-        // Follower.getConfigurator().apply(leftConfiguration);
+        Leader.getConfigurator().apply(leftConfiguration);
+        Follower.getConfigurator().apply(leftConfiguration);
     
-        // /* Set up followers to follow leaders */
-        // Follower.setControl(new Follower(Leader.getDeviceID(), true));
+        /* Set up followers to follow leaders */
+        Follower.setControl(new Follower(Leader.getDeviceID(), true));
       
-        // Leader.setSafetyEnabled(true);
+        Leader.setSafetyEnabled(true);
 
     }
     @Override
@@ -88,9 +88,9 @@ public class elevator extends SubsystemBase {
             Leader.getPosition().getValue();
             
 
-        // double error = setpoint - currentPosition;
-        // double output = pidController.calculate(currentPosition, setpoint);
-        // Leader.set( output); // Apply the output to the leader motor
+         double error = setpoint - currentPosition;
+         double output = pidController.calculate(currentPosition, setpoint);
+         Leader.set( output); // Apply the output to the leader motor
 
         // Update SmartDashboard
         SmartDashboard.putNumber("Leader Encoder Position", Leader.getPosition().getValueAsDouble());
