@@ -83,9 +83,9 @@ public class elevator extends SubsystemBase {
     @Override
     public void periodic()
     {
-         //BaseStatusSignal.setUpdateFrequencyForAll(100,
-            //Leader.getPosition());
-            //Leader.getPosition().getValue();
+         BaseStatusSignal.setUpdateFrequencyForAll(100,
+            Leader.getPosition());
+            Leader.getPosition().getValue();
             
 
         // double error = setpoint - currentPosition;
