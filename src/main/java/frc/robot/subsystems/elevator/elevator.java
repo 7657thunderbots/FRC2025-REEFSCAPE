@@ -24,6 +24,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -36,6 +37,7 @@ import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -44,16 +46,16 @@ import edu.wpi.first.wpilibj.XboxController;
 public class elevator extends SubsystemBase {
 
     private final TalonFX Leader = new TalonFX(1);
-    private final TalonFX Follower = new TalonFX(2);
+    private final TalonFX Follower  = new TalonFX(2);
     private PIDController pidController;
-    private double setpoint;
+    public double elevatorSetPoint;
   
   
     private final DutyCycleOut leftOut = new DutyCycleOut(0);
     private final DutyCycleOut rightOut = new DutyCycleOut(0);
 
   
-    private int printCount = 0;
+
   
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -62,8 +64,9 @@ public class elevator extends SubsystemBase {
 
 
     public elevator() {
-        pidController = new PIDController(0., 0.0, 0.00); // Kp, Ki, Kd
-        setpoint = 000; // Desired position
+
+        pidController = new PIDController(0.0, 0.0, 0.00); // Kp, Ki, Kd
+        elevatorSetPoint = 000; // Desired position
         var leftConfiguration = new TalonFXConfiguration();
         var rightConfiguration = new TalonFXConfiguration();
     
@@ -73,11 +76,13 @@ public class elevator extends SubsystemBase {
     
         Leader.getConfigurator().apply(leftConfiguration);
         Follower.getConfigurator().apply(leftConfiguration);
-    
+        
         /* Set up followers to follow leaders */
         Follower.setControl(new Follower(Leader.getDeviceID(), true));
-      
         Leader.setSafetyEnabled(true);
+
+        
+
 
     }
     @Override
@@ -85,22 +90,55 @@ public class elevator extends SubsystemBase {
     {
          BaseStatusSignal.setUpdateFrequencyForAll(100,
             Leader.getPosition());
-            Leader.getPosition().getValue();
+           
             
 
-         double error = setpoint - currentPosition;
-         double output = pidController.calculate(currentPosition, setpoint);
+         double error = elevatorSetPoint - Leader.getPosition().getValueAsDouble();
+         double output = pidController.calculate(Leader.getPosition().getValueAsDouble(), setpoint);
          Leader.set( output); // Apply the output to the leader motor
 
         // Update SmartDashboard
         SmartDashboard.putNumber("Leader Encoder Position", Leader.getPosition().getValueAsDouble());
-        SmartDashboard.putNumber("Setpoint", setpoint);
+        SmartDashboard.putNumber("Setpoint", elevatorSetPoint);
         // SmartDashboard.putNumber("PID Output", output);
     }
     public StatusSignal<Angle> getLeftPos() {
         return Leader.getPosition();
         
+    }public Command elevatorL1(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        });
+    }public Command elevatorL2(){
+            return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+            });
+    }public Command elevatorL3(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        });
+    }public Command elevatorL4(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        }); 
+    }public Command elevatorHome(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        });
+    }public Command elevatorHumanPlayer(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        });
+    }public Command elevatorNet(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        });
+    }public Command elevatorFloor(){
+        return runOnce(()->{
+            this.elevatorSetPoint = 0; // change later
+        });
     }
 
+        
+    }
 
-}
