@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import frc.robot.subsystems.Vision.VisionSubsystem;
 import frc.robot.subsystems.elevator.elevator;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
@@ -35,11 +36,11 @@ import swervelib.parser.SwerveParser;
  */
 
 public class Robot extends TimedRobot {
-  private XboxController operatorController;
 
   private static Robot instance;
   private Command m_autonomousCommand;
   private XboxController driverController;
+  private XboxController operatorController;
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
@@ -59,7 +60,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     
-    operatorController = new XboxController(1);
+    operatorController = new XboxController(1); 
     driverController = new XboxController(0);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our

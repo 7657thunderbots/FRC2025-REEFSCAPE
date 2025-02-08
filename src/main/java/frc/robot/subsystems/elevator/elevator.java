@@ -94,7 +94,7 @@ public class elevator extends SubsystemBase {
             
 
          double error = elevatorSetPoint - Leader.getPosition().getValueAsDouble();
-         double output = pidController.calculate(Leader.getPosition().getValueAsDouble(), setpoint);
+         double output = pidController.calculate(Leader.getPosition().getValueAsDouble(), elevatorSetPoint);
          Leader.set( output); // Apply the output to the leader motor
 
         // Update SmartDashboard

@@ -5,10 +5,13 @@
 package frc.robot;
 
 import frc.robot.subsystems.Vision.VisionSubsystem;
+import frc.robot.subsystems.elevator.elevator;
 
 import java.io.Console;
+
 import java.util.Optional;
 
+import frc.robot.subsystems.elevator.elevator;
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -45,6 +48,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public final elevator m_elevator =  new elevator();
   // The robot's subsystems and commands are defined here...
 
   double a =1;
@@ -52,6 +56,7 @@ public class RobotContainer {
 
   public final SwerveSubsystem m_drivebase = SwerveSubsystem.getInstance();
   public final VisionSubsystem m_vision = new VisionSubsystem();
+
 
   private final SendableChooser<Command> autoChooser;
 
@@ -81,6 +86,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Manual controls
+    Constants.operatorController.a().whileTrue(m_elevator.elevatorHome());
     
 
 
