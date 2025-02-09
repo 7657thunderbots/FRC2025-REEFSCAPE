@@ -1,15 +1,11 @@
 package frc.robot.subsystems.Wrist;
 
-import java.security.PrivilegedActionException;
-
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -17,16 +13,12 @@ import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 
-public class wrist extends SubsystemBase {
+public class Wrist extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
@@ -34,7 +26,7 @@ public class wrist extends SubsystemBase {
     private PIDController pidController;
     public double wristSetPoint;
    
-    public wrist() {
+    public Wrist() {
     motor = new SparkMax(1, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();

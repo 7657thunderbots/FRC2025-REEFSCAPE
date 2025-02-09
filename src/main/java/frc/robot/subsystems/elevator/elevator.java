@@ -1,49 +1,20 @@
-package frc.robot.subsystems.elevator;
+package frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import static edu.wpi.first.units.Units.Rotations;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.TimedRobot;
-
-import com.ctre.phoenix6.hardware.core.CoreTalonFX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.TimedRobot;
-
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
-
 import com.ctre.phoenix6.BaseStatusSignal;
-import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
-import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.RelativeEncoder;
-
-import edu.wpi.first.wpilibj.XboxController;
 
 
-public class elevator extends SubsystemBase {
+public class Elevator extends SubsystemBase {
 
     private final TalonFX Leader = new TalonFX(1);
     private final TalonFX Follower  = new TalonFX(2);
@@ -63,7 +34,7 @@ public class elevator extends SubsystemBase {
      */
 
 
-    public elevator() {
+    public Elevator() {
 
         pidController = new PIDController(0.0, 0.0, 0.00); // Kp, Ki, Kd
         elevatorSetPoint = 000; // Desired position
