@@ -17,6 +17,8 @@ WPILib [API](https://docs.wpilib.org/en/stable/?_gl=1*kx0ixm*_gcl_au*OTY1Mzk5MjA
 
 ### CTRE
 CTRE [Phoenix 6 API] (https://api.ctr-electronics.com/phoenix6/release/java/)
+
 CTRE [Phoenix 5 API] (https://api.ctr-electronics.com/phoenix/release/java/)
+
 CTRE [Phoenix 6 Examples] (https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main)
 
