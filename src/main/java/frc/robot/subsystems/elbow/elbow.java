@@ -1,4 +1,4 @@
-package frc.robot.subsystems.elbow;
+package frc.robot.subsystems.Elbow;
 
 import java.security.PrivilegedActionException;
 
@@ -25,13 +25,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class elbow extends SubsystemBase {
+public class Elbow extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
     private RelativeEncoder encoder;
    
-    public elbow() {
+    public Elbow() {
     motor = new SparkMax(1, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();

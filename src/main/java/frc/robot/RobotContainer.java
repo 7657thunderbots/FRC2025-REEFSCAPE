@@ -5,39 +5,24 @@
 package frc.robot;
 
 import frc.robot.subsystems.Vision.VisionSubsystem;
-import frc.robot.subsystems.Wrist.wrist;
-import frc.robot.subsystems.elevator.elevator;
-
-import java.io.Console;
+import frc.robot.subsystems.Wrist.Wrist;
+import frc.robot.subsystems.Elevator.Elevator;
 
 import java.util.Optional;
 
-import frc.robot.subsystems.elevator.elevator;
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.Vision;
-// import frc.robot.subsystems.LEDSubsystems;
-
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -49,8 +34,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  public final elevator m_elevator =  new elevator();
-  public final wrist m_wrist = new wrist();
+  public final Elevator m_elevator =  new Elevator();
+  public final Wrist m_wrist = new Wrist();
   // The robot's subsystems and commands are defined here...
 
   double a =1;
