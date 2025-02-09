@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.subsystems.Vision.VisionSubsystem;
+import frc.robot.subsystems.Wrist.wrist;
 import frc.robot.subsystems.elevator.elevator;
 
 import java.io.Console;
@@ -49,6 +50,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  */
 public class RobotContainer {
   public final elevator m_elevator =  new elevator();
+  public final wrist m_wrist = new wrist();
   // The robot's subsystems and commands are defined here...
 
   double a =1;

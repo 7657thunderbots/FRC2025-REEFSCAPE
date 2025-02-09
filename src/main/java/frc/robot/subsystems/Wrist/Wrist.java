@@ -18,6 +18,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,13 +26,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class Wrist extends SubsystemBase {
+public class wrist extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
     private RelativeEncoder encoder;
+    private PIDController pidController;
+    public double wristSetPoint;
    
-    public Wrist() {
+    public wrist() {
     motor = new SparkMax(1, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();
@@ -89,6 +92,17 @@ public class Wrist extends SubsystemBase {
     SmartDashboard.setDefaultNumber("Target Velocity", 0);
     SmartDashboard.setDefaultBoolean("Control Mode", false);
     SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+
+
+    wristSetPoint = 000; // Desired position
+    
+    
+
+    /* User can optionally change the configs or leave it alone to perform a factory default */
+    
+    
+    /* Set up followers to follow leaders */
+   
     }
 
     // public void stop() {
@@ -120,7 +134,20 @@ public class Wrist extends SubsystemBase {
 
     @Override
     public void periodic()
-    {}
+    {
+        SmartDashboard.putNumber("Wrist Encoder Position", encoder.getPosition());
+       
+        }
+        public Command wristUp(){
+            return runOnce(()->{
+                this.wristSetPoint = 0; // change later
+            });
+        }public Command wristDown(){
+                return runOnce(()->{
+                this.wristSetPoint = 0; // change later
+                });
+       
+    }
        
 
 }

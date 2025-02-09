@@ -98,7 +98,7 @@ public class elevator extends SubsystemBase {
          Leader.set( output); // Apply the output to the leader motor
 
         // Update SmartDashboard
-        SmartDashboard.putNumber("Leader Encoder Position", Leader.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("Elevator Leader Encoder Position", Leader.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("Setpoint", elevatorSetPoint);
         // SmartDashboard.putNumber("PID Output", output);
     }
