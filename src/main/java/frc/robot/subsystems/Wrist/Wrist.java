@@ -90,39 +90,23 @@ public class Wrist extends SubsystemBase {
     
     
 
-    /* User can optionally change the configs or leave it alone to perform a factory default */
-    
-    
-    /* Set up followers to follow leaders */
    
     }
 
-    // public void stop() {
-    //     piviot.set(0);
-    // }
+    public Command horizontal() {
+        return runOnce(() -> {
+        this.wristSetPoint=0;
+    });
+    }
 
-    // public Command stopPiviot(){
-    //     return runOnce(() -> {
-    //        this.stop();
-    //     });
-    // }
+    public Command vertical() {
+        return runOnce(() -> {
+        this.wristSetPoint=0;
+    });
+    }
 
 
-     
     
-    //  public Command piviotspeakerfar(){
-    //     return runOnce(() -> {
-    //        this.piviotsetpoint = 600;
-    //     });
-    // }
-
-   
-
-    // public Command manualmove(){
-
-    // }
-
-   
 
     @Override
     public void periodic()

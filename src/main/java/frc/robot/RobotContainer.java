@@ -6,7 +6,10 @@ package frc.robot;
 
 import frc.robot.subsystems.Vision.VisionSubsystem;
 import frc.robot.subsystems.Wrist.Wrist;
-import frc.robot.subsystems.Elevator.Elevator;
+import frc.robot.subsystems.elevator.elevator;
+import frc.robot.subsystems.claw.claw;
+import frc.robot.subsystems.elbow.elbow;
+import frc.robot.subsystems.climber.climber;
 
 import java.util.Optional;
 
@@ -34,7 +37,7 @@ import frc.robot.Constants.OperatorConstants;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  public final Elevator m_elevator =  new Elevator();
+  public final elevator m_elevator =  new elevator();
   public final Wrist m_wrist = new Wrist();
   // The robot's subsystems and commands are defined here...
 

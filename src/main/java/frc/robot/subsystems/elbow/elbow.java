@@ -1,10 +1,8 @@
-package frc.robot.subsystems.Elbow;
+package frc.robot.subsystems.elbow;
 
 import java.security.PrivilegedActionException;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -15,8 +13,6 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,13 +21,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class Elbow extends SubsystemBase {
+public class elbow extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
     private RelativeEncoder encoder;
    
-    public Elbow() {
+    public elbow() {
     motor = new SparkMax(1, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();

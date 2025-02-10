@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Elevator;
+package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.controller.PIDController;
@@ -14,7 +14,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
 
-public class Elevator extends SubsystemBase {
+public class elevator extends SubsystemBase {
 
     private final TalonFX Leader = new TalonFX(1);
     private final TalonFX Follower  = new TalonFX(2);
@@ -34,7 +34,7 @@ public class Elevator extends SubsystemBase {
      */
 
 
-    public Elevator() {
+    public elevator() {
 
         pidController = new PIDController(0.0, 0.0, 0.00); // Kp, Ki, Kd
         elevatorSetPoint = 000; // Desired position
