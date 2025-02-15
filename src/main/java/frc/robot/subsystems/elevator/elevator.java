@@ -36,12 +36,12 @@ public class elevator extends SubsystemBase {
     /**
      * The leader motor controller for the elevator.
      */
-    private final TalonFX KrakenLeader = new TalonFX(3);
+    private final TalonFX KrakenLeader = new TalonFX(14);
 
     /**
      * The follower motor controller for the elevator.
      */
-    private final TalonFX KrakenFollower = new TalonFX(4);
+    private final TalonFX KrakenFollower = new TalonFX(13);
 
     /**
      * The PID controller for the elevator.
