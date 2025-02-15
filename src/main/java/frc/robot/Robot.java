@@ -187,10 +187,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    // Update drivetrain simulation
     m_robotContainer.driveSimulationPeriodic();
-
-    //Update camera simulation
-   // m_robotContainer.updateVisionSimulationPeriod();
+    m_robotContainer.updateVisionSimulationPeriodic();
   }
 }

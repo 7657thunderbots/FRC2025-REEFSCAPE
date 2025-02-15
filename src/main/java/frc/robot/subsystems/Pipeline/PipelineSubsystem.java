@@ -74,9 +74,9 @@ public void processSecondaryPipeline() {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        processPipeline();
-        processLimeLightPipeline();
-        processAprilTagPipeline();
-        processSecondaryPipeline(); // Call the secondary pipeline process
+        // processPipeline();
+        // processLimeLightPipeline();
+        // processAprilTagPipeline();
+        // processSecondaryPipeline(); // Call the secondary pipeline process
     }
 }
