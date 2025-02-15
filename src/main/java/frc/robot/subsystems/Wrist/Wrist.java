@@ -27,7 +27,7 @@ public class Wrist extends SubsystemBase {
     public double wristSetPoint;
    
     public Wrist() {
-    motor = new SparkMax(1, MotorType.kBrushless);
+    motor = new SparkMax(17, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();
     

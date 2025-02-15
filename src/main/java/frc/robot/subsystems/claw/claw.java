@@ -24,18 +24,22 @@ import frc.robot.Constants;
 
 public class claw extends SubsystemBase {
 
-    public double getCurrentVelocity() {
-        return encoder.getVelocity();
-    }
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
     private RelativeEncoder encoder;
+    double motorout;
+    boolean buttonpressed=false;
+    boolean testpiece=false;
+    boolean foward;
+    boolean start;
+    boolean d;
    
     public claw() {
     motor = new SparkMax(18, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();
+    
     
     
     /*
@@ -86,66 +90,71 @@ public class claw extends SubsystemBase {
     motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
     // Initialize dashboard values
-    SmartDashboard.setDefaultNumber("Target Position", 0);
-    SmartDashboard.setDefaultNumber("Target Velocity", 0);
-    SmartDashboard.setDefaultBoolean("Control Mode", false);
-    SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+
+    }
+    public double getCurrentVelocity() {
+        return encoder.getVelocity();
     }
 
     public void intake_in() {
-    if (getCurrentVelocity() == 0) {
-        motor.set(0.5); // Run the motor to shoot out the game piece
+    if (encoder.getVelocity() > -6000) {
+        motor.set(1); // Run the motor to shoot out the game piece
     } else {
         motor.set(0); // Stop the motor
+        buttonpressed=false;
+        start=false;
     }
     }
     public void intake_out() {
         double targetVelocity = SmartDashboard.getNumber("Target Velocity", 0);
-        if (getCurrentVelocity() >= targetVelocity) {
+        if (encoder.getVelocity() <= -1000) {
             motor.set(0); // Stop the motor when the target velocity is reached
+            buttonpressed=false;
+            start=false;
         } else {
-            motor.set(-0.5); // Run the motor to intake the game piece
+            motor.set(-1); // Run the motor to intake the game piece
         }
     }
+    
     private boolean hasPiece = false;
     private boolean isRunning = false;
 
   
     
     //  public Command piviotspeakerfar(){
-    public Command controlPiece() {
-        return new Command() {
-            private final double TARGET_RELEASE_VELOCITY = -2000; // Adjust this value as needed
+ 
+    //     return new Command() {
+    //         private final double TARGET_RELEASE_VELOCITY = -10; // Adjust this value as needed
 
-            @Override
-            public void initialize() {
-                isRunning = true;
-                if (hasPiece) {
-                    intake_out();
-                } else {
-                    intake_in();
-                }
-            }
+        //     @Override
+        //     public void initialize() {
+        //         isRunning = true;
+        //         if (hasPiece) {
+        //             intake_out();
+        //         } else {
+        //             intake_in();
+        //         }
+        //     }
 
-            @Override
-            public void end(boolean interrupted) {
-                motor.set(0);
-                isRunning = false;
-                hasPiece = !hasPiece;
-            }
+        //     @Override
+        //     public void end(boolean interrupted) {
+        //         motor.set(0);
+        //         isRunning = false;
+        //         hasPiece = !hasPiece;
+        //     }
             
-            @Override
-            public boolean isFinished() {
-                if (hasPiece) {
-                    // When releasing, stop at target velocity
-                    return !isRunning || getCurrentVelocity() <= TARGET_RELEASE_VELOCITY;
-                } else {
-                    // When intaking, stop when velocity reaches zero
-                    return !isRunning || getCurrentVelocity() == 0;
-                }
-            }
-        };
-    }
+        //     @Override
+        //     public boolean isFinished() {
+        //         if (hasPiece) {
+        //             // When releasing, stop at target velocity
+        //             return !isRunning || getCurrentVelocity() <= TARGET_RELEASE_VELOCITY;
+        //         } else {
+        //             // When intaking, stop when velocity reaches zero
+        //             return !isRunning || getCurrentVelocity() == 0;
+        //         }
+        //     }
+        // };
+    //}
     //     return runOnce(() -> {
     //        this.piviotsetpoint = 600;
     //     });
@@ -153,15 +162,60 @@ public class claw extends SubsystemBase {
 
    
 
-    // public Command manualmove(){
+     public Command controlPiece() {
+        
+            return runOnce(() -> {
+               this.buttonpressed=true;
+            });
+        }
 
-    // }
+        
 
    
 
     @Override
     public void periodic()
-    {}
+    {
+        if (buttonpressed && testpiece==true&&d==true) {
+            if (encoder.getVelocity() >-1) {
+                intake_in();
+            } else {
+                intake_out();
+                
+            }
+            d=false;
+            testpiece=false;
+            start=true;
+            }
+            if (testpiece==true && buttonpressed==true&&d==true) {
+                
+            
+                if (encoder.getVelocity() <1) {
+                    intake_in();
+                } else {
+                    intake_out();
+                    
+                }
+                testpiece=false;
+                start=true;
+            }
+            if (buttonpressed && testpiece==false && start==false&&d==false) {
+                start=false;
+                buttonpressed=false;
+                d=true;
+            }
+                
+        if (buttonpressed && testpiece==false && start==false) {
+            motor.set(1);
+            testpiece=true;
+        }
+       
+            
+        
+        SmartDashboard.setDefaultNumber("Target Velocity", encoder.getVelocity());
+        SmartDashboard.setDefaultBoolean("Control Mode", false);
+        SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+    }
        
 
 }

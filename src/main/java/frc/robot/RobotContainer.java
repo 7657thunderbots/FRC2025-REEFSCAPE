@@ -83,7 +83,7 @@ public class RobotContainer {
     * When the A button is pressed, the claw stops. When B is pressed, the claw starts.
     */
     private void setClawControl() {
-     m_operatorController.a().onTrue(m_claw.controlPiece());
+
     }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
@@ -96,7 +96,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Manual controls
-    Constants.operatorController.a().whileTrue(m_elevator.elevatorHome());
+   // Constants.operatorController.a().whileTrue(m_elevator.elevatorHome());
+    m_operatorController.a().onTrue(m_claw.controlPiece());
   }
 
   /**
