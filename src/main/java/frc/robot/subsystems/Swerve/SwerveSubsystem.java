@@ -112,8 +112,34 @@ public class SwerveSubsystem extends SubsystemBase
     
     setupPathPlanner();
   }
+  private VisionSubsystem limeLight;
 
-  /**
+  private VisionSubsystem secondaryVision;
+
+  public void setLimeLight(VisionSubsystem limeLight) {
+    this.limeLight = limeLight;
+  }
+
+  public void setSecondaryVision(VisionSubsystem secondaryVision) {
+    this.secondaryVision = secondaryVision;
+  }
+
+  public void updateAllVisionEstimates() {
+    if (limeLight != null) {
+      updateEstimatedPose(limeLight);
+    }
+    if (secondaryVision != null) {
+      updateEstimatedPose(secondaryVision);
+    }
+  }
+ 
+  @Override
+  public void periodic() {
+    // Update odometry with vision estimates from both cameras
+    updateAllVisionEstimates();
+    swerveDrive.updateOdometry();
+  }
+   /**
    * Construct the swerve drive.
    *
    * @param driveCfg      SwerveDriveConfiguration for the swerve.
@@ -366,11 +392,6 @@ public Command sysIdAngleMotorCommand() {
   public void drive(ChassisSpeeds velocity)
   {
     swerveDrive.drive(velocity);
-  }
-
-  @Override
-  public void periodic()
-  {
   }
 
   @Override
