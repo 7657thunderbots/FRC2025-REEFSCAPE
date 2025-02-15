@@ -102,6 +102,7 @@ public class SwerveSubsystem extends SubsystemBase
 
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    SwerveDriveTelemetry.isSimulation = false;
     try
     {
        swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
@@ -134,8 +135,17 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic() {
     // Update odometry with vision estimates from both cameras
-    // updateAllVisionEstimates();
-    // swerveDrive.updateOdometry();
+   // updateAllVisionEstimates();
+   // swerveDrive.updateOdometry();
+    SmartDashboard.putNumber("Robot/X", getPose().getX());
+    SmartDashboard.putNumber("Robot/Y", getPose().getY());
+    SmartDashboard.putNumber("Robot/Heading", getHeading().getDegrees());
+  // Post chassis speeds to SmartDashboard
+  ChassisSpeeds speeds = getRobotVelocity();
+  SmartDashboard.putNumber("Robot/VX", speeds.vxMetersPerSecond);
+  SmartDashboard.putNumber("Robot/VY", speeds.vyMetersPerSecond);
+  SmartDashboard.putNumber("Robot/Omega", speeds.omegaRadiansPerSecond);
+
   }
    /**
    * Construct the swerve drive.
