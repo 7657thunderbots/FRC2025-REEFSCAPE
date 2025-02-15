@@ -23,6 +23,10 @@ import frc.robot.Constants;
 
 
 public class claw extends SubsystemBase {
+
+    public double getCurrentVelocity() {
+        return encoder.getVelocity();
+    }
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
@@ -88,15 +92,41 @@ public class claw extends SubsystemBase {
     SmartDashboard.setDefaultBoolean("Reset Encoder", false);
     }
 
-    // public void stop() {
-    //     piviot.set(0);
-    // }
+    public void intake_in() {
+    if (getCurrentVelocity() == 0) {
+        motor.set(0.5); // Run the motor to shoot out the game piece
+    } else {
+        motor.set(0); // Stop the motor
+    }
+    }
+    public void intake_out() {
+        double targetVelocity = SmartDashboard.getNumber("Target Velocity", 0);
+        if (getCurrentVelocity() >= targetVelocity) {
+            motor.set(0); // Stop the motor when the target velocity is reached
+        } else {
+            motor.set(-0.5); // Run the motor to intake the game piece
+        }
+    }
+    private boolean hasPiece = false;
 
-    // public Command stopPiviot(){
-    //     return runOnce(() -> {
-    //        this.stop();
-    //     });
-    // }
+    public Command controlPiece() {
+        return new Command() {
+            @Override
+            public void initialize() {
+                if (hasPiece) {
+                    intake_out(); // Dispense the piece
+                } else {
+                    intake_in(); // Suck in the piece
+                }
+            }
+
+            @Override
+            public boolean isFinished() {
+                return true; // Command completes immediately after running once
+            }
+        };
+    }
+  
 
 
      

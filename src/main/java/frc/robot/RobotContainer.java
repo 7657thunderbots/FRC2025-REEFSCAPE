@@ -38,55 +38,66 @@ import frc.robot.Constants.OperatorConstants;
  * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+/**
+ * The RobotContainer class is where the bulk of the robot should be declared. 
+ * Since Command-based is a "declarative" paradigm, very little robot logic 
+ * should actually be handled in the Robot periodic methods (other than the 
+ * scheduler calls). Instead, the structure of the robot (including subsystems, 
+ * commands, and button mappings) should be declared here.
+ */
 public class RobotContainer {
-  public final elevator m_elevator =  new elevator();
+
+  // Subsystems
+  public final elevator m_elevator = new elevator();
   public final Wrist m_wrist = new Wrist();
-  // The robot's subsystems and commands are defined here...
-
-  double a =1;
-  public double b=.6;
-
+  public final claw m_claw = new claw();
+  public final elbow m_elbow = new elbow();
+  public final climber m_climber = new climber();
   public final SwerveSubsystem m_drivebase = SwerveSubsystem.getInstance();
   public final VisionSubsystem m_vision = new VisionSubsystem();
 
+  // Controllers
+  public final CommandXboxController m_operatorController = new CommandXboxController(1);
+  public final CommandXboxController m_driverController = new CommandXboxController(0);
 
+  // Variables
+  double a = 1;
+  public double b = .6;
+
+  // Autonomous chooser
   private final SendableChooser<Command> autoChooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // configurePathPlanner();
+    // Initialize the autonomous chooser and add it to the Shuffleboard
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
-    configureBindings(); // Configure the trigger bindings
+
+    // Configure the trigger bindings
+    configureBindings();
   }
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
-   * created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-   * an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-   * {@link
-   * CommandXboxController
-   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or
-   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
+   * created via the {@link Trigger#Trigger(java.util.function.BooleanSupplier)} 
+   * constructor with an arbitrary predicate, or via the named factories in 
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses 
+   * for {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller 
+   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick 
+   * Flight joysticks}.
    */
   private void configureBindings() {
     // Manual controls
     Constants.operatorController.a().whileTrue(m_elevator.elevatorHome());
-    
-
-
   }
 
+  /**
+   * Configures the PathPlanner for the drivebase subsystem.
+   */
   public void configurePathPlanner() {
     m_drivebase.setupPathPlanner();
-
   }
 
   /**
@@ -98,60 +109,56 @@ public class RobotContainer {
     return autoChooser.getSelected();
   }
 
+  /**
+   * Sets the drive mode for the robot, applying deadbands and inverting controls 
+   * based on the alliance color.
+   */
   public void setDriveMode() {
-    // Applies deadbands and inverts controls because joysticks
-    // are back-right positive while robot
-    // controls are front-left positive
-    // left stick controls translation
-    // right stick controls the desired angle NOT angular rotation red positive blue
-    // negitive
-
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent() && ally.get() != Alliance.Blue) {
       a = 1;
-
     } else {
       a = -1;
-
     }
 
     Command driveinfinityturn = m_drivebase.driveCommand(
-        () -> MathUtil.applyDeadband( a*b* Constants.driverController.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> MathUtil.applyDeadband( a*b * Constants.driverController.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+        () -> MathUtil.applyDeadband(a * b * Constants.driverController.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> MathUtil.applyDeadband(a * b * Constants.driverController.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> MathUtil.applyDeadband(-.8 * Constants.driverController.getRightX(), .3));
 
     Command driveinfinityturn_sim = m_drivebase.driveCommand(
         () -> MathUtil.applyDeadband(Constants.driverController.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> -MathUtil.applyDeadband(Constants.driverController.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(Constants.driverController.getRightX(), .3));
-    m_drivebase.setDefaultCommand(
-        RobotBase.isSimulation() ? driveinfinityturn : driveinfinityturn);
 
+    m_drivebase.setDefaultCommand(
+        RobotBase.isSimulation() ? driveinfinityturn_sim : driveinfinityturn);
   }
 
+  /**
+   * Sets the motor brake mode for the drivebase subsystem.
+   *
+   * @param brake whether to enable motor brake mode
+   */
   public void setMotorBrake(boolean brake) {
     m_drivebase.setMotorBrake(brake);
   }
 
-  public void setRumbleDetection()
-  {
+  /**
+   * Sets the rumble detection based on the vision subsystem's latest result.
+   */
+  public void setRumbleDetection() {
     if (m_vision.getLatestResult().hasTargets()) {
       Constants.driverController.getHID().setRumble(RumbleType.kRightRumble, 1.0);
       Constants.driverController.getHID().setRumble(RumbleType.kLeftRumble, 1.0);
       System.out.println(m_vision.getLatestResult().targets);
-    } 
+    }
   }
 
-  // public void updateVisionSimulationPeriod() {
-  // m_vision.simulationPeriodic(m_drivebase.getPose());
-
-  // var debugField = m_vision.getSimDebugField();
-  // debugField.getObject("EstimatedRobot").setPose(m_drivebase.getPose());
-  // //
-  // debugField.getObject("EstimatedRobotModules").setPoses(m_drivebase.getModulePoses());
-  // }
+  /**
+   * Periodic method for drive simulation.
+   */
   public void driveSimulationPeriodic() {
     m_drivebase.simulationPeriodic();
   }
-
 }
