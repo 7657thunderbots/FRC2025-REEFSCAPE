@@ -20,9 +20,12 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -75,6 +78,9 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
 
+    if(RobotBase.isSimulation()) {
+      DriverStation.silenceJoystickConnectionWarning(true);
+    }
     // Configure the trigger bindings
     configureBindings();
   }
@@ -97,7 +103,12 @@ public class RobotContainer {
   private void configureBindings() {
     // Manual controls
    // Constants.operatorController.a().whileTrue(m_elevator.elevatorHome());
-    m_operatorController.a().onTrue(m_claw.controlPiece());
+    // m_operatorController.a().onTrue(m_claw.controlPiece());
+
+    if(RobotBase.isSimulation()) {
+      m_driverController.start().onTrue(Commands.runOnce(() -> m_drivebase.resetOdometry(new Pose2d(3,3, new Rotation2d()))));
+      m_driverController.button(1).whileTrue(m_drivebase.sysIdDriveMotorCommand());
+    }
   }
 
   /**
@@ -162,6 +173,13 @@ public class RobotContainer {
     }
   }
 
+
+  public void updateVisionSimulationPeriodic() {
+    m_vision.simulationPeriodic(m_drivebase.getPose());
+
+    var debugField = m_vision.getSimDebugField();
+    debugField.getObject("EstimatedRobot").setPose(m_drivebase.getPose());
+  }
   /**
    * Periodic method for drive simulation.
    */
