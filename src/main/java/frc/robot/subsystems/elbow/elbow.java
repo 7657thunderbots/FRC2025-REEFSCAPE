@@ -28,7 +28,7 @@ public class elbow extends SubsystemBase {
     private RelativeEncoder encoder;
    
     public elbow() {
-    motor = new SparkMax(1, MotorType.kBrushless);
+    motor = new SparkMax(16, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();
     

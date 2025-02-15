@@ -29,7 +29,7 @@ public class climber extends SubsystemBase {
     private RelativeEncoder encoder;
    
     public climber() {
-    motor = new SparkMax(1, MotorType.kBrushless);
+    motor = new SparkMax(100, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();
     
