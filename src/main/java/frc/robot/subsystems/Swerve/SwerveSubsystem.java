@@ -136,6 +136,13 @@ public class SwerveSubsystem extends SubsystemBase
  
   @Override
   public void periodic() {
+    // Print out absolute encoder positions for each swerve module
+    for (int i = 0; i < swerveDrive.getModules().length; i++) {
+      double absolutePosition = swerveDrive.getModules()[i].getAbsolutePosition();
+      
+      System.out.println("Module " + i + " Absolute Encoder: " + absolutePosition);
+      SmartDashboard.putNumber("Module " + i + " Absolute Encoder", absolutePosition);
+    }
     // Update odometry with vision estimates from both cameras
     updateAllVisionEstimates();
     swerveDrive.updateOdometry();
