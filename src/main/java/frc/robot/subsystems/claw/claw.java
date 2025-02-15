@@ -108,30 +108,44 @@ public class claw extends SubsystemBase {
         }
     }
     private boolean hasPiece = false;
+    private boolean isRunning = false;
 
+  
+    
+    //  public Command piviotspeakerfar(){
     public Command controlPiece() {
         return new Command() {
+            private final double TARGET_RELEASE_VELOCITY = -2000; // Adjust this value as needed
+
             @Override
             public void initialize() {
+                isRunning = true;
                 if (hasPiece) {
-                    intake_out(); // Dispense the piece
+                    intake_out();
                 } else {
-                    intake_in(); // Suck in the piece
+                    intake_in();
                 }
             }
 
             @Override
+            public void end(boolean interrupted) {
+                motor.set(0);
+                isRunning = false;
+                hasPiece = !hasPiece;
+            }
+            
+            @Override
             public boolean isFinished() {
-                return true; // Command completes immediately after running once
+                if (hasPiece) {
+                    // When releasing, stop at target velocity
+                    return !isRunning || getCurrentVelocity() <= TARGET_RELEASE_VELOCITY;
+                } else {
+                    // When intaking, stop when velocity reaches zero
+                    return !isRunning || getCurrentVelocity() == 0;
+                }
             }
         };
     }
-  
-
-
-     
-    
-    //  public Command piviotspeakerfar(){
     //     return runOnce(() -> {
     //        this.piviotsetpoint = 600;
     //     });

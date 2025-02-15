@@ -78,7 +78,13 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
   }
-
+  /**
+    * This method binds the claw control to a button press.
+    * When the A button is pressed, the claw stops. When B is pressed, the claw starts.
+    */
+    private void setClawControl() {
+     m_operatorController.a().onTrue(m_claw.controlPiece());
+    }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the {@link Trigger#Trigger(java.util.function.BooleanSupplier)} 
