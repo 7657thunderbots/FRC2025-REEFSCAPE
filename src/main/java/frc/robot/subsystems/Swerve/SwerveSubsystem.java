@@ -34,6 +34,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.Vision;
 import frc.robot.subsystems.Vision.VisionSubsystem;
+
+import static edu.wpi.first.units.Units.Meter;
+
 import java.io.File;
 import java.util.function.DoubleSupplier;
 import org.photonvision.PhotonCamera;
@@ -112,32 +115,27 @@ public class SwerveSubsystem extends SubsystemBase
     
     setupPathPlanner();
   }
-  private VisionSubsystem limeLight;
+  // private VisionSubsystem limeLight;
 
-  private VisionSubsystem secondaryVision;
+  // public void setLimeLight(VisionSubsystem limeLight) {
+  //   this.limeLight = limeLight;
+  // }
 
-  public void setLimeLight(VisionSubsystem limeLight) {
-    this.limeLight = limeLight;
-  }
 
-  public void setSecondaryVision(VisionSubsystem secondaryVision) {
-    this.secondaryVision = secondaryVision;
-  }
-
-  public void updateAllVisionEstimates() {
-    if (limeLight != null) {
-      updateEstimatedPose(limeLight);
-    }
-    if (secondaryVision != null) {
-      updateEstimatedPose(secondaryVision);
-    }
-  }
+  // public void updateAllVisionEstimates() {
+  //   // if (limeLight != null) {
+  //   //   updateEstimatedPose(limeLight);
+  //   // }
+  //   if (secondaryVision != null) {
+  //     updateEstimatedPose(secondaryVision);
+  //   }
+  // }
  
   @Override
   public void periodic() {
     // Update odometry with vision estimates from both cameras
-    updateAllVisionEstimates();
-    swerveDrive.updateOdometry();
+    // updateAllVisionEstimates();
+    // swerveDrive.updateOdometry();
   }
    /**
    * Construct the swerve drive.
@@ -147,7 +145,13 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public SwerveSubsystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg)
   {
-    swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed, getPose());
+    swerveDrive = new SwerveDrive(
+      driveCfg, 
+      controllerCfg, 
+      maximumSpeed, 
+      new Pose2d(
+        new Translation2d(Meter.of(3), Meter.of(3)), 
+        Rotation2d.fromDegrees(0)));
   }
 
   /**
@@ -361,9 +365,8 @@ public Command sysIdAngleMotorCommand() {
     var visionEst = vision.getEstimatedGlobalPose();
     visionEst.ifPresent(
             est -> {
-                var estPose = est.estimatedPose.toPose2d();
                 // Change our trust in the measurement based on the tags we can see
-                var estStdDevs = vision.getEstimationStdDevs(estPose);
+                var estStdDevs = vision.getEstimationStdDevs();
 
                 swerveDrive.addVisionMeasurement(
                         est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
