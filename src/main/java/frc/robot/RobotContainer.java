@@ -103,7 +103,11 @@ public class RobotContainer {
   private void configureBindings() {
     // Manual controls
    // Constants.operatorController.a().whileTrue(m_elevator.elevatorHome());
-    // m_operatorController.a().onTrue(m_claw.controlPiece());
+     m_operatorController.a().onTrue(m_wrist.vertical());
+      m_operatorController.b().onTrue(m_wrist.horizontal());
+      m_operatorController.x().onTrue(m_elbow.up());
+      m_operatorController.y().onTrue(m_elbow.down());
+
 
     if(RobotBase.isSimulation()) {
       m_driverController.start().onTrue(Commands.runOnce(() -> m_drivebase.resetOdometry(new Pose2d(3,3, new Rotation2d()))));

@@ -1,36 +1,53 @@
 package frc.robot.subsystems.elbow;
 
-import java.security.PrivilegedActionException;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkMaxAlternateEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 
 public class elbow extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
-    private RelativeEncoder encoder;
-   
+    public AbsoluteEncoder encoder;
+    private PIDController pidController;
+    public double elbowSetPoint= .181;
+    private double errorSum = 0;
+    private double lastError = 0;
+    private double lastTimestamp = 0;
+    private double kP = 5;
+    private double kI = 0.0;
+    private double kD = 0.510;
+    private double hiLimit = 0.1; // Threshold for integral term
+private final int CURRENT_LIMIT = 10; // Current limit in amps
+
+// In constructor, add:
+
     public elbow() {
     motor = new SparkMax(16, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
-    encoder = motor.getEncoder();
+    
+    
+    
+        encoder = motor.getAbsoluteEncoder();
+        
     
     
     /*
@@ -38,7 +55,7 @@ public class elbow extends SubsystemBase {
      * configuration parameters for the SPARK MAX that we will set below.
      */
     motorConfig = new SparkMaxConfig();
-
+   
     /*
      * Configure the encoder. For this specific example, we are using the
      * integrated encoder of the NEO, and we don't need to configure it. If
@@ -78,14 +95,38 @@ public class elbow extends SubsystemBase {
      * the SPARK MAX loses power. This is useful for power cycles that may occur
      * mid-operation.
      */
-    motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+   
 
     // Initialize dashboard values
     SmartDashboard.setDefaultNumber("Target Position", 0);
     SmartDashboard.setDefaultNumber("Target Velocity", 0);
     SmartDashboard.setDefaultBoolean("Control Mode", false);
-    SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+    SmartDashboard.setDefaultBoolean("Reset Encoder", false);}
+
+
+     // Desired position
+    
+    
+
+   
+    
+
+    public Command up() {
+        return runOnce(() -> {
+        this.elbowSetPoint=.344;    
+    });
     }
+
+    public Command down() {
+        return runOnce(() -> {
+        this.elbowSetPoint=.181;
+    });
+    }
+
+
+    
+
+
 
     // public void stop() {
     //     piviot.set(0);
@@ -96,27 +137,28 @@ public class elbow extends SubsystemBase {
     //        this.stop();
     //     });
     // }
-
-
-     
-    
-    //  public Command piviotspeakerfar(){
-    //     return runOnce(() -> {
-    //        this.piviotsetpoint = 600;
-    //     });
-    // }
-
-   
-
-    // public Command manualmove(){
-
-    // }
-
-   
-
     @Override
     public void periodic()
-    {}
-       
+    {
 
+
+    double error = elbowSetPoint - encoder.getPosition();
+    double dt = Timer.getFPGATimestamp() - lastTimestamp;
+
+    if (Math.abs(error) < hiLimit) {
+        errorSum += error * dt;
+    }
+
+    double errorRate = (error - lastError) / dt;
+    double output = kP * error + kI * errorSum + kD * errorRate;
+
+  
+    motor.set(output+.1);
+
+    lastTimestamp = Timer.getFPGATimestamp();
+    lastError = error;
+
+    SmartDashboard.putNumber("elbow Position", encoder.getPosition());
+       SmartDashboard.putNumber("motor amp", motor.getOutputCurrent());
+    }
 }

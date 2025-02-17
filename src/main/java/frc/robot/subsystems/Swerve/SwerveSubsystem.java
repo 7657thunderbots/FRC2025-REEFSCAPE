@@ -135,25 +135,15 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic() {
     // Print out absolute encoder positions for each swerve module
-    for (int i = 0; i < swerveDrive.getModules().length; i++) {
-      double absolutePosition = swerveDrive.getModules()[i].getAbsolutePosition();
+  
       
-      System.out.println("Module " + i + " Absolute Encoder: " + absolutePosition);
-      SmartDashboard.putNumber("Module " + i + " Absolute Encoder", absolutePosition);
     }
     // Update odometry with vision estimates from both cameras
    // updateAllVisionEstimates();
    // swerveDrive.updateOdometry();
-    SmartDashboard.putNumber("Robot/X", getPose().getX());
-    SmartDashboard.putNumber("Robot/Y", getPose().getY());
-    SmartDashboard.putNumber("Robot/Heading", getHeading().getDegrees());
-  // Post chassis speeds to SmartDashboard
-  ChassisSpeeds speeds = getRobotVelocity();
-  SmartDashboard.putNumber("Robot/VX", speeds.vxMetersPerSecond);
-  SmartDashboard.putNumber("Robot/VY", speeds.vyMetersPerSecond);
-  SmartDashboard.putNumber("Robot/Omega", speeds.omegaRadiansPerSecond);
+   
 
-  }
+  
    /**
    * Construct the swerve drive.
    *

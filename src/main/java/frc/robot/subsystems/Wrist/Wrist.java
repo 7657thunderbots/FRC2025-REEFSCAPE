@@ -1,11 +1,15 @@
 package frc.robot.subsystems.Wrist;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkMaxAlternateEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -22,14 +26,28 @@ public class Wrist extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
     private SparkClosedLoopController closedLoopController;
-    private RelativeEncoder encoder;
+    public AbsoluteEncoder encoder;
     private PIDController pidController;
-    public double wristSetPoint;
-   
+    public double wristSetPoint= .264;
+    private double errorSum = 0;
+    private double lastError = 0;
+    private double lastTimestamp = 0;
+    private double kP = 4;
+    private double kI = 0.0;
+    private double kD = 0.00;
+    private double hiLimit = 0.1; // Threshold for integral term
+private final int CURRENT_LIMIT = 10; // Current limit in amps
+
+// In constructor, add:
+
     public Wrist() {
     motor = new SparkMax(17, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
-    encoder = motor.getEncoder();
+    
+    
+    
+        encoder = motor.getAbsoluteEncoder();
+        
     
     
     /*
@@ -37,6 +55,7 @@ public class Wrist extends SubsystemBase {
      * configuration parameters for the SPARK MAX that we will set below.
      */
     motorConfig = new SparkMaxConfig();
+    motorConfig.smartCurrentLimit(CURRENT_LIMIT);
 
     /*
      * Configure the encoder. For this specific example, we are using the
@@ -77,53 +96,70 @@ public class Wrist extends SubsystemBase {
      * the SPARK MAX loses power. This is useful for power cycles that may occur
      * mid-operation.
      */
-    motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+   
 
     // Initialize dashboard values
     SmartDashboard.setDefaultNumber("Target Position", 0);
     SmartDashboard.setDefaultNumber("Target Velocity", 0);
     SmartDashboard.setDefaultBoolean("Control Mode", false);
-    SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+    SmartDashboard.setDefaultBoolean("Reset Encoder", false);}
 
 
-    wristSetPoint = 000; // Desired position
+     // Desired position
     
     
 
    
-    }
+    
 
     public Command horizontal() {
         return runOnce(() -> {
-        this.wristSetPoint=0;
+        this.wristSetPoint=.264;
     });
     }
 
     public Command vertical() {
         return runOnce(() -> {
-        this.wristSetPoint=0;
+        this.wristSetPoint=.507;
     });
     }
 
 
     
 
+
+
+    // public void stop() {
+    //     piviot.set(0);
+    // }
+
+    // public Command stopPiviot(){
+    //     return runOnce(() -> {
+    //        this.stop();
+    //     });
+    // }
     @Override
     public void periodic()
     {
-        SmartDashboard.putNumber("Wrist Encoder Position", encoder.getPosition());
-       
-        }
-        public Command wristUp(){
-            return runOnce(()->{
-                this.wristSetPoint = 0; // change later
-            });
-        }public Command wristDown(){
-                return runOnce(()->{
-                this.wristSetPoint = 0; // change later
-                });
-       
-    }
-       
 
+
+    double error = wristSetPoint - encoder.getPosition();
+    double dt = Timer.getFPGATimestamp() - lastTimestamp;
+
+    if (Math.abs(error) < hiLimit) {
+        errorSum += error * dt;
+    }
+
+    double errorRate = (error - lastError) / dt;
+    double output = kP * error + kI * errorSum + kD * errorRate;
+
+  
+    motor.set(output);
+
+    lastTimestamp = Timer.getFPGATimestamp();
+    lastError = error;
+
+    SmartDashboard.putNumber("Wrist Position", encoder.getPosition());
+       SmartDashboard.putNumber("motor amp", motor.getOutputCurrent());
+    }
 }
