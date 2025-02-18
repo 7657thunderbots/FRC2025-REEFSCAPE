@@ -28,13 +28,14 @@ public class elbow extends SubsystemBase {
     private SparkClosedLoopController closedLoopController;
     public AbsoluteEncoder encoder;
     private PIDController pidController;
-    public double elbowSetPoint= .181;
+    public double elbowSetPoint= .5;
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;
     private double kP = 5;
     private double kI = 0.0;
-    private double kD = 0.510;
+    private double kD = 0.0;
+    private double b;
     private double hiLimit = 0.1; // Threshold for integral term
 private final int CURRENT_LIMIT = 10; // Current limit in amps
 
@@ -113,13 +114,21 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
 
     public Command up() {
         return runOnce(() -> {
-        this.elbowSetPoint=.344;    
+        this.elbowSetPoint=.534;
+        this.kP=7;
+        this.kI=2;
+        this.kD =0.1;   
+        this.b=.15;
     });
     }
 
     public Command down() {
         return runOnce(() -> {
-        this.elbowSetPoint=.181;
+        this.elbowSetPoint=.334;
+        this.kP=2;
+        this.kI=.2;
+        this. kD=.1;
+        this.b=.1;
     });
     }
 
@@ -153,7 +162,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     double output = kP * error + kI * errorSum + kD * errorRate;
 
   
-    motor.set(output+.1);
+    motor.set(output+b);
 
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = error;
