@@ -442,109 +442,30 @@ public class Vision
 
     // Implement the logic to return the estimated pose
 
-    return new Pose2d(); // Placeholder implementation
+    return new Pose2d(); }// Placeholder implementation
 
+/**
+ * Get the ID of the closest AprilTag to the robot.
+ *
+ * @return The ID of the closest AprilTag.
+ */
+public int getClosestAprilTagId() {
+  double closestDistance = Double.MAX_VALUE;
+  int closestTagId = -1;
+
+  for (int tagId = 1; tagId <= fieldLayout.getTags().size(); tagId++) {
+    double distance = getDistanceFromAprilTag(tagId);
+    if (distance >= 0 && distance < closestDistance) {
+      closestDistance = distance;
+      closestTagId = tagId;
+    }
+  }
+
+  // Post the closest tag ID to the SmartDashboard
+  edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber("Closest AprilTag ID", closestTagId);
+
+  return closestTagId;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // /*
 //  * MIT License
