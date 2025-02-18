@@ -23,6 +23,8 @@ import swervelib.math.Matter;
 import swervelib.parser.PIDFConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+import frc.robot.Constants.OperatorConstants;
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
