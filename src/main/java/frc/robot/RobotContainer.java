@@ -19,7 +19,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
-import frc.robot.subsystems.swervedrive.Vision;
+//import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.elevator.elevator;
 import frc.robot.subsystems.claw.claw;
@@ -81,7 +81,7 @@ public class RobotContainer
                                                                 () -> driverXbox.getLeftY() * -1,
                                                                 () -> driverXbox.getLeftX() * -1)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
-                                                            .deadband(OperatorConstants.DEADBAND)
+                                                            .deadband(.1)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
@@ -103,7 +103,7 @@ public class RobotContainer
                                                                         () -> -driverXbox.getLeftX())
                                                                     .withControllerRotationAxis(() -> driverXbox.getRawAxis(
                                                                         2))
-                                                                    .deadband(OperatorConstants.DEADBAND)
+                                                                    .deadband(.1)
                                                                     .scaleTranslation(0.8)
                                                                     .allianceRelativeControl(true);
   // Derive the heading axis with math!
