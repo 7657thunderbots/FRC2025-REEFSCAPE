@@ -146,9 +146,9 @@ public class RobotContainer
   {
     m_operatorController.a().onTrue(m_wrist.vertical());
     m_operatorController.b().onTrue(m_wrist.horizontal());
-    m_operatorController.x().onTrue(m_elbow.up());
-    m_operatorController.y().onTrue(m_elbow.down());
-
+   // m_operatorController.x().onTrue(m_elbow.up());
+   // m_operatorController.y().onTrue(m_elbow.down());
+m_operatorController.x().onTrue(m_elevator.elevatorL1());
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
@@ -198,10 +198,10 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     }
     // Path Planner commands
-    driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
-    driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
-    driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
-    driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(270))));
+    // driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
+    // driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
+    // driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
+    // driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(270))));
 
   }
 
