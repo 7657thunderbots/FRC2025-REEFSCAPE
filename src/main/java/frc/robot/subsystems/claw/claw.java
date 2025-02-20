@@ -31,8 +31,10 @@ public class claw extends SubsystemBase {
     double motorout;
     boolean buttonpressed=false;
     boolean testpiece=false;
-    boolean foward;
-    boolean start;
+    boolean outtake =false;
+    boolean intake =false;
+    boolean Overridein =false;
+    boolean Overrideout = false;
     boolean d;
    
     public claw() {
@@ -87,7 +89,6 @@ public class claw extends SubsystemBase {
      * the SPARK MAX loses power. This is useful for power cycles that may occur
      * mid-operation.
      */
-    motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
     // Initialize dashboard values
 
@@ -96,28 +97,6 @@ public class claw extends SubsystemBase {
         return encoder.getVelocity();
     }
 
-    public void intake_in() {
-    if (encoder.getVelocity() > -6000) {
-        motor.set(1); // Run the motor to shoot out the game piece
-    } else {
-        motor.set(0); // Stop the motor
-        buttonpressed=false;
-        start=false;
-    }
-    }
-    public void intake_out() {
-        double targetVelocity = SmartDashboard.getNumber("Target Velocity", 0);
-        if (encoder.getVelocity() <= -1000) {
-            motor.set(0); // Stop the motor when the target velocity is reached
-            buttonpressed=false;
-            start=false;
-        } else {
-            motor.set(-1); // Run the motor to intake the game piece
-        }
-    }
-    
-    private boolean hasPiece = false;
-    private boolean isRunning = false;
 
   
     
@@ -162,12 +141,20 @@ public class claw extends SubsystemBase {
 
    
 
-     public Command controlPiece() {
+     public Command intake() {
         
             return runOnce(() -> {
-               this.buttonpressed=true;
+               this.intake = true;
+               this.Overridein = true;
             });
         }
+        public Command outtake(){
+            return runOnce(() ->{
+            this.outtake=true;
+            this.Overrideout=true;
+            });
+        }
+
 
         
 
@@ -176,40 +163,18 @@ public class claw extends SubsystemBase {
     @Override
     public void periodic()
     {
-        if (buttonpressed && testpiece==true&&d==true) {
-            if (encoder.getVelocity() >-1) {
-                intake_in();
-            } else {
-                intake_out();
-                
-            }
-            d=false;
-            testpiece=false;
-            start=true;
-            }
-            if (testpiece==true && buttonpressed==true&&d==true) {
-                
-            
-                if (encoder.getVelocity() <1) {
-                    intake_in();
-                } else {
-                    intake_out();
-                    
-                }
-                testpiece=false;
-                start=true;
-            }
-            if (buttonpressed && testpiece==false && start==false&&d==false) {
-                start=false;
-                buttonpressed=false;
-                d=true;
-            }
-                
-        if (buttonpressed && testpiece==false && start==false) {
-            motor.set(1);
-            testpiece=true;
+        if ( intake && (encoder.getVelocity()<1000 || Overridein)){
+            motor.setVoltage(-12);
+            this.Overridein =false;
         }
-       
+        if ( outtake && (encoder.getVelocity() >0   || Overrideout)) {
+            motor.setVoltage(12); // Run the motor to shoot out the game piece
+            this.Overrideout =false;
+        } else {
+            motor.setVoltage(0); // Stop the motor
+            intake = false;
+            outtake =false;
+        }
             
         
         SmartDashboard.setDefaultNumber("Target Velocity", encoder.getVelocity());
