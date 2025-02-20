@@ -35,7 +35,7 @@ public class elevator extends SubsystemBase {
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;
-    private double kP = 0.04;
+    private double kP = 0.08;
     private double kI = 0.0;
     private double kD = 0.0;
     private double b= .04;
@@ -50,19 +50,28 @@ public class elevator extends SubsystemBase {
         // SmartDashboard.setDefaultBoolean("Reset Encoder", false);
     TalonFXConfiguration config = new TalonFXConfiguration();
     config.CurrentLimits.SupplyCurrentLimit =10;
-    KrakenLeader.getConfigurator().apply(config);
+    
+    config.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.6; // Adjust the value as needed
     KrakenFollower.getConfigurator().apply(config);
+    KrakenLeader.getConfigurator().apply(config);
 KrakenLeader.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
 KrakenFollower.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
-
+KrakenLeader.setPosition(0);
+KrakenFollower.setPosition(0);
     
+    }
+    public Command elevatorL2() {
+        return runOnce(() -> {
+            this.elbowSetPoint = 0;
+             // change later
+        });
     }
 
     
 
     public Command elevatorL1() {
         return runOnce(() -> {
-            this.elbowSetPoint = -3;
+            this.elbowSetPoint = -23;
              // change later
         });
     }
@@ -78,6 +87,12 @@ KrakenFollower.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
 
         double errorRate = (error - lastError) / dt;
         double output = kP * error + kI * errorSum + kD * errorRate;
+        if (output<-.15){
+            output=-.15;
+        }
+        if (output>.15){
+            output=.15;
+        }
 
 
         KrakenLeader.set((output - b));
@@ -87,6 +102,8 @@ KrakenFollower.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
         lastError = error;
 
         SmartDashboard.putNumber("elevator", KrakenLeader.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("elevator2", KrakenFollower.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("output",output);
         // SmartDashboard.putNumber("motor amp", motor.getSupplyCurrent());
     }
 }

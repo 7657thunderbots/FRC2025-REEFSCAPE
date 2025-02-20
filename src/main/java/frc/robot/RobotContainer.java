@@ -149,6 +149,10 @@ public class RobotContainer
    // m_operatorController.x().onTrue(m_elbow.up());
    // m_operatorController.y().onTrue(m_elbow.down());
 m_operatorController.x().onTrue(m_elevator.elevatorL1());
+m_operatorController.y().onTrue(m_elevator.elevatorL2());
+m_operatorController.rightBumper().onTrue(m_elbow.up());
+m_operatorController.leftBumper().onTrue(m_elbow.down());
+
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
