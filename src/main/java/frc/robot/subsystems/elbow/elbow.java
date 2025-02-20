@@ -33,10 +33,10 @@ public class elbow extends SubsystemBase {
     private double lastError = 0;
     private double lastTimestamp = 0;
     private double kP = 1.9;
-    private double kI = 0.0;
-    private double kD = 0.0;
+    private double kI = 0.01;
+    private double kD = 0.1;
     private double b;
-    private double hiLimit = 0.1; // Threshold for integral term
+    private double hiLimit = 0.01; // Threshold for integral term
 private final int CURRENT_LIMIT = 10; // Current limit in amps
 
 // In constructor, add:
@@ -71,20 +71,20 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
      * Configure the closed loop controller. We want to make sure we set the
      * feedback sensor as the primary encoder.
      */
-    motorConfig.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        // Set PID values for position control. We don't need to pass a closed loop
-        // slot, as it will default to slot 0.
-        .p(0.1)
-        .i(0)
-        .d(0)
-        .outputRange(-1, 1)
-        // Set PID values for velocity control in slot 1
-        .p(0.0001, ClosedLoopSlot.kSlot1)
-        .i(0, ClosedLoopSlot.kSlot1)
-        .d(0, ClosedLoopSlot.kSlot1)
-        .velocityFF(1.0 / 5767, ClosedLoopSlot.kSlot1)
-        .outputRange(-1, 1, ClosedLoopSlot.kSlot1);
+    // motorConfig.closedLoop
+    //     .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+    //     // Set PID values for position control. We don't need to pass a closed loop
+    //     // slot, as it will default to slot 0.
+    //     .p(0.1)
+    //     .i(0)
+    //     .d(0)
+    //     .outputRange(-1, 1)
+    //     // Set PID values for velocity control in slot 1
+    //     .p(0.0001, ClosedLoopSlot.kSlot1)
+    //     .i(0, ClosedLoopSlot.kSlot1)
+    //     .d(0, ClosedLoopSlot.kSlot1)
+    //     .velocityFF(1.0 / 5767, ClosedLoopSlot.kSlot1)
+    //     .outputRange(-1, 1, ClosedLoopSlot.kSlot1);
 
     /*
      * Apply the configuration to the SPARK MAX.
@@ -141,6 +141,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     @Override
     public void periodic()
     {
+        
 
 
     double error = elbowSetPoint - encoder.getPosition();
@@ -149,12 +150,19 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     if (Math.abs(error) < hiLimit) {
         errorSum += error * dt;
     }
+    if (Math.abs(error) < 0.05 && elbowSetPoint == .76) {
+        kP = 5;
+        
+          // Increased P value
+    } else {
+        kP = 1.9;  // Original P value
+    }
 
     double errorRate = (error - lastError) / dt;
     double output = kP * error + kI * errorSum + kD * errorRate;
-
+    
   
-     motor.set(-(output-.02));
+     motor.set(-(output-.025));
 
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = error;
