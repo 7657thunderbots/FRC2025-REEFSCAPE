@@ -144,16 +144,15 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    m_operatorController.a().onTrue(m_wrist.vertical());
-    m_operatorController.b().onTrue(m_wrist.horizontal());
-   // m_operatorController.x().onTrue(m_elbow.up());
-   // m_operatorController.y().onTrue(m_elbow.down());
-m_operatorController.x().onTrue(m_elevator.elevatorL1());
-m_operatorController.y().onTrue(m_elevator.elevatorL2());
-m_operatorController.rightBumper().onTrue(m_elbow.up());
-m_operatorController.leftBumper().onTrue(m_elbow.down());
-m_operatorController.povDown().onTrue(m_claw.intake());
-m_operatorController.povUp().onTrue(m_claw.outtake());
+  m_operatorController.x().onTrue(m_elevator.elevatorL4());
+    m_operatorController.back().onTrue(m_elbow.down());
+    m_operatorController.button(9).onTrue(m_claw.toggleState()); 
+    m_operatorController.y().onTrue(m_elevator.elevatorL2());
+    m_operatorController.button(3).onTrue(m_elevator.elevatorL3());
+    m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
+    m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
+    m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
+    m_operatorController.leftBumper().onTrue(m_wrist.horizontal());
 
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);

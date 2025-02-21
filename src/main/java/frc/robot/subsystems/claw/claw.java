@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 
 
@@ -150,29 +151,34 @@ public class claw extends SubsystemBase {
     //}
     //     return runOnce(() -> {
     //        this.piviotsetpoint = 600;
-    //     });
-    public Command intake() {
-        return runOnce(() -> {
-          this.intakein();
-          outing=false;
-        });
+    private enum ClawState {
+        STOPPED,
+        INTAKING,
+        OUTTAKING
     }
-
-    public Command outtake() {
-        return runOnce(() -> {
-        run = true;
-        this.intake_out();
-        outing=true;
-
+    private ClawState currentState = ClawState.STOPPED;
+    public Command toggleState() {
+        return Commands.runOnce(() -> {
+            switch (currentState) {
+                case STOPPED:
+                    this.intakein();
+                    currentState = ClawState.INTAKING;
+                    break;
+                case INTAKING:
+                    this.intake_out();
+                    currentState = ClawState.OUTTAKING;
+                    break;
+                case OUTTAKING:
+                    this.stop();
+                    currentState = ClawState.STOPPED;
+                    break;
+            }
         });
     }
 
     @Override
-    public void periodic()
-    {
-        if( outing ==true && run==false){
-            motor.set(0);
-        }
+    public void periodic() {
+        SmartDashboard.putString("Claw State", currentState.toString());
         // if (!intake && !outtake){
         //     motor.setVoltage(0);
         // }

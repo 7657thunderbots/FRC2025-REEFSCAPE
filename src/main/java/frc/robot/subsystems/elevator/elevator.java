@@ -60,6 +60,13 @@ KrakenLeader.setPosition(0);
 KrakenFollower.setPosition(0);
     
     }
+   
+
+    public Command elevatorL1() {
+        return runOnce(() -> {
+            this.elbowSetPoint = -5;
+        });
+    }
     public Command elevatorL2() {
         return runOnce(() -> {
             this.elbowSetPoint = 0;
@@ -67,14 +74,36 @@ KrakenFollower.setPosition(0);
         });
     }
 
-    
-
-    public Command elevatorL1() {
+    public Command elevatorL3() {
         return runOnce(() -> {
-            this.elbowSetPoint = -23;
-             // change later
+            this.elbowSetPoint = -10;
         });
     }
+
+    public Command elevatorL4() {
+        return runOnce(() -> {
+            this.elbowSetPoint = -15;
+        });
+    }
+
+    public Command elevatorSource() {
+        return runOnce(() -> {
+            this.elbowSetPoint = -20;
+        });
+    }
+
+    public Command Home() {
+        return runOnce(() -> {
+            this.elbowSetPoint = 0;
+        });
+    }
+
+    public Command elevatorHighAlgae() {
+        return runOnce(() -> {
+            this.elbowSetPoint = -25;
+        });
+    }
+
 
     @Override
     public void periodic() {
