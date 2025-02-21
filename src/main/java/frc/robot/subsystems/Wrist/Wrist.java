@@ -125,10 +125,26 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     }
 
 
+
+   
+
+
     
 
 
+    private boolean isVertical = false;
 
+    public Command toggle() {
+        return runOnce(() -> {
+            if (isVertical) {
+                isVertical = false;
+                wristSetPoint = .264; // horizontal
+            } else {
+                isVertical = true;
+                wristSetPoint = .507; // vertical
+            }
+        });
+    }
     // public void stop() {
     //     piviot.set(0);
     // }

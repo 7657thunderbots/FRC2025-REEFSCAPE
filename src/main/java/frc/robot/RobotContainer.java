@@ -147,6 +147,7 @@ public class RobotContainer
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
     m_operatorController.back().onTrue(m_elbow.down());
     m_operatorController.button(9).onTrue(m_claw.toggleState()); 
+    m_operatorController.button(10).onTrue(m_wrist.toggle());
     m_operatorController.y().onTrue(m_elevator.elevatorL2());
     m_operatorController.button(3).onTrue(m_elevator.elevatorL3());
     m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
