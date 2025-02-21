@@ -123,6 +123,15 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
         this.elbowSetPoint=.76;
     });
     }
+    public Command L2L3(){
+        return runOnce(() ->{
+            this.elbowSetPoint=.6365;
+        }); }
+    public Command Human(){
+        return runOnce(() ->{
+            this.elbowSetPoint=.583;
+        });
+    }
 
 
     
@@ -162,7 +171,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     double output = kP * error + kI * errorSum + kD * errorRate;
     
   
-     motor.set(-(output-.025));
+     //motor.set(-(output-.025));
 
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = error;

@@ -102,10 +102,10 @@ public class claw extends SubsystemBase {
         return encoder.getVelocity();
     }
     public void intakein() {
-        motor.set(1);
+        motor.set(-1);
     }
     public void intake_out(){
-        motor.set(-1);
+        motor.set(1);
         run=false;
     }
     public void stop(){
