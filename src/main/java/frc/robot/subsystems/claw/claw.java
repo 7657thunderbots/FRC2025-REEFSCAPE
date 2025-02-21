@@ -17,6 +17,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -36,6 +37,9 @@ public class claw extends SubsystemBase {
     boolean Overridein =false;
     boolean Overrideout = false;
     boolean d;
+    boolean intial = false;
+    boolean outing =false;
+    boolean run =false;
    
     public claw() {
     motor = new SparkMax(18, MotorType.kBrushless);
@@ -96,6 +100,16 @@ public class claw extends SubsystemBase {
     public double getCurrentVelocity() {
         return encoder.getVelocity();
     }
+    public void intakein() {
+        motor.set(1);
+    }
+    public void intake_out(){
+        motor.set(-1);
+        run=false;
+    }
+    public void stop(){
+        motor.set(0);
+    }
 
 
   
@@ -137,49 +151,44 @@ public class claw extends SubsystemBase {
     //     return runOnce(() -> {
     //        this.piviotsetpoint = 600;
     //     });
-    // }
+    public Command intake() {
+        return runOnce(() -> {
+          this.intakein();
+          outing=false;
+        });
+    }
 
-   
+    public Command outtake() {
+        return runOnce(() -> {
+        run = true;
+        this.intake_out();
+        outing=true;
 
-     public Command intake() {
-        
-            return runOnce(() -> {
-               this.intake = true;
-               this.Overridein = true;
-            });
-        }
-        public Command outtake(){
-            return runOnce(() ->{
-            this.outtake=true;
-            this.Overrideout=true;
-            });
-        }
-
-
-        
-
-   
+        });
+    }
 
     @Override
     public void periodic()
     {
-        if ( intake && (encoder.getVelocity()<1000 || Overridein)){
-            motor.setVoltage(-12);
-            this.Overridein =false;
+        if( outing ==true && run==false){
+            motor.set(0);
         }
-        if ( outtake && (encoder.getVelocity() >0   || Overrideout)) {
-            motor.setVoltage(12); // Run the motor to shoot out the game piece
-            this.Overrideout =false;
-        } else {
-            motor.setVoltage(0); // Stop the motor
-            intake = false;
-            outtake =false;
-        }
-            
+        // if (!intake && !outtake){
+        //     motor.setVoltage(0);
+        // }
+        // if ( intake){
+        //     motor.setVoltage(-12);
+        //     intake=false;
+        // }
+        // if ( outtake) {
+        //     motor.setVoltage(12); // Run the motor to shoot out the game piece
+        //     outtake=false;
+        // }
         
-        SmartDashboard.setDefaultNumber("Target Velocity", encoder.getVelocity());
-        SmartDashboard.setDefaultBoolean("Control Mode", false);
-        SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+        
+       
+        
+        SmartDashboard.putNumber("velocity",encoder.getVelocity());
     }
        
 

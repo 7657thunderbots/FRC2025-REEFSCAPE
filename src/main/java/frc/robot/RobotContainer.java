@@ -152,6 +152,8 @@ m_operatorController.x().onTrue(m_elevator.elevatorL1());
 m_operatorController.y().onTrue(m_elevator.elevatorL2());
 m_operatorController.rightBumper().onTrue(m_elbow.up());
 m_operatorController.leftBumper().onTrue(m_elbow.down());
+m_operatorController.povDown().onTrue(m_claw.intake());
+m_operatorController.povUp().onTrue(m_claw.outtake());
 
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);

@@ -78,6 +78,12 @@ KrakenFollower.setPosition(0);
 
     @Override
     public void periodic() {
+        if (elbowSetPoint<-28.63){
+            elbowSetPoint=0;
+        }
+        if (elbowSetPoint>0){
+            elbowSetPoint=0;
+        }
         double error = elbowSetPoint - KrakenLeader.getPosition().getValueAsDouble();
         double dt = Timer.getFPGATimestamp() - lastTimestamp;
 

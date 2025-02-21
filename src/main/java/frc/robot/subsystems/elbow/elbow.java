@@ -32,7 +32,7 @@ public class elbow extends SubsystemBase {
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;
-    private double kP = 1.9;
+    private double kP = 1.7;
     private double kI = 0.01;
     private double kD = 0.1;
     private double b;
@@ -150,13 +150,13 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     if (Math.abs(error) < hiLimit) {
         errorSum += error * dt;
     }
-    if (Math.abs(error) < 0.05 && elbowSetPoint == .76) {
-        kP = 5;
+    // if (Math.abs(error) < 0.05 && elbowSetPoint == .76) {
+    //     kP = 5;
         
-          // Increased P value
-    } else {
-        kP = 1.9;  // Original P value
-    }
+    //       // Increased P value
+    // } else {
+    //     kP = 1.9;  // Original P value
+    // }
 
     double errorRate = (error - lastError) / dt;
     double output = kP * error + kI * errorSum + kD * errorRate;
