@@ -145,15 +145,24 @@ public class RobotContainer
   private void configureBindings()
   {
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
-    m_operatorController.back().onTrue(m_elbow.down());
-    m_operatorController.button(9).onTrue(m_claw.toggleState()); 
-    m_operatorController.button(10).onTrue(m_wrist.toggle());
-    m_operatorController.y().onTrue(m_elevator.elevatorL2());
-    m_operatorController.button(3).onTrue(m_elevator.elevatorL3());
-    m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
-    m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
-    m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
-    m_operatorController.leftBumper().onTrue(m_wrist.horizontal());
+  m_operatorController.back().onTrue(m_elbow.down());
+  m_operatorController.button(9).onTrue(m_claw.toggleState());
+  m_operatorController.button(10).onTrue(m_wrist.toggle());
+  m_operatorController.y().onTrue(m_elevator.elevatorL2());
+  m_operatorController.button(3).onTrue(m_elevator.elevatorL3());
+  m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
+  m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
+  m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
+  m_operatorController.leftBumper().onTrue(m_wrist.horizontal());
+
+  // Return elevator to home when no elevator buttons are pressed
+  new Trigger(() -> !m_operatorController.x().getAsBoolean() &&
+                    !m_operatorController.y().getAsBoolean() &&
+                    !m_operatorController.b().getAsBoolean() &&
+                    !m_operatorController.button(3).getAsBoolean() &&
+                    !m_operatorController.rightBumper().getAsBoolean() &&
+                    !m_operatorController.leftBumper().getAsBoolean())
+      .onTrue(m_elevator.Home());
 
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
