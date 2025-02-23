@@ -33,6 +33,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -153,7 +154,7 @@ public class RobotContainer
   m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
   m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
   m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
-  m_operatorController.leftBumper().onTrue(m_wrist.horizontal());
+  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   m_operatorController.y().onTrue(m_elbow.L2L3());
   m_operatorController.button(1).onTrue(m_elbow.L2L3());
   m_operatorController.leftBumper().onTrue(m_elbow.Human());
@@ -239,6 +240,7 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(brake);
   }
+  //SmartDashboard.putNumber("closest tag",m_vision.getAprilTagIdEvenIfNotVisible());
 }
 
 

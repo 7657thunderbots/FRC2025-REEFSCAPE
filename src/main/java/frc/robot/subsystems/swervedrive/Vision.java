@@ -15,7 +15,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N1; 
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTablesJNI;
@@ -274,6 +274,7 @@ public class Vision
   /**
    * Camera Enum to select each camera
    */
+  
   enum Cameras
   {
     LEFT_CAM("left", new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(30)),
@@ -675,6 +676,31 @@ public void updateRobotVisionPosition(Pose2d robotPose) {
   }
 }
 
+/**
+ * Get the ID of the closest AprilTag to the robot, even if it is not visible.
+ *
+ * @return The ID of the closest AprilTag.
+ */
+public int getAprilTagIdEvenIfNotVisible() {
+  double closestDistance = Double.MAX_VALUE;
+  int closestTagId = -1;
+
+  for (int tagId = 1; tagId <= fieldLayout.getTags().size(); tagId++) {
+    Optional<Pose3d> tagPose = fieldLayout.getTagPose(tagId);
+    if (tagPose.isPresent()) {
+      double distance = PhotonUtils.getDistanceToPose(currentPose.get(), tagPose.get().toPose2d());
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestTagId = tagId;
+      }
+    }
+  }
+
+  // Post the closest tag ID to the SmartDashboard
+  edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber("Closest AprilTag ID (Even if not visible)", closestTagId);
+
+  return closestTagId;
+}
 /**
  * Add AprilTag positioning in the simulation field.
  */
