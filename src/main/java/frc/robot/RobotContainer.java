@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 //import frc.robot.subsystems.swervedrive.Vision;
@@ -61,8 +63,7 @@ public class RobotContainer
   public final Wrist m_wrist = new Wrist();
   public final claw m_claw = new claw();
   public final elbow m_elbow = new elbow();
-  public final climber m_climber = new climber();
-  //public final SwerveSubsystem m_drivebase = SwerveSubsystem.getInstance();
+  public final climber m_climber = new climber(); //public final SwerveSubsystem m_drivebase = SwerveSubsystem.getInstance();
   //public final Vision m_vision = new vision();
    // Controllers
   public final CommandXboxController m_operatorController = new CommandXboxController(1);
@@ -221,11 +222,11 @@ public class RobotContainer
     // driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
     // driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
     // driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
-    // driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(270))));
-
-  }
-
-  /**
+   driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
+    if (SwerveSubsystem.vision.getAprilTagIdEvenIfNotVisible()==1){
+    }
+    }
+   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous

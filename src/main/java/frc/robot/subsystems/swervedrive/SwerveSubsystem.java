@@ -93,7 +93,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * PhotonVision class to keep an accurate odometry.
    */
-  private Vision vision;
+  public static Vision vision;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
