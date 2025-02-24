@@ -120,6 +120,7 @@ public class Vision
       throw new RuntimeException("Cannot get AprilTag " + aprilTag + " from field " + fieldLayout.toString());
     }
   }
+  
 
   /**
    * Update the pose estimation inside of {@link SwerveDrive} with all of the given poses.
@@ -444,7 +445,8 @@ public class Vision
 
     // Implement the logic to return the estimated pose
 
-    return new Pose2d(); }// Placeholder implementation
+    return new Pose2d(); }
+    // Placeholder implementation
 
 
 
@@ -513,27 +515,18 @@ public class Vision
 //          photonEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
  
 //          // ----- Simulation
-//          if (RobotBase.isSimulation()) {
-//              // Create the vision system simulation which handles cameras and targets on the field.
-//              visionSim = new VisionSystemSim("main");
-//              // Add all the AprilTags inside the tag layout as visible targets to this simulated field.
-//              visionSim.addAprilTags(kTagLayout);
-//              // Create simulated camera properties. These can be set to mimic your actual camera.
-//              var cameraProp = new SimCameraProperties();
-//              cameraProp.setCalibration(960, 720, Rotation2d.fromDegrees(90));
-//              cameraProp.setCalibError(0.35, 0.10);
-//              cameraProp.setFPS(15);
-//              cameraProp.setAvgLatencyMs(50);
-//              cameraProp.setLatencyStdDevMs(15);
-//              // Create a PhotonCameraSim which will update the linked PhotonCamera's values with visible
-//              // targets.
-//              cameraSim = new PhotonCameraSim(camera, cameraProp);
-//              // Add the simulated camera to view the targets on this simulated field.
-//              visionSim.addCamera(cameraSim, kRobotToCam);
+        //  if (robot.isSimulation()) {
+        //      // Create the vision system simulation which handles cameras and targets on the field.
+             
+        //      // Create a PhotonCameraSim which will update the linked PhotonCamera's values with visible
+        //      // targets.
+        //      //cameraSim = new PhotonCameraSim(camera, cameraProp);
+        //      // Add the simulated camera to view the targets on this simulated field.
+        //      //visionSim.addCamera(cameraSim, kRobotToCam);
  
-//              cameraSim.enableDrawWireframe(true);
-//          }
-//      }
+        //      //cameraSim.enableDrawWireframe(true);
+        //  }
+  
  
 //      /**
 //       * The latest estimated robot pose on the field from vision data. This may be empty. This should
@@ -628,23 +621,23 @@ public class Vision
 //          return curStdDevs;
 //      }
  
-//      // ----- Simulation
+     // ----- Simulation
  
-//      public void simulationPeriodic(Pose2d robotSimPose) {
-//          visionSim.update(robotSimPose);
-//      }
+     public void simulationPeriodic(Pose2d robotSimPose) {
+         visionSim.update(robotSimPose);
+     }
  
-//      /** Reset pose history of the robot in the vision system simulation. */
-//      public void resetSimPose(Pose2d pose) {
-//          if (RobotBase.isSimulation()) visionSim.resetRobotPose(pose);
-//      }
+     /** Reset pose history of the robot in the vision system simulation. */
+     public void resetSimPose(Pose2d pose) {
+         if (Robot.isSimulation()) visionSim.resetRobotPose(pose);
+     }
  
-//      /** A Field2d for visualizing our robot and objects on the field. */
-//      public Field2d getSimDebugField() {
-//          if (!RobotBase.isSimulation()) return null;
-//          return visionSim.getDebugField();
-//      }
-//  }
+     /** A Field2d for visualizing our robot and objects on the field. */
+     public Field2d getSimDebugField() {
+         if (!Robot.isSimulation()) return null;
+         return visionSim.getDebugField();
+     }
+ 
 /**
  * Update the robot's vision position in the simulation field.
  *
@@ -653,6 +646,16 @@ public class Vision
 public void updateRobotVisionPosition(Pose2d robotPose) {
   if (Robot.isSimulation()) {
     visionSim.update(robotPose);
+    visionSim = new VisionSystemSim("main");
+             // Add all the AprilTags inside the tag layout as visible targets to this simulated field.
+             visionSim.addAprilTags( AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark));
+             // Create simulated camera properties. These can be set to mimic your actual camera.
+             var cameraProp = new SimCameraProperties();
+             cameraProp.setCalibration(960, 720, Rotation2d.fromDegrees(90));
+             cameraProp.setCalibError(0.35, 0.10);
+             cameraProp.setFPS(15);
+             cameraProp.setAvgLatencyMs(50);
+             cameraProp.setLatencyStdDevMs(15);
   }
 }
 
@@ -688,5 +691,9 @@ public void addAprilTagPositioning() {
   if (Robot.isSimulation()) {
     visionSim.addAprilTags(fieldLayout);
   }
+}
+public void periodic() {
+  addAprilTagPositioning();
+ 
 }
 }
