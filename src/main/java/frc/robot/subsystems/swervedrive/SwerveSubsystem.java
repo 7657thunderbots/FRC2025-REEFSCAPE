@@ -93,7 +93,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * PhotonVision class to keep an accurate odometry.
    */
-  public static Vision vision;
+  public Vision vision;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -116,6 +116,7 @@ public class SwerveSubsystem extends SubsystemBase
     {
       throw new RuntimeException(e);
     }
+    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
     swerveDrive.setCosineCompensator(false);//!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
     swerveDrive.setAngularVelocityCompensation(true,
@@ -155,6 +156,28 @@ public class SwerveSubsystem extends SubsystemBase
   {
     vision = new Vision(swerveDrive::getPose, swerveDrive.field);
   }
+  /**
+   * Finds the closest AprilTag by comparing the position of the robot to the positions of the AprilTags in the field config.
+   *
+   * @return The ID of the closest AprilTag as a double.
+   */
+  public double findClosestAprilTag() {
+    Pose2d robotPose = getPose();
+    double closestDistance = Double.MAX_VALUE;
+    double closestTagId = -1;
+
+    for (var tag : aprilTagFieldLayout.getTags()) {
+      Pose2d tagPose = tag.pose.toPose2d();
+      double distance = robotPose.getTranslation().getDistance(tagPose.getTranslation());
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestTagId = tag.ID;
+      }
+    }
+
+    SmartDashboard.putNumber("Closest AprilTag ID", closestTagId);
+    return closestTagId;
+  }
 
   @Override
   public void periodic()
@@ -164,12 +187,15 @@ public class SwerveSubsystem extends SubsystemBase
     {
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);
+      findClosestAprilTag();
     }
   }
 
   @Override
   public void simulationPeriodic()
   {
+    vision.updatePoseEstimation(swerveDrive);
+    findClosestAprilTag();
   }
 
   /**
@@ -734,13 +760,13 @@ public class SwerveSubsystem extends SubsystemBase
     return swerveDrive.getPitch();
   }
 
-  /**
-   * Add a fake vision reading for testing purposes.
-   */
-  public void addFakeVisionReading()
-  {
-    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
-  }
+  // /**
+  //  * Add a fake vision reading for testing purposes.
+  //  */
+  // public void addFakeVisionReading()
+  // {
+  //   swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
+  // }
 
   /**
    * Gets the swerve drive object.
@@ -751,9 +777,10 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return swerveDrive;
   }
+  
 }
 
-
+ 
 
 
 

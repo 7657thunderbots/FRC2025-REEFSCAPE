@@ -222,8 +222,10 @@ public class RobotContainer
     // driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
     // driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
     // driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
-   driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
-    if (SwerveSubsystem.vision.getAprilTagIdEvenIfNotVisible()==1){
+   
+    if (drivebase.findClosestAprilTag() == 19){
+      driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
+      
     }
     }
    /**
