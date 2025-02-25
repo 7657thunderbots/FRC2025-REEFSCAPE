@@ -6,6 +6,7 @@ import static edu.wpi.first.units.Units.Seconds;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.cscore.VideoCamera;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -61,6 +62,7 @@ public class Vision
    * Photon Vision Simulation
    */
   public VisionSystemSim visionSim;
+  private PhotonCameraSim cameraSim;
   /**
    * Count of times that the odom thinks we're more than 10 meters away from the AprilTag.
    */
@@ -290,7 +292,7 @@ public class Vision
                VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     public final Alert latencyAlert;
-    public final PhotonCamera camera;
+    public PhotonCamera camera;
     public final PhotonPoseEstimator poseEstimator;
     private final Matrix<N3, N1> singleTagStdDevs;
     private final Matrix<N3, N1> multiTagStdDevs;
@@ -322,6 +324,8 @@ public class Vision
         cameraProp.setLatencyStdDevMs(5);
         cameraSim = new PhotonCameraSim(camera, cameraProp);
         cameraSim.enableDrawWireframe(true);
+        cameraSim.enableDrawWireframe(true);
+        
       }
     }
 
@@ -656,8 +660,12 @@ public void updateRobotVisionPosition(Pose2d robotPose) {
              cameraProp.setFPS(15);
              cameraProp.setAvgLatencyMs(50);
              cameraProp.setLatencyStdDevMs(15);
+            
   }
+ 
 }
+
+
 
 /**
  * Get the ID of the closest AprilTag to the robot, even if it is not visible.
@@ -693,7 +701,36 @@ public void addAprilTagPositioning() {
   }
 }
 public void periodic() {
+  
   addAprilTagPositioning();
- 
+  updateRobotVisionPosition(currentPose.get());
+  updateVisionField();
+  visionSim.update(currentPose.get());
+  
+  
+  if (Robot.isSimulation())
+  {
+    visionSim = new VisionSystemSim("Vision");
+    visionSim.addAprilTags(fieldLayout);
+
+
+    for (Cameras c : Cameras.values())
+    {
+      c.addToVisionSim(visionSim);
+    }
+    
+SimCameraProperties cameraProp = new SimCameraProperties();
+        cameraProp.setCalibration(960, 720, Rotation2d.fromDegrees(100));
+        cameraProp.setCalibError(0.25, 0.08);
+        cameraProp.setFPS(30);
+        cameraProp.setAvgLatencyMs(35);
+        cameraProp.setLatencyStdDevMs(5);
+
+        cameraSim.enableDrawWireframe(true);
+        cameraSim.enableDrawWireframe(true);
+    openSimCameraViews();
+    addAprilTagPositioning();
+    updateRobotVisionPosition(currentPose.get());
+  }
 }
 }
