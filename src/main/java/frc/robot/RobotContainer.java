@@ -224,9 +224,34 @@ public class RobotContainer
     // driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
    
     if (drivebase.findClosestAprilTag() == 19){
-      driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-17.943))));
+
     }
+    if (drivebase.findClosestAprilTag() == 20){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-17.943))));}
+    if (drivebase.findClosestAprilTag() == 21){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(-17.943))));}
+    if (drivebase.findClosestAprilTag() == 22){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(-17.943))));}
+    if (drivebase.findClosestAprilTag() == 17){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(-17.943))));}
+    if (drivebase.findClosestAprilTag() == 18){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(-17.943))));}
+    if (drivebase.findClosestAprilTag() == 12){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-17.943))));}
+    if  (drivebase.findClosestAprilTag() == 13){
+      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(-17.943))));}
+
     }
+    
    /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
