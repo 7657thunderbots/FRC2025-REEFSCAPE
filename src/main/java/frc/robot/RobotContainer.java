@@ -225,7 +225,6 @@ public class RobotContainer
    
     if (drivebase.findClosestAprilTag() == 19){
       driverXbox.povLeft().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
-      
     }
     }
    /**
