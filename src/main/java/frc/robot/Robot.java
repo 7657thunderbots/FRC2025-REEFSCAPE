@@ -4,9 +4,18 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.InchesPerSecond;
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -17,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot
 {
+  
 
   private static Robot   instance;
   private        Command m_autonomousCommand;
@@ -24,6 +34,17 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
+  // private AddressableLED m_led;
+  //   private AddressableLEDBuffer m_ledBuffer;
+  // LEDPattern gradient = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kOrange, Color.kBlue);
+
+  // // Our LED strip has a density of 120 LEDs per meter
+  // private static final Distance kLedSpacing = Meters.of(1 / 120.0);
+
+  // Create a new pattern that scrolls the rainbow pattern across the LED strip, moving at a speed
+  // of 1 meter per second.
+  //private final LEDPattern m_scrollingRainbow =
+      //m_rainbow.scrollAtAbsoluteSpeed(InchesPerSecond.of(1), kLedSpacing);
 
   public Robot()
   {
@@ -41,6 +62,11 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
+    // m_led = new AddressableLED(0);
+    // m_ledBuffer = new AddressableLEDBuffer(60);
+    // m_led.setLength(m_ledBuffer.getLength());
+    // m_led.setData(m_ledBuffer);
+    // m_led.start();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -65,6 +91,8 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+   
+
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

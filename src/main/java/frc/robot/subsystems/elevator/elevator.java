@@ -42,6 +42,7 @@ public class elevator extends SubsystemBase {
     private double hiLimit = 0.1; // Threshold for integral term
     private final int CURRENT_LIMIT = 10; // Current limit in amps
     private final double GRAVITY_FEEDFORWARD = 0.2; // Feedforward term to counteract gravity
+    public double positione;
     public elevator() {
 
         // SmartDashboard.setDefaultNumber("Target Position", 0);
@@ -114,6 +115,7 @@ KrakenFollower.setPosition(0);
         if (elbowSetPoint>0){
             elbowSetPoint=0;
         }
+         positione = KrakenLeader.getPosition().getValueAsDouble();
         double error = elbowSetPoint - KrakenLeader.getPosition().getValueAsDouble();
         double dt = Timer.getFPGATimestamp() - lastTimestamp;
 
