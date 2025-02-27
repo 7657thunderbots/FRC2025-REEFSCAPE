@@ -131,7 +131,7 @@ public class RobotContainer
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
   m_operatorController.back().onTrue(m_wrist.toggle());
   m_operatorController.button(9).onTrue(m_claw.toggleState());
-  m_operatorController.button(10).onTrue(m_elbow.down());
+  m_operatorController.button(10).onTrue(m_elbow.toggleState());
   m_operatorController.y().onTrue(m_elevator.elevatorL2());
   m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
   m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
@@ -141,6 +141,7 @@ public class RobotContainer
   m_operatorController.y().onTrue(m_elbow.L2L3());
   m_operatorController.button(1).onTrue(m_elbow.L2L3());
   m_operatorController.leftBumper().onTrue(m_elbow.Human());
+  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   m_operatorController.button(8).onTrue(m_elevator.Home());
 
   // Return elevator to home when no elevator buttons are pressed
