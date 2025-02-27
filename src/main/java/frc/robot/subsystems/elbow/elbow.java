@@ -15,6 +15,15 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.Commands;
+
 
 
 import edu.wpi.first.math.controller.PIDController;
@@ -132,9 +141,33 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
             this.elbowSetPoint=.583;
         });
     }
-
-
     
+
+
+    private enum ElbowState {
+        STOPPED,
+        INTAKING,
+        OUTTAKING
+    }
+    private ElbowState currentState = ElbowState.STOPPED;
+    public Command toggleState() {
+        return Commands.runOnce(() -> {
+            switch (currentState) {
+                case STOPPED:
+                    this.up();
+                    currentState = ElbowState.INTAKING;
+                    break;
+                case INTAKING:
+                    this.Human();
+                    currentState = ElbowState.OUTTAKING;
+                    break;
+                case OUTTAKING:
+                    this.down();
+                    currentState = ElbowState.STOPPED;
+                    break;
+            }
+        });
+    }
 
 
 
@@ -150,8 +183,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     @Override
     public void periodic()
     {
-        
-
+    SmartDashboard.putString("Elbow Current state", currentState.toString());
 
     double error = elbowSetPoint - encoder.getPosition();
     double dt = Timer.getFPGATimestamp() - lastTimestamp;

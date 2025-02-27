@@ -20,6 +20,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.elbow.elbow;
 
 
 public class Wrist extends SubsystemBase {
@@ -97,6 +98,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
      * mid-operation.
      */
    
+    
 
     // Initialize dashboard values
     SmartDashboard.setDefaultNumber("Target Position", 0);
@@ -154,6 +156,10 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     //        this.stop();
     //     });
     // }
+
+
+
+    
     @Override
     public void periodic()
     {
