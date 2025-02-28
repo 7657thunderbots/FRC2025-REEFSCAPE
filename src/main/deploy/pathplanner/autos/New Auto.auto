@@ -9,6 +9,18 @@
           "data": {
             "pathName": "New Path"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
         }
       ]
     }
