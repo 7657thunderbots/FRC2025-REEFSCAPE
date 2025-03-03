@@ -62,8 +62,8 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverXbox.getLeftY() * -1,
                                                                 () -> driverXbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(driverXbox::getRightX)
-                                                            .deadband(.1)
+                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
+                                                            .deadband(.2)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
