@@ -46,6 +46,7 @@ public class elbow extends SubsystemBase {
     private double kD = 0.1;
     private double b;
     private double hiLimit = 0.01; // Threshold for integral term
+    public boolean safeL1;
 private final int CURRENT_LIMIT = 10; // Current limit in amps
 
 // In constructor, add:
@@ -143,7 +144,10 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     }
     public Command l1(){
         return runOnce(() ->{
-            this.elbowSetPoint=.9;
+            if (safeL1){
+                this.elbowSetPoint=.9;
+            }
+
         });
     }
     
@@ -151,10 +155,9 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
 
     private enum ElbowState {
         STOPPED,
-        INTAKING,
-        OUTTAKING
+        INTAKING
     }
-    private ElbowState currentState = ElbowState.OUTTAKING;
+    private ElbowState currentState = ElbowState.INTAKING;
     public Command toggleState() {
         return Commands.runOnce(() -> {
             switch (currentState) {
@@ -163,10 +166,6 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
                     currentState = ElbowState.INTAKING;
                     break;
                 case INTAKING:
-                this.elbowSetPoint=.583;
-                    currentState = ElbowState.OUTTAKING;
-                    break;
-                case OUTTAKING:
                 this.elbowSetPoint=.76;
                     currentState = ElbowState.STOPPED;
                     break;

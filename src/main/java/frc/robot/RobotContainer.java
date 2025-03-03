@@ -132,6 +132,12 @@ public class RobotContainer
    */
   private void configureBindings()
   {
+    if (m_elevator.positione<-8){
+      m_elbow.safeL1=true;
+    }
+    else{
+      m_elbow.safeL1=false;
+    }
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
   m_operatorController.back().onTrue(m_wrist.toggle());
   m_operatorController.button(9).onTrue(m_claw.toggleState());
@@ -143,8 +149,8 @@ public class RobotContainer
   m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
   m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
   m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  m_operatorController.y().onTrue(m_elbow.L2L3());
-  m_operatorController.button(1).onTrue(m_elbow.L2L3());
+  m_operatorController.y().onTrue(m_elbow.up());
+  m_operatorController.button(1).onTrue(m_elbow.up());
   m_operatorController.leftBumper().onTrue(m_elbow.Human());
   m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   m_operatorController.button(8).onTrue(m_elevator.Home());
