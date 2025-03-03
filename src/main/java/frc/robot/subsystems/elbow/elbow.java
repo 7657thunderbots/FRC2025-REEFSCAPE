@@ -47,6 +47,7 @@ public class elbow extends SubsystemBase {
     private double b;
     private double hiLimit = 0.01; // Threshold for integral term
     public boolean safeL1;
+    private boolean L1;
 private final int CURRENT_LIMIT = 10; // Current limit in amps
 
 // In constructor, add:
@@ -124,30 +125,32 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
 
     public Command up() {
         return runOnce(() -> {
+        this.L1=false;
         this.elbowSetPoint=.584;
     });
     }
 
     public Command down() {
         return runOnce(() -> {
+        this.L1= false;
         this.elbowSetPoint=.76;
     });
     }
-    public Command L2L3(){
-        return runOnce(() ->{
-            this.elbowSetPoint=.6365;
-        }); }
+    // public Command L2L3(){
+    //     return runOnce(() ->{
+    //         l
+    //         this.elbowSetPoint=.6365;
+    //     }); }
     public Command Human(){
         return runOnce(() ->{
+            this.L1= false;
             this.elbowSetPoint=.683;
         });
     }
     public Command l1(){
         return runOnce(() ->{
-            if (safeL1){
-                this.elbowSetPoint=.9;
-            }
-
+           
+           this.L1= true;
         });
     }
     
@@ -162,16 +165,19 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
         return Commands.runOnce(() -> {
             switch (currentState) {
                 case STOPPED:
+                this.L1= false;
                 this.elbowSetPoint=.584;
                     currentState = ElbowState.INTAKING;
                     break;
                 case INTAKING:
+                this.L1= false;
                 this.elbowSetPoint=.76;
                     currentState = ElbowState.STOPPED;
                     break;
             }
         });
     }
+    
 
 
 
@@ -187,6 +193,9 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     @Override
     public void periodic()
     {
+        if (safeL1 && L1) {
+            this.elbowSetPoint=.9;
+        }
     SmartDashboard.putString("Elbow Current state", currentState.toString());
 
     double error = elbowSetPoint - encoder.getPosition();
