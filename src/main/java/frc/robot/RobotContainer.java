@@ -28,6 +28,7 @@ import frc.robot.subsystems.climber.climber;
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -117,7 +118,9 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
-  }
+  
+  SmartDashboard.putNumber("april", drivebase.findClosestAprilTag());
+    }
 
 
 
@@ -155,6 +158,10 @@ public class RobotContainer
   m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   m_operatorController.button(8).onTrue(m_elevator.Home());
   m_operatorController.button(8).onTrue(m_elbow.up());
+  SmartDashboard.putNumber("closest tag",drivebase.findClosestAprilTag());
+ // SmartDashboard.putNumber("closest tag",drivebase.findClosestAprilTag());
+
+  //m_operatorController.button(2).onFalse(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
 
   // Return elevator to home when no elevator buttons are pressed
   // new Trigger(() -> !m_operatorController.x().getAsBoolean() &&
@@ -176,22 +183,23 @@ public class RobotContainer
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
 
-    if (RobotBase.isSimulation())
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
-    } else
-    {
+    // if (RobotBase.isSimulation())
+    // {
+    //   drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
+    // } else
+    // {
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    }
+    //}
 
     if (Robot.isSimulation())
     {
-      driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
-      driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
-
-    }
+      //driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+      //driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
+    //   drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0)));
+     }
     if (DriverStation.isTest())
     {
+      
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
@@ -202,7 +210,7 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
-      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+     // driverXbox.button(2).onTrue((Commands.runOnce(drivebase::zeroGyro)));
      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       // driverXbox.b().whileTrue(
       //     drivebase.driveToPose(
@@ -218,60 +226,7 @@ public class RobotContainer
     // driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
     // driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
    
-    if (drivebase.findClosestAprilTag() == 19){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-17.943))));
-
-    }
-    if (drivebase.findClosestAprilTag() == 20){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 21){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 22){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 17){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 18){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 12){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-17.943))));}
-    if  (drivebase.findClosestAprilTag() == 13){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(-17.943))));}
-
-    
-    if (drivebase.findClosestAprilTag() == 7){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(-26.565))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(-26.565))));}
-    if (drivebase.findClosestAprilTag() == 8){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 9){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 10){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 11){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 6){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 1){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-17.943))));}
-    if (drivebase.findClosestAprilTag() == 2){
-      driverXbox.leftTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(-17.943))));
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(-17.943))));}
-    }
-
+  }
   // public void configurePathPlanner(){
   //   drivebase.setupPathPlanner();
   //  // NamedCommands.registerCommand("roller", System.out.println("I Work"));
@@ -294,5 +249,5 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(brake);
   }
-  //SmartDashboard.putNumber("closest tag",m_vision.getAprilTagIdEvenIfNotVisible());
+  
 }

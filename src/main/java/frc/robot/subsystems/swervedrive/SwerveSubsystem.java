@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision;
@@ -61,7 +62,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class SwerveSubsystem extends SubsystemBase
 {
-  
+  private final         CommandXboxController driverXbox = new CommandXboxController(0);
   /**
    * Simulate the primary vision system to show where the robot thinks it is.
    */
@@ -183,6 +184,60 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    if (findClosestAprilTag() == 19){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-17.943))));
+  
+    }
+    if (findClosestAprilTag() == 20){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 21){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 22){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 17){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 18){
+      driverXbox.button(2).whileTrue(
+        driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));}
+    if (findClosestAprilTag() == 12){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-17.943))));}
+    if  (findClosestAprilTag() == 13){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(-17.943))));}
+  
+    
+    if (findClosestAprilTag() == 7){
+      driverXbox.b().whileTrue(driveToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(-26.565))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(-26.565))));}
+    if (findClosestAprilTag() == 8){
+      driverXbox.b().whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 9){
+      driverXbox.b().whileTrue(driveToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 10){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 11){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 6){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 1){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-17.943))));}
+    if (findClosestAprilTag() == 2){
+      driverXbox.button(2).whileTrue(driveToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(-17.943))));
+      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(-17.943))));}
+  
     // When vision is enabled we must manually update odometry in SwerveDrive
     if (visionDriveTest)
     {
