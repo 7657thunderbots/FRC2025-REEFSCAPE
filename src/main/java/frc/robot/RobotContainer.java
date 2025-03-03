@@ -60,51 +60,50 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -1,
-                                                                () -> driverXbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
-                                                            .deadband(.2)
-                                                            .scaleTranslation(0.8)
-                                                            .allianceRelativeControl(true);
+  () -> driverXbox.getLeftY() * -1,
+  () -> driverXbox.getLeftX() * -1)
+  .withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
+  .deadband(.2)
+  .scaleTranslation(0.8)
+  .allianceRelativeControl(true);
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
   SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
-                                                                                             driverXbox::getRightY)
-                                                           .headingWhile(true);
+  driverXbox::getRightY)
+  .headingWhile(true);
 
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
    */
   SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-                                                             .allianceRelativeControl(false);
+  .allianceRelativeControl(false);
 
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                        () -> -driverXbox.getLeftY(),
-                                                                        () -> -driverXbox.getLeftX())
-                                                                    .withControllerRotationAxis(() -> driverXbox.getRawAxis(
-                                                                        2))
-                                                                    .deadband(.1)
-                                                                    .scaleTranslation(0.8)
-                                                                    .allianceRelativeControl(true);
+  () -> -driverXbox.getLeftY(),
+  () -> -driverXbox.getLeftX())
+  .withControllerRotationAxis(() -> driverXbox.getRawAxis(
+  2))
+  .deadband(.1)
+  .scaleTranslation(0.8)
+  .allianceRelativeControl(true);
   // Derive the heading axis with math!
   SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
-                                                                               .withControllerHeadingAxis(() ->
-                                                                                                              Math.sin(
-                                                                                                                  driverXbox.getRawAxis(
-                                                                                                                      2) *
-                                                                                                                  Math.PI) *
-                                                                                                              (Math.PI *
-                                                                                                               2),
-                                                                                                          () ->
-                                                                                                              Math.cos(
-                                                                                                                  driverXbox.getRawAxis(
-                                                                                                                      2) *
-                                                                                                                  Math.PI) *
-                                                                                                              (Math.PI *
-                                                                                                               2))
-                                                                               .headingWhile(true);
+  .withControllerHeadingAxis(() ->
+  Math.sin(
+  driverXbox.getRawAxis(
+  2) *
+  Math.PI) *
+  (Math.PI *
+  2),
+  () ->
+  Math.cos(
+  driverXbox.getRawAxis(
+  2) *
+  Math.PI) *
+  (Math.PI *2))
+  .headingWhile(true);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -119,7 +118,6 @@ public class RobotContainer
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
   
-  SmartDashboard.putNumber("april", drivebase.findClosestAprilTag());
     }
 
 
