@@ -35,7 +35,7 @@ public class elevator extends SubsystemBase {
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;
-    private double kP = 0.0;//.085;
+    private double kP = .085;
     private double kI = 0.0;
     private double kD = 0.0;
     private double b= .04;
@@ -65,32 +65,32 @@ KrakenFollower.setPosition(0);
 
     public Command elevatorL1() {
         return runOnce(() -> {
-            this.elbowSetPoint = -6.884;
+            this.elbowSetPoint = -12.5;
         });
     }
     public Command elevatorL2() {
         return runOnce(() -> {
-            this.elbowSetPoint = -7.83;
+            this.elbowSetPoint = -13;
              // change later
         });
     }
 
     public Command elevatorL3() {
         return runOnce(() -> {
-            this.elbowSetPoint = -14.565;
+            this.elbowSetPoint = -15.5;
         });
     }
 
     public Command elevatorL4() {
         return runOnce(() -> {
-            this.elbowSetPoint = -27.542;
+            this.elbowSetPoint = -29.000;
         });
     }
 
     public Command elevatorSource() {
 
         return runOnce(() -> {
-            this.elbowSetPoint = -8.17;
+            this.elbowSetPoint = -10.00;
         });
     }
 
@@ -109,7 +109,7 @@ KrakenFollower.setPosition(0);
 
     @Override
     public void periodic() {
-        if (elbowSetPoint<-28.63){
+        if (elbowSetPoint<-29.65){
             elbowSetPoint=0;
         }
         if (elbowSetPoint>0){

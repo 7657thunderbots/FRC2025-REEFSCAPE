@@ -138,7 +138,12 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
         }); }
     public Command Human(){
         return runOnce(() ->{
-            this.elbowSetPoint=.583;
+            this.elbowSetPoint=.683;
+        });
+    }
+    public Command l1(){
+        return runOnce(() ->{
+            this.elbowSetPoint=.9;
         });
     }
     
@@ -149,20 +154,20 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
         INTAKING,
         OUTTAKING
     }
-    private ElbowState currentState = ElbowState.STOPPED;
+    private ElbowState currentState = ElbowState.OUTTAKING;
     public Command toggleState() {
         return Commands.runOnce(() -> {
             switch (currentState) {
                 case STOPPED:
-                    this.up();
+                this.elbowSetPoint=.584;
                     currentState = ElbowState.INTAKING;
                     break;
                 case INTAKING:
-                    this.Human();
+                this.elbowSetPoint=.583;
                     currentState = ElbowState.OUTTAKING;
                     break;
                 case OUTTAKING:
-                    this.down();
+                this.elbowSetPoint=.76;
                     currentState = ElbowState.STOPPED;
                     break;
             }
@@ -203,7 +208,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     double output = kP * error + kI * errorSum + kD * errorRate;
     
   
-     //motor.set(-(output-.025));
+    motor.set(-(output-.025));
 
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = error;
