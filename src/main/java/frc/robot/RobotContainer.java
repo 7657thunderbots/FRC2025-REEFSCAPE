@@ -114,9 +114,17 @@ public class RobotContainer
   //here
   public RobotContainer()
   {
+    if (m_elevator.positione<-8){
+      m_elbow.safeL1=true;
+    }
+    else{
+      m_elbow.safeL1=false;
+    }
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
+    SmartDashboard.putNumber("elevator in container", m_elevator.positione);
+    SmartDashboard.putBoolean("elbow safe", m_elbow.safeL1);
   
     }
 
@@ -133,12 +141,7 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    if (m_elevator.positione<-8){
-      m_elbow.safeL1=true;
-    }
-    else{
-      m_elbow.safeL1=false;
-    }
+    
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
   m_operatorController.back().onTrue(m_wrist.toggle());
   m_operatorController.button(9).onTrue(m_claw.toggleState());
