@@ -90,7 +90,7 @@ KrakenFollower.setPosition(0);
     public Command elevatorSource() {
 
         return runOnce(() -> {
-            this.elbowSetPoint = -10.00;
+            this.elbowSetPoint = -7;
         });
     }
 
@@ -102,14 +102,14 @@ KrakenFollower.setPosition(0);
 
     public Command elevatorHighAlgae() {
         return runOnce(() -> {
-            this.elbowSetPoint = -25;
+            this.elbowSetPoint = -30.5;
         });
     }
 
 
     @Override
     public void periodic() {
-        if (elbowSetPoint<-29.65){
+        if (elbowSetPoint<-32.){
             elbowSetPoint=0;
         }
         if (elbowSetPoint>0){
@@ -125,11 +125,11 @@ KrakenFollower.setPosition(0);
 
         double errorRate = (error - lastError) / dt;
         double output = kP * error + kI * errorSum + kD * errorRate;
-        if (output<-.15){
-            output=-.15;
+        if (output<-.6){
+            output=-.6;
         }
-        if (output>.15){
-            output=.15;
+        if (output>.2){
+            output=.2;
         }
 
 

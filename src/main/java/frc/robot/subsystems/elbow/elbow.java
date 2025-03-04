@@ -144,7 +144,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
     public Command Human(){
         return runOnce(() ->{
             this.L1= false;
-            this.elbowSetPoint=.683;
+            this.elbowSetPoint=.56;
         });
     }
     public Command l1(){
