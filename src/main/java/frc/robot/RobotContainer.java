@@ -110,13 +110,13 @@ public class RobotContainer
   //here
   public RobotContainer()
   {
-   
+
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
     SmartDashboard.putNumber("elevator in container", m_elevator.positione);
     SmartDashboard.putBoolean("elbow safe", m_elbow.safeL1);
-  
+
     }
 
 
@@ -132,7 +132,7 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    
+
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
   m_operatorController.back().onTrue(m_wrist.toggle());
   m_operatorController.button(9).onTrue(m_claw.toggleState());
@@ -151,7 +151,7 @@ public class RobotContainer
   //m_operatorController.button(8).onTrue(m_elevator.Home());
   m_operatorController.button(8).onTrue(m_elbow.up());
   // *******home is in robot.java**********
-  
+
 
   //m_operatorController.button(2).onFalse(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
 
@@ -191,7 +191,7 @@ public class RobotContainer
      }
     if (DriverStation.isTest())
     {
-      
+
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
       drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
@@ -217,13 +217,13 @@ public class RobotContainer
     // drivebase.driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
     // drivebase.driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
     // drivebase.driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
-   
+
   }
   // public void configurePathPlanner(){
   //   drivebase.setupPathPlanner();
   //  // NamedCommands.registerCommand("roller", System.out.println("I Work"));
   //   }
-  
+
    /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -241,5 +241,5 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(brake);
   }
-  
+
 }
