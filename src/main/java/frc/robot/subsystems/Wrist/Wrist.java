@@ -2,33 +2,22 @@ package frc.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.REVLibError;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkMaxAlternateEncoder;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-
-
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.elbow.elbow;
 
 
 public class Wrist extends SubsystemBase {
     private SparkMax motor;
     private SparkMaxConfig motorConfig;
-    private SparkClosedLoopController closedLoopController;
+   // private SparkClosedLoopController closedLoopController;
     public AbsoluteEncoder encoder;
-    private PIDController pidController;
+    //private PIDController pidController;
     public double wristSetPoint= .264;
     private double errorSum = 0;
     private double lastError = 0;
@@ -37,13 +26,13 @@ public class Wrist extends SubsystemBase {
     private double kI = 0.0;
     private double kD = 0.00;
     private double hiLimit = 0.1; // Threshold for integral term
-private final int CURRENT_LIMIT = 10; // Current limit in amps
+//private final int CURRENT_LIMIT = 10; // Current limit in amps
 
 // In constructor, add:
 
     public Wrist() {
     motor = new SparkMax(17, MotorType.kBrushless);
-    closedLoopController = motor.getClosedLoopController();
+    //closedLoopController = motor.getClosedLoopController();
     
     
     
@@ -55,8 +44,8 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
      * Create a new SPARK MAX configuration object. This will store the
      * configuration parameters for the SPARK MAX that we will set below.
      */
-    motorConfig = new SparkMaxConfig();
-    motorConfig.smartCurrentLimit(CURRENT_LIMIT);
+   // motorConfig = new SparkMaxConfig();
+    //motorConfig.smartCurrentLimit(CURRENT_LIMIT);
 
     /*
      * Configure the encoder. For this specific example, we are using the

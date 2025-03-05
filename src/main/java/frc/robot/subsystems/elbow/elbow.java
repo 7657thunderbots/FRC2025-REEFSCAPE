@@ -4,39 +4,19 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.REVLibError;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkMaxAlternateEncoder;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Commands;
-
-
-
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class elbow extends SubsystemBase {
     private SparkMax motor;
-    private SparkMaxConfig motorConfig;
-    private SparkClosedLoopController closedLoopController;
+//private SparkMaxConfig motorConfig;
+   // private SparkClosedLoopController closedLoopController;
     public AbsoluteEncoder encoder;
-    private PIDController pidController;
+//  private PIDController pidController;
     public double elbowSetPoint= .76;
     private double errorSum = 0;
     private double lastError = 0;
@@ -44,17 +24,16 @@ public class elbow extends SubsystemBase {
     private double kP = 1.7;
     private double kI = 0.01;
     private double kD = 0.1;
-    private double b;
+    //private double b;
     private double hiLimit = 0.01; // Threshold for integral term
     public boolean safeL1;
     private boolean L1;
-private final int CURRENT_LIMIT = 10; // Current limit in amps
+//private final int CURRENT_LIMIT = 10; // Current limit in amps
 
 // In constructor, add:
 
     public elbow() {
     motor = new SparkMax(16, MotorType.kBrushless);
-    closedLoopController = motor.getClosedLoopController();
     
     
     
@@ -66,7 +45,6 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
      * Create a new SPARK MAX configuration object. This will store the
      * configuration parameters for the SPARK MAX that we will set below.
      */
-    motorConfig = new SparkMaxConfig();
    
     /*
      * Configure the encoder. For this specific example, we are using the
@@ -74,10 +52,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
      * needed, we can adjust values like the position or velocity conversion
      * factors.
      */
-    motorConfig.encoder
-        .positionConversionFactor(1)
-        .velocityConversionFactor(1);
-
+   
     /*
      * Configure the closed loop controller. We want to make sure we set the
      * feedback sensor as the primary encoder.
@@ -110,11 +85,7 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
    
 
     // Initialize dashboard values
-    SmartDashboard.setDefaultNumber("Target Position", 0);
-    SmartDashboard.setDefaultNumber("Target Velocity", 0);
-    SmartDashboard.setDefaultBoolean("Control Mode", false);
-    SmartDashboard.setDefaultBoolean("Reset Encoder", false);}
-
+    }
 
      // Desired position
     
