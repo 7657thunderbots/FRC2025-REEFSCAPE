@@ -16,7 +16,6 @@ import java.io.File;
 import swervelib.SwerveInputStream;
 //import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.Wrist.Wrist;
-import frc.robot.subsystems.elevator.elevator;
 import frc.robot.subsystems.claw.claw;
 import frc.robot.subsystems.elbow.elbow;
 //import frc.robot.subsystems.climber.climber;
@@ -35,9 +34,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer
 {
   // Subsystems
-  public final elevator m_elevator = new elevator();
-  public final Wrist m_wrist = new Wrist();
-  public final claw m_claw = new claw();
+  //public final elevator m_elevator = new elevator();
+  // public final Wrist m_wrist = new Wrist();
+  // public final claw m_claw = new claw();
   public final elbow m_elbow = new elbow();
  // public final climber m_climber = new climber(); //public final SwerveSubsystem m_drivebase = SwerveSubsystem.getInstance();
   //public final Vision m_vision = new vision();
@@ -114,7 +113,7 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
-    SmartDashboard.putNumber("elevator in container", m_elevator.positione);
+    //SmartDashboard.putNumber("elevator in container", m_elevator.positione);
     SmartDashboard.putBoolean("elbow safe", m_elbow.safeL1);
 
     }
@@ -133,21 +132,21 @@ public class RobotContainer
   private void configureBindings()
   {
 
-  m_operatorController.x().onTrue(m_elevator.elevatorL4());
-  m_operatorController.back().onTrue(m_wrist.toggle());
-  m_operatorController.button(9).onTrue(m_claw.toggleState());
+  //m_operatorController.x().onTrue(m_elevator.elevatorL4());
+  // m_operatorController.back().onTrue(m_wrist.toggle());
+  // m_operatorController.button(9).onTrue(m_claw.toggleState());
   m_operatorController.button(10).onTrue(m_elbow.toggleState());
-  m_operatorController.y().onTrue(m_elevator.elevatorL2());
-  m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
-  m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
+ // m_operatorController.y().onTrue(m_elevator.elevatorL2());
+ // m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
+  //m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
   m_operatorController.rightBumper().onTrue(m_elbow.l1());
-  m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
-  m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
-  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
+  //m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
+ // m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
+  // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   m_operatorController.y().onTrue(m_elbow.up());
   m_operatorController.button(1).onTrue(m_elbow.up());
   m_operatorController.leftBumper().onTrue(m_elbow.Human());
-  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
+  // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   //m_operatorController.button(8).onTrue(m_elevator.Home());
   m_operatorController.button(8).onTrue(m_elbow.up());
   // *******home is in robot.java**********

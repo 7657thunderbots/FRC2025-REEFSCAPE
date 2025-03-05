@@ -103,7 +103,7 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveSubsystem(File directory)
   {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.POSE;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
@@ -545,10 +545,6 @@ public class SwerveSubsystem extends SubsystemBase
 //                                      );
 //   }
 public Command driveToPose(Pose2d pose) {
-  // Define hyper-low tolerances
-  double positionTolerance = 0.02; // 2 cm positional tolerance
-  double angleTolerance = Units.degreesToRadians(0.5); // 0.5 degrees angular tolerance
-
   // Create the constraints to use while pathfinding
   PathConstraints constraints = new PathConstraints(
       swerveDrive.getMaximumChassisVelocity(), 8.0,
@@ -569,11 +565,7 @@ public Command driveToPose(Pose2d pose) {
       double positionError = currentPose.getTranslation().getDistance(pose.getTranslation());
       double angleError = Math.abs(currentPose.getRotation().getRadians() - pose.getRotation().getRadians());
 
-      if (positionError <= positionTolerance && angleError <= angleTolerance) {
-          System.out.println("Precise target reached!");
-      } else {
-          System.out.println("Still outside hyper-low tolerance...");
-      }
+      
   });}
   /**
    * Drive with {@link SwerveSetpointGenerator} from 254, implemented by PathPlanner.
