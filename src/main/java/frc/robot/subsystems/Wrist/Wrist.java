@@ -87,7 +87,6 @@ private final int CURRENT_LIMIT = 10; // Current limit in amps
      * mid-operation.
      */
    
-    
 
     // Initialize dashboard values
     SmartDashboard.setDefaultNumber("Target Position", 0);
