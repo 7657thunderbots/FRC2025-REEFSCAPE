@@ -59,7 +59,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class SwerveSubsystem extends SubsystemBase
 {
   
-  private final         CommandXboxController driverXbox = new CommandXboxController(0);
+  public final         CommandXboxController driverXbox = new CommandXboxController(0);
   /**
    * Simulate the primary vision system to show where the robot thinks it is.
    */

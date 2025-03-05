@@ -31,10 +31,10 @@ public final class Constants {
 
   // CONSTANT MEMBERS
 
-  public static final CommandXboxController driverController =
-          new CommandXboxController(DriveteamConstants.kDriverControllerPort);
-  public static final CommandXboxController operatorController =
-          new CommandXboxController(DriveteamConstants.kOperatorControllerPort);
+  // public static final CommandXboxController driverController =
+  //         new CommandXboxController(DriveteamConstants.kDriverControllerPort);
+  // public static final CommandXboxController operatorController =
+  //         new CommandXboxController(DriveteamConstants.kOperatorControllerPort);
   
   // public static final double ROBOT_MASS = (100) * 0.453592; // 32lbs * kg per pound***Need to change
   // // public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);

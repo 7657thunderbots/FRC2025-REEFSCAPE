@@ -55,7 +55,7 @@ public class Vision
   /**
    * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
    */
-  private final double maximumAmbiguity = 0.25;
+ // private final double maximumAmbiguity = 0.25;
   /**
    * Photon Vision Simulation
    */
@@ -64,7 +64,7 @@ public class Vision
   /**
    * Count of times that the odom thinks we're more than 10 meters away from the AprilTag.
    */
-  private double longDistangePoseEstimationCount = 0;
+  //private double longDistangePoseEstimationCount = 0;
   /**
    * Current pose from the pose estimator using wheel odometry.
    */
