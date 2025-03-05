@@ -87,7 +87,6 @@ public class Wrist extends SubsystemBase {
      * mid-operation.
      */
    
-    
     // Initialize dashboard values
     SmartDashboard.setDefaultNumber("Target Position", 0);
     SmartDashboard.setDefaultNumber("Target Velocity", 0);
