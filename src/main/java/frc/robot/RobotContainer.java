@@ -109,12 +109,7 @@ public class RobotContainer
   //here
   public RobotContainer()
   {
-    if (m_elevator.positione<-8){
-      m_elbow.safeL1=true;
-    }
-    else{
-      m_elbow.safeL1=false;
-    }
+   
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
@@ -137,25 +132,24 @@ public class RobotContainer
   private void configureBindings()
   {
     
-  // m_operatorController.x().onTrue(m_elevator.elevatorL4());
-  // m_operatorController.back().onTrue(m_wrist.toggle());
-  // m_operatorController.button(9).onTrue(m_claw.toggleState());
+  m_operatorController.x().onTrue(m_elevator.elevatorL4());
+  m_operatorController.back().onTrue(m_wrist.toggle());
+  m_operatorController.button(9).onTrue(m_claw.toggleState());
   m_operatorController.button(10).onTrue(m_elbow.toggleState());
-  // m_operatorController.y().onTrue(m_elevator.elevatorL2());
-  // m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
-  // m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
-  // m_operatorController.rightBumper().onTrue(m_elbow.l1());
-  // m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
-  // m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
-  // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  // m_operatorController.y().onTrue(m_elbow.up());
-  // m_operatorController.button(1).onTrue(m_elbow.up());
-  // m_operatorController.leftBumper().onTrue(m_elbow.Human());
-  // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  // m_operatorController.button(8).onTrue(m_elevator.Home());
-  // m_operatorController.button(8).onTrue(m_elbow.up());
-  // SmartDashboard.putNumber("closest tag",drivebase.findClosestAprilTag());
- // SmartDashboard.putNumber("closest tag",drivebase.findClosestAprilTag());
+  m_operatorController.y().onTrue(m_elevator.elevatorL2());
+  m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
+  m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
+  m_operatorController.rightBumper().onTrue(m_elbow.l1());
+  m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
+  m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
+  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
+  m_operatorController.y().onTrue(m_elbow.up());
+  m_operatorController.button(1).onTrue(m_elbow.up());
+  m_operatorController.leftBumper().onTrue(m_elbow.Human());
+  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
+  m_operatorController.button(8).onTrue(m_elevator.Home());
+  m_operatorController.button(8).onTrue(m_elbow.up());
+  
 
   //m_operatorController.button(2).onFalse(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
 

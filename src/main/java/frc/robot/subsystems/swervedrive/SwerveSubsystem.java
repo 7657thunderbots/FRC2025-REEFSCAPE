@@ -164,7 +164,8 @@ public class SwerveSubsystem extends SubsystemBase
     Pose2d robotPose = getPose();
     double closestDistance = Double.MAX_VALUE;
     double closestTagId = -1;
-
+    boolean stored = false;
+    if (driverXbox.getLeftTriggerAxis()>.1 && !stored) {
     for (var tag : aprilTagFieldLayout.getTags()) {
       Pose2d tagPose = tag.pose.toPose2d();
       double distance = robotPose.getTranslation().getDistance(tagPose.getTranslation());
@@ -173,8 +174,27 @@ public class SwerveSubsystem extends SubsystemBase
         closestTagId = tag.ID;
       }
     }
+  }
+  else if (driverXbox.getRightTriggerAxis()>.1 && !stored){
+    for (var tag : aprilTagFieldLayout.getTags()) {
+      Pose2d tagPose = tag.pose.toPose2d();
+      double distance = robotPose.getTranslation().getDistance(tagPose.getTranslation());
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestTagId = tag.ID;
+        stored=true;
+        
+      }}}
+      else if (driverXbox.getLeftTriggerAxis()<.1 && driverXbox.getRightTriggerAxis()<.1){
+        stored=false;
+      }
+      
+    
+
+  
 
     SmartDashboard.putNumber("Closest AprilTag ID", closestTagId);
+    
     return closestTagId;
   }
 

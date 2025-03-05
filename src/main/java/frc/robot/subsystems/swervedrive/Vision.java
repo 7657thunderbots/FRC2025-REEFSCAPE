@@ -492,31 +492,31 @@ public void updateRobotVisionPosition(Pose2d robotPose) {
 
 
 
-/**
- * Get the ID of the closest AprilTag to the robot, even if it is not visible.
- *
- * @return The ID of the closest AprilTag.
- */
-public int getAprilTagIdEvenIfNotVisible() {
-  double closestDistance = Double.MAX_VALUE;
-  int closestTagId = -1;
+// /**
+//  * Get the ID of the closest AprilTag to the robot, even if it is not visible.
+//  *
+//  * @return The ID of the closest AprilTag.
+//  */
+// public int getAprilTagIdEvenIfNotVisible() {
+//   double closestDistance = Double.MAX_VALUE;
+//   int closestTagId = -1;
 
-  for (int tagId = 1; tagId <= fieldLayout.getTags().size(); tagId++) {
-    Optional<Pose3d> tagPose = fieldLayout.getTagPose(tagId);
-    if (tagPose.isPresent()) {
-      double distance = PhotonUtils.getDistanceToPose(currentPose.get(), tagPose.get().toPose2d());
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestTagId = tagId;
-      }
-    }
-  }
+//   for (int tagId = 1; tagId <= fieldLayout.getTags().size(); tagId++) {
+//     Optional<Pose3d> tagPose = fieldLayout.getTagPose(tagId);
+//     if (tagPose.isPresent()) {
+//       double distance = PhotonUtils.getDistanceToPose(currentPose.get(), tagPose.get().toPose2d());
+//       if (distance < closestDistance) {
+//         closestDistance = distance;
+//         closestTagId = tagId;
+//       }
+//     }
+// //   }
 
-  // Post the closest tag ID to the SmartDashboard
-  edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber("Closest AprilTag ID (Even if not visible)", closestTagId);
+//   // Post the closest tag ID to the SmartDashboard
+//   edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber("Closest AprilTag ID (Even if not visible)", closestTagId);
 
-  return closestTagId;
-}
+//   return closestTagId;
+// }
 /**
  * Add AprilTag positioning in the simulation field.
  */
