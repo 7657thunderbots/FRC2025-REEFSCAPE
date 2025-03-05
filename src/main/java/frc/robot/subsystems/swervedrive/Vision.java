@@ -281,15 +281,14 @@ public class Vision
   
   enum Cameras
   {
-    LEFT_CAM("left", new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(30)),
-             new Translation3d(Units.inchesToMeters(12.056), Units.inchesToMeters(10.981), Units.inchesToMeters(8.44)),
-             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
-    RIGHT_CAM("right", new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
-              new Translation3d(Units.inchesToMeters(12.056), Units.inchesToMeters(-10.981), Units.inchesToMeters(8.44)),
-              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
-    CENTER_CAM("back", new Rotation3d(0, Units.degreesToRadians(18), 0),
-               new Translation3d(Units.inchesToMeters(-4.628), Units.inchesToMeters(-10.687), Units.inchesToMeters(16.129)),
-               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    LEFT_CAM("bottom", new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)),
+             new Translation3d(Units.inchesToMeters(6.375), Units.inchesToMeters(16.5), Units.inchesToMeters(5)),
+             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));    // RIGHT_CAM("top1", new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
+    //           new Translation3d(Units.inchesToMeters(12.056), Units.inchesToMeters(-10.981), Units.inchesToMeters(8.44)),
+    //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    // // CENTER_CAM("back", new Rotation3d(0, Units.degreesToRadians(18), 0),
+    //            new Translation3d(Units.inchesToMeters(-4.628), Units.inchesToMeters(-10.687), Units.inchesToMeters(16.129)),
+    //            VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     public final Alert latencyAlert;
     public PhotonCamera camera;
