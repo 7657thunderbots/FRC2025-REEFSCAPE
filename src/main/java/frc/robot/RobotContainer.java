@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+
 import swervelib.SwerveInputStream;
 //import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.Wrist.Wrist;
@@ -42,11 +43,11 @@ public class RobotContainer
   //public final Vision m_vision = new vision();
    // Controllers
   public final CommandXboxController m_operatorController = new CommandXboxController(1);
-  public final CommandXboxController m_driverController = new CommandXboxController(0);
+  //public final CommandXboxController m_driverController = new CommandXboxController(0);
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
+  //final         CommandXboxController drivebase.driverXbox = new CommandXboxController(0);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
@@ -55,9 +56,9 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-  () -> driverXbox.getLeftY() * -1,
-  () -> driverXbox.getLeftX() * -1)
-  .withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
+  () -> drivebase.driverXbox.getLeftY() * -1,
+  () -> drivebase.driverXbox.getLeftX() * -1)
+  .withControllerRotationAxis(() -> drivebase.driverXbox.getRightX() * -1)
   .deadband(.2)
   .scaleTranslation(0.8)
   .allianceRelativeControl(true);
@@ -65,8 +66,8 @@ public class RobotContainer
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
-  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
-  driverXbox::getRightY)
+  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(drivebase.driverXbox::getRightX,
+  drivebase.driverXbox::getRightY)
   .headingWhile(true);
 
   /**
@@ -76,9 +77,9 @@ public class RobotContainer
   .allianceRelativeControl(false);
 
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
-  () -> -driverXbox.getLeftY(),
-  () -> -driverXbox.getLeftX())
-  .withControllerRotationAxis(() -> driverXbox.getRawAxis(
+  () -> -drivebase.driverXbox.getLeftY(),
+  () -> -drivebase.driverXbox.getLeftX())
+  .withControllerRotationAxis(() -> drivebase.driverXbox.getRawAxis(
   2))
   .deadband(.1)
   .scaleTranslation(0.8)
@@ -87,14 +88,14 @@ public class RobotContainer
   SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
   .withControllerHeadingAxis(() ->
   Math.sin(
-  driverXbox.getRawAxis(
+  drivebase.driverXbox.getRawAxis(
   2) *
   Math.PI) *
   (Math.PI *
   2),
   () ->
   Math.cos(
-  driverXbox.getRawAxis(
+  drivebase.driverXbox.getRawAxis(
   2) *
   Math.PI) *
   (Math.PI *2))
@@ -109,18 +110,13 @@ public class RobotContainer
   //here
   public RobotContainer()
   {
-    if (m_elevator.positione<-8){
-      m_elbow.safeL1=true;
-    }
-    else{
-      m_elbow.safeL1=false;
-    }
+
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
     SmartDashboard.putNumber("elevator in container", m_elevator.positione);
     SmartDashboard.putBoolean("elbow safe", m_elbow.safeL1);
-  
+
     }
 
 
@@ -136,26 +132,26 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    
-  // m_operatorController.x().onTrue(m_elevator.elevatorL4());
-  // m_operatorController.back().onTrue(m_wrist.toggle());
-  // m_operatorController.button(9).onTrue(m_claw.toggleState());
+
+  m_operatorController.x().onTrue(m_elevator.elevatorL4());
+  m_operatorController.back().onTrue(m_wrist.toggle());
+  m_operatorController.button(9).onTrue(m_claw.toggleState());
   m_operatorController.button(10).onTrue(m_elbow.toggleState());
-  // m_operatorController.y().onTrue(m_elevator.elevatorL2());
-  // m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
-  // m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
-  // m_operatorController.rightBumper().onTrue(m_elbow.l1());
-  // m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
-  // m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
-  // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  // m_operatorController.y().onTrue(m_elbow.up());
-  // m_operatorController.button(1).onTrue(m_elbow.up());
-  // m_operatorController.leftBumper().onTrue(m_elbow.Human());
-  // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  // m_operatorController.button(8).onTrue(m_elevator.Home());
-  // m_operatorController.button(8).onTrue(m_elbow.up());
-  // SmartDashboard.putNumber("closest tag",drivebase.findClosestAprilTag());
- // SmartDashboard.putNumber("closest tag",drivebase.findClosestAprilTag());
+  m_operatorController.y().onTrue(m_elevator.elevatorL2());
+  m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
+  m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
+  m_operatorController.rightBumper().onTrue(m_elbow.l1());
+  m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
+  m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
+  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
+  m_operatorController.y().onTrue(m_elbow.up());
+  m_operatorController.button(1).onTrue(m_elbow.up());
+  m_operatorController.leftBumper().onTrue(m_elbow.Human());
+  m_operatorController.leftBumper().onTrue(m_wrist.vertical());
+  //m_operatorController.button(8).onTrue(m_elevator.Home());
+  m_operatorController.button(8).onTrue(m_elbow.up());
+  // *******home is in robot.java**********
+
 
   //m_operatorController.button(2).onFalse(drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
 
@@ -189,45 +185,45 @@ public class RobotContainer
 
     if (Robot.isSimulation())
     {
-      //driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
-      //driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
+      //drivebase.driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+      //drivebase.driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
     //   drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0)));
      }
     if (DriverStation.isTest())
     {
-      
+
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
+      drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
+      drivebase.driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      drivebase.driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+      drivebase.driverXbox.leftBumper().onTrue(Commands.none());
+      drivebase.driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
-     // driverXbox.button(2).onTrue((Commands.runOnce(drivebase::zeroGyro)));
-     // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      // driverXbox.b().whileTrue(
+     // drivebase.driverXbox.button(2).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+     // drivebase.driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      // drivebase.driverXbox.b().whileTrue(
       //     drivebase.driveToPose(
       //         new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
       //                         );
-      driverXbox.start().whileTrue(Commands.none());
-      driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
+      drivebase.driverXbox.start().whileTrue(Commands.none());
+      drivebase.driverXbox.back().whileTrue(Commands.none());
+      drivebase.driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      drivebase.driverXbox.rightBumper().onTrue(Commands.none());
     }
     // Path Planner commands
-    // driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
-    // driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
-    // driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
-   
+    // drivebase.driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 2), Rotation2d.fromDegrees(0))));
+    // drivebase.driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(4, 2), Rotation2d.fromDegrees(90))));
+    // drivebase.driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(2, 4), Rotation2d.fromDegrees(180))));
+
   }
   // public void configurePathPlanner(){
   //   drivebase.setupPathPlanner();
   //  // NamedCommands.registerCommand("roller", System.out.println("I Work"));
   //   }
-  
+
    /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -245,5 +241,5 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(brake);
   }
-  
+
 }

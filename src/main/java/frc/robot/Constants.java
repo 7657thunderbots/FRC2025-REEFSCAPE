@@ -15,7 +15,6 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import com.pathplanner.lib.config.PIDConstants;
 
 
@@ -31,10 +30,10 @@ public final class Constants {
 
   // CONSTANT MEMBERS
 
-  public static final CommandXboxController driverController =
-          new CommandXboxController(DriveteamConstants.kDriverControllerPort);
-  public static final CommandXboxController operatorController =
-          new CommandXboxController(DriveteamConstants.kOperatorControllerPort);
+  // public static final CommandXboxController driverController =
+  //         new CommandXboxController(DriveteamConstants.kDriverControllerPort);
+  // public static final CommandXboxController operatorController =
+  //         new CommandXboxController(DriveteamConstants.kOperatorControllerPort);
   
   // public static final double ROBOT_MASS = (100) * 0.453592; // 32lbs * kg per pound***Need to change
   // // public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
@@ -131,7 +130,7 @@ public final class Constants {
   //  public static final int rightLimitSwitchBottom = 7;
 
   // }
-  public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
+  public static final double ROBOT_MASS = (120) * 0.45359237; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
   public static final double MAX_SPEED  = Units.feetToMeters(2);//14.5
