@@ -179,8 +179,10 @@ public class RobotContainer
     //   drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
     // } else
     // {
+    if (drivebase.driverXbox.getLeftTriggerAxis()<.1 && drivebase.driverXbox.getRightTriggerAxis()<.1)
+    {
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    //}
+    }
 
     if (Robot.isSimulation())
     {
