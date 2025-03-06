@@ -544,29 +544,43 @@ public class SwerveSubsystem extends SubsystemBase
 //         edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
 //                                      );
 //   }
-public Command driveToPose(Pose2d pose) {
-  // Create the constraints to use while pathfinding
-  PathConstraints constraints = new PathConstraints(
-      swerveDrive.getMaximumChassisVelocity(), 8.0,
-      swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+public Command driveToPose(Pose2d pose)
+  {
+// Create the constraints to use while pathfinding
+    PathConstraints constraints = new PathConstraints(
+        swerveDrive.getMaximumChassisVelocity(), 4.0,
+        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
-  // Build the pathfinding command
-  Command command = AutoBuilder.pathfindToPose(
-      pose,
-      constraints,
-      edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
-  );
+// Since AutoBuilder is configured, we can use it to build pathfinding commands
+    return AutoBuilder.pathfindToPose(
+        pose,
+        constraints,
+        edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
+                                     );
+  }
+// public Command driveToPose(Pose2d pose) {
+//   // Create the constraints to use while pathfinding
+//   PathConstraints constraints = new PathConstraints(
+//       swerveDrive.getMaximumChassisVelocity(), 8.0,
+//       swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
-  // Wrap with hyper-low tolerance check
-  return command.andThen(() -> {
-      Pose2d currentPose = swerveDrive.getPose();
+//   // Build the pathfinding command
+//   Command command = AutoBuilder.pathfindToPose(
+//       pose,
+//       constraints,
+//       edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
+//   );
 
-      // Compute positional and angular errors
-      double positionError = currentPose.getTranslation().getDistance(pose.getTranslation());
-      double angleError = Math.abs(currentPose.getRotation().getRadians() - pose.getRotation().getRadians());
+//   // Wrap with hyper-low tolerance check
+//   return /////command.andThen(() -> {
+//       // Pose2d currentPose = swerveDrive.getPose();
+
+//       // // Compute positional and angular errors
+//       // double positionError = currentPose.getTranslation().getDistance(pose.getTranslation());
+//       // double angleError = Math.abs(currentPose.getRotation().getRadians() - pose.getRotation().getRadians());
 
       
-  });}
+//   }
   /**
    * Drive with {@link SwerveSetpointGenerator} from 254, implemented by PathPlanner.
    *
