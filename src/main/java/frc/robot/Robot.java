@@ -188,7 +188,7 @@ public class Robot extends TimedRobot
         !m_robotContainer.m_operatorController.leftBumper().getAsBoolean()&&
         !m_robotContainer.m_operatorController.b().getAsBoolean())
     {
-     // m_robotContainer.m_elevator.elbowSetPoint=0;
+      m_robotContainer.m_elevator.elbowSetPoint=0;
       m_robotContainer.m_elbow.up();
     }
   }

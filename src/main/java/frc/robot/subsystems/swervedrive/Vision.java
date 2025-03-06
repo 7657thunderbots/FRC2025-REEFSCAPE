@@ -60,7 +60,7 @@ public class Vision
    * Photon Vision Simulation
    */
   public VisionSystemSim visionSim;
-  private PhotonCameraSim cameraSim;
+  //private PhotonCameraSim cameraSim;
   /**
    * Count of times that the odom thinks we're more than 10 meters away from the AprilTag.
    */
@@ -523,39 +523,6 @@ public void updateRobotVisionPosition(Pose2d robotPose) {
 public void addAprilTagPositioning() {
   if (Robot.isSimulation()) {
     visionSim.addAprilTags(fieldLayout);
-  }
-}
-public void periodic() {
-  
-  addAprilTagPositioning();
-  updateRobotVisionPosition(currentPose.get());
-  updateVisionField();
-  visionSim.update(currentPose.get());
-  
-  
-  if (Robot.isSimulation())
-  {
-    visionSim = new VisionSystemSim("Vision");
-    visionSim.addAprilTags(fieldLayout);
-
-
-    for (Cameras c : Cameras.values())
-    {
-      c.addToVisionSim(visionSim);
-    }
-    
-SimCameraProperties cameraProp = new SimCameraProperties();
-        cameraProp.setCalibration(960, 720, Rotation2d.fromDegrees(100));
-        cameraProp.setCalibError(0.25, 0.08);
-        cameraProp.setFPS(30);
-        cameraProp.setAvgLatencyMs(35);
-        cameraProp.setLatencyStdDevMs(5);
-
-        cameraSim.enableDrawWireframe(true);
-        cameraSim.enableDrawWireframe(true);
-    openSimCameraViews();
-    addAprilTagPositioning();
-    updateRobotVisionPosition(currentPose.get());
   }
 }
 }
