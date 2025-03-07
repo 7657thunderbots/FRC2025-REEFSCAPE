@@ -641,23 +641,25 @@ public class Vision
 
 
   }
-  public int getClosestTargetTagId() {
-    PhotonPipelineResult result = Cameras.LEFT_CAM.getBestResult().orElse(null);
+//   double
+//   public PhotonTrackedTarget getClosestTargetTagId() {
+//     PhotonPipelineResult result = Cameras.LEFT_CAM.getLatestResult().orElse(null);
 
-    if (!result.hasTargets()) {
-        return -1; // No targets found
-    }
+//     if (!result.hasTargets()) {
+//         return null; // No targets found
+//     }
 
-    PhotonTrackedTarget closestTarget = result.getBestTarget();
+//     PhotonTrackedTarget closestTarget = result.getBestTarget();
 
-    for (PhotonTrackedTarget target : result.getTargets()) {
-        if (target.getArea() > closestTarget.getArea()) {
-            closestTarget = target;
-        }
-    }
+//     for (PhotonTrackedTarget target : result.getTargets()) {
+//         if (target.getArea() > closestTarget.getArea()) {
+//             getClosestTargetTagId = target;
+//         }
+//         break;
+//     }
 
-    return closestTarget.getFiducialId(); // Return the tag ID of the closest target
-}
+//     return getClosestTargetTagId.getAsDouble;
+// }
 
 }
 
