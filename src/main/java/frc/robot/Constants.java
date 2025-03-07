@@ -3,6 +3,28 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import static edu.wpi.first.units.Units.Degree;
+import static edu.wpi.first.units.Units.Radian;
+import static edu.wpi.first.units.Units.Inch;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
+
 
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
@@ -15,6 +37,9 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+
 import com.pathplanner.lib.config.PIDConstants;
 
 
@@ -70,6 +95,19 @@ public final class Constants {
     public static final int kOperatorControllerPort = 1;
 
   }
+  public static final class RobotConstants {
+    private RobotConstants() {
+    }
+
+    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(15.0);
+}
+public static final class OIConstants {
+  private OIConstants() {
+  }
+
+  public static final int DRIVER_CONTROLLER_PORT = 0;
+  public static final double DRIVER_DEADBAND = 0.05;
+}
 
   // public static class OperatorConstants
   // {
@@ -159,7 +197,75 @@ public final class Constants {
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+public static final class ApriltagConstants {
+        public static final class ApriltagCameraConfig {
+            private String name;
+            private Transform3d transform;
+            private PoseStrategy strategy;
 
+            public ApriltagCameraConfig(
+                    String name,
+                    Transform3d transform,
+                    PoseStrategy strategy) {
+                this.name = name;
+                this.transform = transform;
+                this.strategy = strategy;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public Transform3d getTransform() {
+                return transform;
+            }
+
+            public PoseStrategy getStrategy() {
+                return strategy;
+            }
+        }
+
+        public static final ApriltagCameraConfig[] PHOTON_CAMERAS = {
+                new ApriltagCameraConfig(
+                        "Front_Camera",
+                        new Transform3d(
+                                new Translation3d(
+                                        0.2794,
+                                        0.2794,
+                                        0.254),
+                                new Rotation3d(
+                                        0,
+                                        0,
+                                        Degree.of(45).in(Radian))),
+                        PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR),
+                new ApriltagCameraConfig(
+                        "Back_Camera",
+                        new Transform3d(
+                                new Translation3d(
+                                        -0.2794,
+                                        -0.2794,
+                                        0.254),
+                                new Rotation3d(
+                                        0.0,
+                                        0.0,
+                                        Degree.of(225).in(Radian))),
+                        PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR)
+        };
+
+        public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFields.k2025ReefscapeWelded.loadAprilTagLayoutField();
+
+        /** Maximum allowed ambiguity for pose estimation (0-1, lower is better) */
+        public static final double MAXIMUM_AMBIGUITY = 0.25;
+        
+        /** Standard deviations for single tag pose estimation */
+        public static final Matrix<N3, N1> SINGLE_TAG_STD_DEVS = VecBuilder.fill(4, 4, 8);
+        
+        /** Standard deviations for multi-tag pose estimation */
+        public static final Matrix<N3, N1> MULTI_TAG_STD_DEVS = VecBuilder.fill(0.5, 0.5, 1);
+        
+        /** Debounce time for camera reads in seconds */
+        public static final double CAMERA_DEBOUNCE_TIME = 0.015; // 15ms
+    }
   // public static final class DrivebaseConstants
   // {
 

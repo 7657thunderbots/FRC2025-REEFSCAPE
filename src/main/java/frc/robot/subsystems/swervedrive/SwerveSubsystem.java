@@ -156,104 +156,34 @@ public class SwerveSubsystem extends SubsystemBase
   {
     vision = new Vision(swerveDrive::getPose, swerveDrive.field);
   }
-  double closestTagId= -1;
+  boolean isStored = false;
+  double closestTagId;
+  int i = 0;
+  boolean rerun=false;
    public double findClosestAprilTag() {
-    Pose2d robotPose = getPose();
-    double closestDistance = Double.MAX_VALUE;
-    boolean isStored = false;
-
-    if ((driverXbox.getLeftTriggerAxis() > .1 || driverXbox.getRightTriggerAxis() > .1)&& !isStored ) {
-        
-
-        for (var tag : aprilTagFieldLayout.getTags()) {
-            Pose2d tagPose = tag.pose.toPose2d();
-            double distance = robotPose.getTranslation().getDistance(tagPose.getTranslation());
-
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestTagId = tag.ID;
-                
-            }
-          }
-          isStored = true;  
+    closestTagId =vision.getClosestTargetTagId();
+    if (closestTagId<=0){
+        rerun=true;
     }
-    if (driverXbox.getLeftTriggerAxis() < .1 && driverXbox.getRightTriggerAxis() < .1 ){
-      isStored = false;
+    else{
+        rerun=false;
     }
+  
 
-    SmartDashboard.putNumber("Closest AprilTag ID", closestTagId);
+    //SmartDashboard.putNumber("Closest AprilTag ID", closestTagId);
+  
      return closestTagId;
   
 
 
 }
+boolean run=false;
+boolean stop =false;
 
 
   @Override
   public void periodic()
   {
-    findClosestAprilTag();
-    
-  //  SmartDashboard.putNumber("distance from id 6", vision.getDistanceFromAprilTag(6));
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    if (alliance.get() == Alliance.Red) {
-      if (closestTagId == 7){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));}
-      else if (closestTagId == 8){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-120))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-120))));}
-      else if (closestTagId == 9){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-60))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-60))));}
-      else if (closestTagId == 10){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(0))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(0))));}
-      else if (closestTagId == 11){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(60))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(60))));}
-      else if (closestTagId == 6){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120))));}
-      else if (closestTagId == 1){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));}
-      else if (closestTagId == 2){
-        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
-        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
-      }
-    
-     
-  } else if (alliance.get() == DriverStation.Alliance.Blue) {
-    if (closestTagId == 19){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-60))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-60))));}
-    else if (closestTagId == 20){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-120))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-120))));}
-    else if (closestTagId == 21){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(180))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(180))));}
-    else if (closestTagId == 22){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(120))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(120))));}
-    else if (closestTagId == 17){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(60))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(60))));}
-    else if (closestTagId == 18){
-      driverXbox.leftTrigger().whileTrue( driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));}
-    else if (closestTagId == 12){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));}
-    else if (closestTagId == 13){
-      driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
-      driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));}
-  
-  } else {
-      System.out.println("Alliance color not determined yet.");
-  }
-   
     
     
     // When vision is enabled we must manually update odometry in SwerveDrive
@@ -263,6 +193,80 @@ public class SwerveSubsystem extends SubsystemBase
       vision.updatePoseEstimation(swerveDrive);
       
     }
+
+    
+    if ((driverXbox.getLeftTriggerAxis() > .1 || driverXbox.getRightTriggerAxis() > .1) && (!run || !rerun)) {
+        run = true;
+        findClosestAprilTag();
+        
+     
+  
+      
+     
+  } 
+  if (driverXbox.getLeftTriggerAxis()<.1 && driverXbox.getRightTriggerAxis()<.1 ){
+    run=false;
+  }
+  if (stop){
+    //  SmartDashboard.putNumber("distance from id 6", vision.getDistanceFromAprilTag(6));
+      Optional<Alliance> alliance = DriverStation.getAlliance();
+      if (alliance.get() == Alliance.Red) {
+        if (closestTagId == 7){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));}
+        else if (closestTagId == 8){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-120))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-120))));}
+        else if (closestTagId == 9){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-60))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-60))));}
+        else if (closestTagId == 10){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(0))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(0))));}
+        else if (closestTagId == 11){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(60))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(60))));}
+        else if (closestTagId == 6){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120))));}
+        else if (closestTagId == 1){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));}
+        else if (closestTagId == 2){
+          driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
+          driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
+        }
+      
+       
+    } else if (alliance.get() == DriverStation.Alliance.Blue) {
+      if (closestTagId == 19){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-60))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-60))));}
+      else if (closestTagId == 20){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-120))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-120))));}
+      else if (closestTagId == 21){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(180))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(180))));}
+      else if (closestTagId == 22){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(120))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(120))));}
+      else if (closestTagId == 17){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(60))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(60))));}
+      else if (closestTagId == 18){
+        driverXbox.leftTrigger().whileTrue( driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));}
+      else if (closestTagId == 12){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));}
+      else if (closestTagId == 13){
+        driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
+        driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));}
+    
+    } else {
+        System.out.println("Alliance color not determined yet.");
+    }}
   }
 
   @Override
