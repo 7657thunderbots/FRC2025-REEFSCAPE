@@ -40,6 +40,7 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import swervelib.SwerveDrive;
 import swervelib.telemetry.SwerveDriveTelemetry;
+import frc.robot.Constants;
 
 
 /**
@@ -99,6 +100,10 @@ public class Vision
       addAprilTagPositioning();
       updateRobotVisionPosition(currentPose.get());
     }
+  }
+
+  public List<PhotonPipelineResult> GetFrontTargets() {
+    return Cameras.LEFT_CAM.resultsList;
   }
 
   /**
@@ -392,11 +397,32 @@ public class Vision
     private void updateEstimatedGlobalPose()
     {
       Optional<EstimatedRobotPose> visionEst = Optional.empty();
-      for (var change : resultsList)
-      {
-        visionEst = poseEstimator.update(change);
-        updateEstimationStdDevs(visionEst, change.getTargets());
+            
+      for (var result : resultsList) {
+          // Filter by ambiguity if needed
+          if (result.hasTargets()) {
+              double bestAmbiguity = 1.0;
+              for (PhotonTrackedTarget target : result.getTargets()) {
+                  double ambiguity = target.getPoseAmbiguity();
+                  if (ambiguity != -1 && ambiguity < bestAmbiguity) {
+                      bestAmbiguity = ambiguity;
+                  }
+              }
+              
+              // Skip if ambiguity is too high
+              if (bestAmbiguity > Constants.MAXIMUM_AMBIGUITY) {
+                  continue;
+              }
+          }
+          
+          visionEst = poseEstimator.update(result);
+          
+          if (visionEst.isPresent()) {
+              updateEstimationStdDevs(visionEst, result.getTargets());
+              break; // Use first good result
+          }
       }
+      
       estimatedRobotPose = visionEst;
     }
 
