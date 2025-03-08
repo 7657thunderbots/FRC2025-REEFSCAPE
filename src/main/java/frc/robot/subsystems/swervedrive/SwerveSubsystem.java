@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
@@ -96,6 +97,10 @@ public class SwerveSubsystem extends SubsystemBase
    * PhotonVision class to keep an accurate odometry.
    */
    public Vision vision;
+
+
+    public Trigger RightTrigger;
+  public Trigger LeftTrigger;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -217,14 +222,18 @@ public void periodic() {
         vision.updatePoseEstimation(swerveDrive);
     }
 
-    // if ((driverXbox.getLeftTriggerAxis() > .1 || driverXbox.getRightTriggerAxis() > .1) && (!run || rerun)) {
-    //     run = true;
-    //     findClosestAprilTag();
-    // }
-    
-    // if (driverXbox.getLeftTriggerAxis() < .1 && driverXbox.getRightTriggerAxis() < .1) {
-    //     run = false;
-    // }
+
+
+// Use the triggers to control the robot actions
+if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean()) && (!run || rerun)) {
+    run = true;
+    findClosestAprilTag();
+}
+
+if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean()) {
+    run = false;
+    closestTagId = -1;
+}
 
     if (alliance.isPresent()) {
         Alliance currentAlliance = alliance.get();
@@ -318,8 +327,8 @@ private void driveToBluePose() {
 }
 
 private void driveToPose(double x, double y, double degrees) {
-    //driverXbox.leftTrigger().onTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
-    driverXbox.rightTrigger().onTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
+    driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
+    driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
 }
 
   

@@ -120,7 +120,8 @@ public class RobotContainer
 
 
 
-  //Here
+
+ 
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -131,7 +132,9 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-
+    
+  drivebase.LeftTrigger = drivebase.driverXbox.leftTrigger();
+  drivebase.RightTrigger = drivebase.driverXbox.rightTrigger();
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
   m_operatorController.x().onTrue(m_elbow.up());
   m_operatorController.back().onTrue(m_wrist.toggle());
