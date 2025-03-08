@@ -57,7 +57,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
   () -> drivebase.driverXbox.getLeftY() * -1,
   () -> drivebase.driverXbox.getLeftX() * -1)
-  .withControllerRotationAxis(() -> drivebase.driverXbox.getRightX() * -1)
+  .withControllerRotationAxis(() -> drivebase.driverXbox.getLeftTriggerAxis() * -1)
   .deadband(.2)
   .scaleTranslation(0.8)
   .allianceRelativeControl(true);
@@ -80,7 +80,7 @@ public class RobotContainer
   () -> -drivebase.driverXbox.getLeftX())
   .withControllerRotationAxis(() -> drivebase.driverXbox.getRawAxis(
   2))
-  .deadband(.1)
+  .deadband(.05)
   .scaleTranslation(0.8)
   .allianceRelativeControl(true);
   // Derive the heading axis with math!
@@ -133,22 +133,24 @@ public class RobotContainer
   {
 
   m_operatorController.x().onTrue(m_elevator.elevatorL4());
+  m_operatorController.x().onTrue(m_elbow.up());
   m_operatorController.back().onTrue(m_wrist.toggle());
-  m_operatorController.button(9).onTrue(m_claw.toggleState());
+  m_operatorController.button(9).whileTrue(m_claw.outtake());
+  m_operatorController.button(11).whileTrue(m_claw.intake());
   m_operatorController.button(10).onTrue(m_elbow.toggleState());
  m_operatorController.y().onTrue(m_elevator.elevatorL2());
  m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
   m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
   m_operatorController.rightBumper().onTrue(m_elbow.l1());
-  m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
+  m_operatorController.leftBumper().onTrue(m_elevator.Home());
  m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
   m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   m_operatorController.y().onTrue(m_elbow.up());
   m_operatorController.button(1).onTrue(m_elbow.up());
-  m_operatorController.leftBumper().onTrue(m_elbow.Human());
+  m_operatorController.leftBumper().onTrue(m_elbow.up());
   m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  m_operatorController.button(8).onTrue(m_elevator.Home());
-  m_operatorController.button(8).onTrue(m_elbow.up());
+  m_operatorController.button(8).onTrue(m_elevator.elevatorSource());
+  m_operatorController.button(8).onTrue(m_elbow.Human());
   // *******home is in robot.java**********
 
 

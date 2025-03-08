@@ -105,7 +105,7 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveSubsystem(File directory)
   {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.POSE;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
@@ -217,14 +217,14 @@ public void periodic() {
         vision.updatePoseEstimation(swerveDrive);
     }
 
-    if ((driverXbox.getLeftTriggerAxis() > .1 || driverXbox.getRightTriggerAxis() > .1) && (!run || rerun)) {
-        run = true;
-        findClosestAprilTag();
-    }
+    // if ((driverXbox.getLeftTriggerAxis() > .1 || driverXbox.getRightTriggerAxis() > .1) && (!run || rerun)) {
+    //     run = true;
+    //     findClosestAprilTag();
+    // }
     
-    if (driverXbox.getLeftTriggerAxis() < .1 && driverXbox.getRightTriggerAxis() < .1) {
-        run = false;
-    }
+    // if (driverXbox.getLeftTriggerAxis() < .1 && driverXbox.getRightTriggerAxis() < .1) {
+    //     run = false;
+    // }
 
     if (alliance.isPresent()) {
         Alliance currentAlliance = alliance.get();
@@ -318,8 +318,8 @@ private void driveToBluePose() {
 }
 
 private void driveToPose(double x, double y, double degrees) {
-    driverXbox.leftTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
-    driverXbox.rightTrigger().whileTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
+    //driverXbox.leftTrigger().onTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
+    driverXbox.rightTrigger().onTrue(driveToPose(new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(degrees))));
 }
 
   

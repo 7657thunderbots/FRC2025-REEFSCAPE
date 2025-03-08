@@ -115,7 +115,7 @@ public class elbow extends SubsystemBase {
     public Command Human(){
         return runOnce(() ->{
             this.L1= false;
-            this.elbowSetPoint=.56;
+            this.elbowSetPoint=.57;
         });
     }
     public Command l1(){

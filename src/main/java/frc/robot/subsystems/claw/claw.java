@@ -84,19 +84,19 @@ public class claw extends SubsystemBase {
     // Initialize dashboard values
 
     }
+    int speed;
     public double getCurrentVelocity() {
         return encoder.getVelocity();
     }
     public void intakein() {
-        motor.set(-1);
-    }
-    public void intake_out(){
-        motor.set(.8);
+        speed=-1;
         run=false;
     }
-    public void stop(){
-        motor.set(0);
+    public void intake_out(){
+        speed=1;
+        run=false;
     }
+   
 
 
   
@@ -142,29 +142,39 @@ public class claw extends SubsystemBase {
         INTAKING,
         OUTTAKING
     }
-    private ClawState currentState = ClawState.STOPPED;
-    public Command toggleState() {
-        return Commands.runOnce(() -> {
-            switch (currentState) {
-                case STOPPED:
-                    this.intakein();
-                    currentState = ClawState.INTAKING;
-                    break;
-                case INTAKING:
-                    this.intake_out();
-                    currentState = ClawState.OUTTAKING;
-                    break;
-                case OUTTAKING:
-                    this.stop();
-                    currentState = ClawState.STOPPED;
-                    break;
-            }
+    // private ClawState currentState = ClawState.STOPPED;
+    // public Command toggleState() {
+    //     return Commands.runOnce(() -> {
+    //         switch (currentState) {
+    //             case STOPPED:
+    //                 this.intakein();
+    //                 currentState = ClawState.INTAKING;
+    //                 break;
+    //             case INTAKING:
+    //                 this.intake_out();
+    //                 currentState = ClawState.OUTTAKING;
+    //                 break;
+    //             case OUTTAKING:
+    //                 this.stop();
+    //                 currentState = ClawState.STOPPED;
+    //                 break;
+    //         }
+    //     });
+    
+    public Command intake(){
+        return Commands.run(() -> {
+            this.intakein();
+        });
+    }
+    public Command outtake(){
+        return Commands.run(() -> {
+            this.intake_out();
         });
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putString("Claw State", currentState.toString());
+      //  SmartDashboard.putString("Claw State", currentState.toString());
         // if (!intake && !outtake){
         //     motor.setVoltage(0);
         // }
@@ -176,6 +186,8 @@ public class claw extends SubsystemBase {
         //     motor.setVoltage(12); // Run the motor to shoot out the game piece
         //     outtake=false;
         // }
+        motor.set(speed);
+        speed=0;
         
         
        

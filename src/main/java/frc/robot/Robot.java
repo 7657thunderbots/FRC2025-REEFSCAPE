@@ -82,12 +82,12 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
-    // if (m_robotContainer.m_elevator.positione<-8){
-    //   m_robotContainer.m_elbow.safeL1=true;
-    // }
-    // else{
-    //   m_robotContainer.m_elbow.safeL1=false;
-    // }
+    if (m_robotContainer.m_elevator.positione<-8){
+      m_robotContainer.m_elbow.safeL1=true;
+    }
+    else{
+      m_robotContainer.m_elbow.safeL1=false;
+    }
    
 
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -182,16 +182,16 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   { 
-    if (!m_robotContainer.m_operatorController.x().getAsBoolean()&& 
-        !m_robotContainer.m_operatorController.y().getAsBoolean()&&
-        !m_robotContainer.m_operatorController.button(1).getAsBoolean()&&
-        !m_robotContainer.m_operatorController.rightBumper().getAsBoolean()&&
-        !m_robotContainer.m_operatorController.leftBumper().getAsBoolean()&&
-        !m_robotContainer.m_operatorController.b().getAsBoolean())
-    {
-      m_robotContainer.m_elevator.elbowSetPoint=0;
-      m_robotContainer.m_elbow.up();
-    }
+    // if (!m_robotContainer.m_operatorController.x().getAsBoolean()&& 
+    //     !m_robotContainer.m_operatorController.y().getAsBoolean()&&
+    //     !m_robotContainer.m_operatorController.button(1).getAsBoolean()&&
+    //     !m_robotContainer.m_operatorController.rightBumper().getAsBoolean()&&
+    //     !m_robotContainer.m_operatorController.leftBumper().getAsBoolean()&&
+    //     !m_robotContainer.m_operatorController.b().getAsBoolean())
+    // {
+    //   m_robotContainer.m_elevator.elbowSetPoint=0;
+    //   m_robotContainer.m_elbow.up();
+    // }
     
    
   }
