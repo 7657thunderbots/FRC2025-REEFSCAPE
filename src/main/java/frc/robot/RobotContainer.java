@@ -21,6 +21,8 @@ import frc.robot.subsystems.elbow.elbow;
 //import frc.robot.subsystems.climber.climber;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -109,6 +111,9 @@ public class RobotContainer
   //here
   public RobotContainer()
   {
+    NamedCommands.registerCommand("human", Commands.print("Passed marker 1"));
+    NamedCommands.registerCommand("home", Commands.print("Passed marker 2"));
+    NamedCommands.registerCommand("L4", Commands.print("hello"));
 
     autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);

@@ -203,7 +203,7 @@ public double findClosestAprilTag() {
         int index = distancesList.indexOf(minDistance);
         closestTagId = tagIds[index];
 
-        System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
+      //  System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
     } else {
         closestTagId = -1;
     }
