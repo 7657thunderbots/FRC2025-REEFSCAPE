@@ -90,7 +90,11 @@ public class elbow extends SubsystemBase {
      // Desired position
     
     
+    public void human_auto(){
+        this.elbowSetPoint=.57;
+        System.out.println("Human elbow");
 
+    }
    
     
 
@@ -116,6 +120,7 @@ public class elbow extends SubsystemBase {
         return runOnce(() ->{
             this.L1= false;
             this.elbowSetPoint=.57;
+           // System.out.println("Human elbow");
         });
     }
     public Command l1(){

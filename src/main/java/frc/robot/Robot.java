@@ -83,10 +83,10 @@ public class Robot extends TimedRobot
   public void robotPeriodic()
   {
     if (m_robotContainer.m_elevator.positione<-8){
-      m_robotContainer.m_elbow.safeL1=true;
+      m_robotContainer.m_elevator.m_elbow.safeL1=true;
     }
     else{
-      m_robotContainer.m_elbow.safeL1=false;
+      m_robotContainer.m_elevator.m_elbow.safeL1=false;
     }
    
 
@@ -125,6 +125,8 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
+    m_robotContainer.m_elevator.auto= true;
+    m_robotContainer.m_claw.auto = true;
     m_robotContainer.setMotorBrake(true);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -146,6 +148,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit()
   {
+    m_robotContainer.m_claw.auto = false;
+    m_robotContainer.m_elevator.auto= false;
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -162,26 +166,27 @@ public class Robot extends TimedRobot
   // m_operatorController.x().onTrue(m_elevator.elevatorL4());
   // m_operatorController.back().onTrue(m_wrist.toggle());
   // m_operatorController.button(9).onTrue(m_claw.toggleState());
-  // m_operatorController.button(10).onTrue(m_elbow.toggleState());
+  // m_operatorController.button(10).onTrue(m_elevator.m_elbow.toggleState());
   // m_operatorController.y().onTrue(m_elevator.elevatorL2());
   // m_operatorController.button(1).onTrue(m_elevator.elevatorL3());
   // m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
-  // m_operatorController.rightBumper().onTrue(m_elbow.l1());
+  // m_operatorController.rightBumper().onTrue(m_elevator.m_elbow.l1());
   // m_operatorController.leftBumper().onTrue(m_elevator.elevatorSource());
   // m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
   // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
-  // m_operatorController.y().onTrue(m_elbow.up());
-  // m_operatorController.button(1).onTrue(m_elbow.up());
-  // m_operatorController.leftBumper().onTrue(m_elbow.Human());
+  // m_operatorController.y().onTrue(m_elevator.m_elbow.up());
+  // m_operatorController.button(1).onTrue(m_elevator.m_elbow.up());
+  // m_operatorController.leftBumper().onTrue(m_elevator.m_elbow.Human());
   // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
   // m_operatorController.button(8).onTrue(m_elevator.Home());
-  // m_operatorController.button(8).onTrue(m_elbow.up());
+  // m_operatorController.button(8).onTrue(m_elevator.m_elbow.up());
   /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic()
   { 
+    
     // if (!m_robotContainer.m_operatorController.x().getAsBoolean()&& 
     //     !m_robotContainer.m_operatorController.y().getAsBoolean()&&
     //     !m_robotContainer.m_operatorController.button(1).getAsBoolean()&&
@@ -190,7 +195,7 @@ public class Robot extends TimedRobot
     //     !m_robotContainer.m_operatorController.b().getAsBoolean())
     // {
     //   m_robotContainer.m_elevator.elbowSetPoint=0;
-    //   m_robotContainer.m_elbow.up();
+    //   m_robotContainer.m_elevator.m_elbow.up();
     // }
     
    

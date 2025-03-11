@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.elbow.elbow;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -24,6 +26,8 @@ public class elevator extends SubsystemBase {
     //private final int CURRENT_LIMIT = 10; // Current limit in amps
     //private final double GRAVITY_FEEDFORWARD = 0.2; // Feedforward term to counteract gravity
     public double positione;
+    public boolean auto = true;
+    public final elbow m_elbow = new elbow();
     public elevator() {
 
         // SmartDashboard.setDefaultNumber("Target Position", 0);
@@ -72,6 +76,10 @@ KrakenFollower.setPosition(0);
 
         return runOnce(() -> {
             this.elbowSetPoint = -7;
+                //m_elbow.Human();
+                m_elbow.human_auto();
+        
+            System.out.println("elevator source");
         });
     }
 

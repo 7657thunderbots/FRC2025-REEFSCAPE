@@ -27,6 +27,10 @@ public class claw extends SubsystemBase {
     boolean intial = false;
     boolean outing =false;
     boolean run =false;
+    public boolean auto = true;
+    boolean stop= true;
+    boolean outtakeing = false;
+    boolean intakeing = false;
    
     public claw() {
     motor = new SparkMax(18, MotorType.kBrushless);
@@ -164,11 +168,23 @@ public class claw extends SubsystemBase {
     public Command intake(){
         return Commands.run(() -> {
             this.intakein();
+            stop=false;
+            intakeing =true;
+            outtakeing =false;
         });
     }
     public Command outtake(){
         return Commands.run(() -> {
             this.intake_out();
+            stop=false;
+            intakeing =false;
+            outtakeing =true;
+        });
+    }
+    public Command stop(){
+        return Commands.run(() -> {
+                stop=true;
+            
         });
     }
 
@@ -186,9 +202,20 @@ public class claw extends SubsystemBase {
         //     motor.setVoltage(12); // Run the motor to shoot out the game piece
         //     outtake=false;
         // }
+        if (auto){
+            if (intakeing){
+                motor.set(-1);
+            }
+            if (outtakeing){
+                motor.set(1);
+            }
+            if (stop){
+                motor.set(0);
+            }}
+        else{
         motor.set(speed);
         speed=0;
-        
+        }
         
        
         
