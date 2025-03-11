@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -344,7 +347,7 @@ public class Vision
   enum Cameras
   {
     LEFT_CAM("bottom", new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)),
-                 new Translation3d(Units.inchesToMeters(-10.125), Units.inchesToMeters(11.125), Units.inchesToMeters(34.5)),
+                 new Translation3d(Units.inchesToMeters(-10.125), Units.inchesToMeters(8.5), Units.inchesToMeters(34.5)),
                  VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));    // RIGHT_CAM("top1", new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
         //           new Translation3d(Units.inchesToMeters(12.056), Units.inchesToMeters(-10.981), Units.inchesToMeters(8.44)),
         //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
@@ -574,28 +577,12 @@ public class Vision
             
       for (var result : resultsList) {
           // Filter by ambiguity if needed
-          if (result.hasTargets()) {
-              double bestAmbiguity = 1.0;
-              for (PhotonTrackedTarget target : result.getTargets()) {
-                  double ambiguity = target.getPoseAmbiguity();
-                  if (ambiguity != -1 && ambiguity < bestAmbiguity) {
-                      bestAmbiguity = ambiguity;
-                  }
-              }
-              
-              // Skip if ambiguity is too high
-              if (bestAmbiguity > Constants.MAXIMUM_AMBIGUITY) {
-                  continue;
-              }
+         visionEst = poseEstimator.update(result);
+         updateEstimationStdDevs(visionEst, result.getTargets());
           }
           
-          visionEst = poseEstimator.update(result);
           
-          if (visionEst.isPresent()) {
-              updateEstimationStdDevs(visionEst, result.getTargets());
-              break; // Use first good result
-          }
-      }
+      
       
       estimatedRobotPose = visionEst;
     }

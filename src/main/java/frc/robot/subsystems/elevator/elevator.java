@@ -55,8 +55,7 @@ KrakenFollower.setPosition(0);
     }
     public Command elevatorL2() {
         return runOnce(() -> {
-            this.elbowSetPoint = -13;
-             // change later
+            this.elbowSetPoint = -9;
         });
     }
 
@@ -78,8 +77,6 @@ KrakenFollower.setPosition(0);
             this.elbowSetPoint = -7;
                 //m_elbow.Human();
                 m_elbow.human_auto();
-        
-            System.out.println("elevator source");
         });
     }
 

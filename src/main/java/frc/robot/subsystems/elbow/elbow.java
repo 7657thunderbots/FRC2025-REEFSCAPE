@@ -92,7 +92,6 @@ public class elbow extends SubsystemBase {
     
     public void human_auto(){
         this.elbowSetPoint=.57;
-        System.out.println("Human elbow");
 
     }
    

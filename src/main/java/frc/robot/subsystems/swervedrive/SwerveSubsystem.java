@@ -110,7 +110,7 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveSubsystem(File directory)
   {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.POSE;
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
@@ -203,7 +203,7 @@ public double findClosestAprilTag() {
         int index = distancesList.indexOf(minDistance);
         closestTagId = tagIds[index];
 
-      //  System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
+       System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
     } else {
         closestTagId = -1;
     }
@@ -217,10 +217,11 @@ boolean stop = false;
 
 @Override
 public void periodic() {
-    if (visionDriveTest) {
+    // if (visionDriveTest) {
         swerveDrive.updateOdometry();
         vision.updatePoseEstimation(swerveDrive);
-    }
+       // vision.updateVisionField(swerveDrive);
+    // }
 
 
 
