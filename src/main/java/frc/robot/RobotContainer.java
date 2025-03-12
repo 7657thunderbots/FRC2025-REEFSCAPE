@@ -114,8 +114,10 @@ public class RobotContainer
     NamedCommands.registerCommand("human", m_elevator.elevatorSource());
     NamedCommands.registerCommand("home", m_elevator.Home());
     NamedCommands.registerCommand("L4", m_elevator.elevatorL4());
-    NamedCommands.registerCommand("elbow up", m_elevator.m_elbow.up());
-    NamedCommands.registerCommand("elbow down", m_elevator.m_elbow.down());
+    NamedCommands.registerCommand("up", m_elevator.m_elbow.up());
+    NamedCommands.registerCommand("down", m_elevator.m_elbow.down());
+    NamedCommands.registerCommand("vertical",m_wrist.vertical());
+    NamedCommands.registerCommand("horizontal",m_wrist.horizontal());
     NamedCommands.registerCommand("place", m_claw.outtake());
     NamedCommands.registerCommand("intake", m_claw.intake());
     NamedCommands.registerCommand("stop", m_claw.stop());

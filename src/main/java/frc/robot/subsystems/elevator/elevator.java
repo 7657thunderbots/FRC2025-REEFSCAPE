@@ -55,7 +55,7 @@ KrakenFollower.setPosition(0);
     }
     public Command elevatorL2() {
         return runOnce(() -> {
-            this.elbowSetPoint = -9;
+            this.elbowSetPoint = -8.5;
         });
     }
 

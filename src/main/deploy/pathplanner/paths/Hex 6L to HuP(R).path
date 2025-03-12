@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.672887323943661,
+        "y": 2.9337147887323933
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8944520258110042,
+        "y": 2.2410541689445154
+      },
+      "isLocked": false,
+      "linkedName": "Hex 6L"
+    },
+    {
+      "anchor": {
+        "x": 1.607748287671233,
+        "y": 0.7118364726027392
+      },
+      "prevControl": {
+        "x": 2.5682720180810517,
+        "y": 2.625159469943952
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Human Player Left (R)"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -125.00000000000001
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 59.99999999999999
+  },
+  "useDefaultConstraints": true
+}

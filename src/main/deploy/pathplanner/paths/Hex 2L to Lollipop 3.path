@@ -1,0 +1,79 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.956338028169013,
+        "y": 5.286355633802816
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.781305373064667,
+        "y": 5.085185132876219
+      },
+      "isLocked": false,
+      "linkedName": "Hex 2L"
+    },
+    {
+      "anchor": {
+        "x": 2.359032534246575,
+        "y": 4.002461472602739
+      },
+      "prevControl": {
+        "x": 3.1584921123560017,
+        "y": 5.089328069845482
+      },
+      "nextControl": {
+        "x": 0.5273979933693664,
+        "y": 1.5123513340223473
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.397388698630137,
+        "y": 2.5149186643835617
+      },
+      "prevControl": {
+        "x": 2.001867245667191,
+        "y": 3.090340558029882
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Lollipop 3 "
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6440677966101691,
+      "rotationDegrees": -59.27254913880722
+    },
+    {
+      "waypointRelativePos": 1.1,
+      "rotationDegrees": -121.48426447086857
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -118.73979529168803
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -59.99999999999999
+  },
+  "useDefaultConstraints": true
+}

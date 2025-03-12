@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.2,
+        "y": 7.256338028169014
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.200000000000001,
+        "y": 7.256338028169014
+      },
+      "isLocked": true,
+      "linkedName": "Cage 1 Start (Blue)"
+    },
+    {
+      "anchor": {
+        "x": 6.7625,
+        "y": 7.256338028169014
+      },
+      "prevControl": {
+        "x": 7.428609154929578,
+        "y": 7.242165492957747
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "Do Not Use (Linked Waypoints)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

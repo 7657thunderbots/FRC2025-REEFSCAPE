@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start(2) to Hex 2L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hex 2L to Lollipop 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lollipop 1 to Hex 1L "
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hex 1L to Lollipop 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lollipop 3 to Hex 1R"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hex 1R to Lollipop 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lollipop 2 to Hex 2R"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

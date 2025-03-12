@@ -1,0 +1,121 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.956338028169013,
+        "y": 5.286355633802816
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.024015859905532,
+        "y": 5.1814122353487475
+      },
+      "isLocked": false,
+      "linkedName": "Hex 2L"
+    },
+    {
+      "anchor": {
+        "x": 1.717077464788731,
+        "y": 7.383890845070423
+      },
+      "prevControl": {
+        "x": 1.8812960781468686,
+        "y": 7.195390852957079
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Human Player Right"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.33205374280230304,
+      "rotationDegrees": 144.03152926753498
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "stop",
+      "waypointRelativePos": 0.13832853025936592,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "stop"
+        }
+      }
+    },
+    {
+      "name": "up",
+      "waypointRelativePos": 0.17002881844380388,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "up"
+        }
+      }
+    },
+    {
+      "name": "home",
+      "waypointRelativePos": 0.2247838616714695,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "home"
+        }
+      }
+    },
+    {
+      "name": "vertical",
+      "waypointRelativePos": 0.5677233429394813,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "vertical"
+        }
+      }
+    },
+    {
+      "name": "human",
+      "waypointRelativePos": 0.5821325648414993,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "human"
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.7406340057636902,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 126.52885536698511
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -59.99999999999999
+  },
+  "useDefaultConstraints": true
+}

@@ -67,7 +67,7 @@ public final class Constants {
   // CONTROL CONSTANT CLASSES
 
   public static class Vision {
-      public static final String kCameraName = "HD_Webcam_C615";
+     // public static final String kCameraName = "HD_Webcam_C615";
       // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
       public static final Transform3d kRobotToCam =
               new Transform3d(new Translation3d(0.127, .3620516, .2397125), new Rotation3d(0, 0, 0));
@@ -85,8 +85,8 @@ public final class Constants {
   public static final class AutonConstants
   {
 
-    public static  PIDConstants TRANSLATION_PID = new PIDConstants(20, 0, 0);
-    public static  PIDConstants ANGLE_PID   = new PIDConstants(20, 0, 0.0);
+    public static  PIDConstants TRANSLATION_PID = new PIDConstants(10, 0, 0);
+    public static  PIDConstants ANGLE_PID   = new PIDConstants(10, 0, 0.0);
   }
 
   public static class DriveteamConstants {

@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start(5) to Hex 5R"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hex 5R to HuP(R)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HuP(R) to Hex 6R"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hex 6R to HuP(R)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HuP(R) to Hex 6L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hex 6L to HuP(R)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HuP(R) to Hex 1R"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

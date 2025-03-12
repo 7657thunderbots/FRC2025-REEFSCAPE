@@ -1,0 +1,116 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.672887323943661,
+        "y": 5.102
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.4633991451824273,
+        "y": 5.400766074567382
+      },
+      "isLocked": false,
+      "linkedName": "Hex 2R"
+    },
+    {
+      "anchor": {
+        "x": 1.717077464788731,
+        "y": 7.383890845070423
+      },
+      "prevControl": {
+        "x": 4.405629972919695,
+        "y": 4.1477952873857795
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Human Player Right"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.0,
+      "rotationDegrees": -163.4480245869284
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "up",
+      "waypointRelativePos": 0.11527377521613827,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "home",
+      "waypointRelativePos": 0.12680115273775283,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "human"
+        }
+      }
+    },
+    {
+      "name": "stop",
+      "waypointRelativePos": 0.1412103746397694,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "human",
+      "waypointRelativePos": 0.876080691642651,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "human"
+        }
+      }
+    },
+    {
+      "name": "vertical",
+      "waypointRelativePos": 0.9077809798270919,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "vertical"
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.9221902017291064,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 126.52885536698511
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -59.99999999999999
+  },
+  "useDefaultConstraints": true
+}
