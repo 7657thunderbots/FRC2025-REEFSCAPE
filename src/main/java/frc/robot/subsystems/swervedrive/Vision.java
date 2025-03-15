@@ -22,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import java.awt.Desktop;
 import java.util.ArrayList;
@@ -307,8 +308,8 @@ public class Vision {
    * Camera Enum to select each camera
    */
   enum Cameras {
-    LEFT_CAM("bottom", new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)),
-        new Translation3d(Units.inchesToMeters(-10.125), Units.inchesToMeters(8.5), Units.inchesToMeters(34.5)),
+    LEFT_CAM("bottom", new Rotation3d(Math.toRadians(0), Math.toRadians(0), Math.toRadians(30)),
+        new Translation3d(Units.inchesToMeters(-10.125), Units.inchesToMeters(9.25), Units.inchesToMeters(18)),
         VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
     // LEFT_CAM("bottom", new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)),
     // new Translation3d(Units.inchesToMeters(6.375), Units.inchesToMeters(16.5),
@@ -575,7 +576,8 @@ public class Vision {
         // average-distance metric
         for (var tgt : targets) {
           var tagPose = poseEstimator.getFieldTags().getTagPose(tgt.getFiducialId());
-          if (tagPose.isEmpty()) {
+
+          if (tagPose.isEmpty() || tgt.poseAmbiguity > Constants.MAXIMUM_AMBIGUITY) {
             continue;
           }
           numTags++;

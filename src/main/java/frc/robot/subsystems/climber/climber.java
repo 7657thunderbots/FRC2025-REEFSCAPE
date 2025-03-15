@@ -33,10 +33,9 @@ public class climber extends SubsystemBase {
     double speed;
 
     public climber() {
-<<<<<<< HEAD
-    motor = new SparkMax(25, MotorType.kBrushless);
-    closedLoopController = motor.getClosedLoopController();
-    encoder = motor.getAbsoluteEncoder();
+    //motor = new SparkMax(25, MotorType.kBrushless);
+    // closedLoopController = motor.getClosedLoopController();
+    // encoder = motor.getAbsoluteEncoder();
     Servo.setAngle(23);
     
     
@@ -88,17 +87,16 @@ public class climber extends SubsystemBase {
      * mid-operation.
      */
    // motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-=======
         motor = new SparkMax(25, MotorType.kBrushless);
-        closedLoopController = motor.getClosedLoopController();
-        encoder = motor.getAbsoluteEncoder();
-        Servo.setAngle(23);
+       // closedLoopController = motor.getClosedLoopController();
+       // encoder = motor.getAbsoluteEncoder();
+        //Servo.setAngle(23);
 
         /*
          * Create a new SPARK MAX configuration object. This will store the
          * configuration parameters for the SPARK MAX that we will set below.
          */
-        motorConfig = new SparkMaxConfig();
+        // motorConfig = new SparkMaxConfig();
 
         /*
          * Configure the encoder. For this specific example, we are using the
@@ -106,29 +104,28 @@ public class climber extends SubsystemBase {
          * needed, we can adjust values like the position or velocity conversion
          * factors.
          */
-        motorConfig.encoder
-                .positionConversionFactor(1)
-                .velocityConversionFactor(1);
+        // motorConfig.encoder
+        //         .positionConversionFactor(1)
+        //         .velocityConversionFactor(1);
 
         /*
          * Configure the closed loop controller. We want to make sure we set the
          * feedback sensor as the primary encoder.
          */
-        motorConfig.closedLoop
-                .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                // Set PID values for position control. We don't need to pass a closed loop
-                // slot, as it will default to slot 0.
-                .p(0.1)
-                .i(0)
-                .d(0)
-                .outputRange(-1, 1)
-                // Set PID values for velocity control in slot 1
-                .p(0.0001, ClosedLoopSlot.kSlot1)
-                .i(0, ClosedLoopSlot.kSlot1)
-                .d(0, ClosedLoopSlot.kSlot1)
-                .velocityFF(1.0 / 5767, ClosedLoopSlot.kSlot1)
-                .outputRange(-1, 1, ClosedLoopSlot.kSlot1);
->>>>>>> 60a612f3281729d6c0e23acc49f005b4811c8d08
+        // motorConfig.closedLoop
+        //         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        //         // Set PID values for position control. We don't need to pass a closed loop
+        //         // slot, as it will default to slot 0.
+        //         .p(0.1)
+        //         .i(0)
+        //         .d(0)
+        //         .outputRange(-1, 1)
+        //         // Set PID values for velocity control in slot 1
+        //         .p(0.0001, ClosedLoopSlot.kSlot1)
+        //         .i(0, ClosedLoopSlot.kSlot1)
+        //         .d(0, ClosedLoopSlot.kSlot1)
+        //         .velocityFF(1.0 / 5767, ClosedLoopSlot.kSlot1)
+        //         .outputRange(-1, 1, ClosedLoopSlot.kSlot1);
 
         /*
          * Apply the configuration to the SPARK MAX.
@@ -140,13 +137,13 @@ public class climber extends SubsystemBase {
          * the SPARK MAX loses power. This is useful for power cycles that may occur
          * mid-operation.
          */
-        motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        // motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
         // Initialize dashboard values
-        SmartDashboard.setDefaultNumber("Target Position", 0);
-        SmartDashboard.setDefaultNumber("Target Velocity", 0);
-        SmartDashboard.setDefaultBoolean("Control Mode", false);
-        SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+        // SmartDashboard.setDefaultNumber("Target Position", 0);
+        // SmartDashboard.setDefaultNumber("Target Velocity", 0);
+        // SmartDashboard.setDefaultBoolean("Control Mode", false);
+        // SmartDashboard.setDefaultBoolean("Reset Encoder", false);
 
     }
 
@@ -162,15 +159,13 @@ public class climber extends SubsystemBase {
 
     public Command up() {
         return run(() -> {
-<<<<<<< HEAD
+
            // if (encoder.getPosition()<.8){
                 speed=1;
                 // Servo.setAngle(0);
-=======
             // if (encoder.getPosition()<.8){
             speed = .5;
-            Servo.setAngle(0);
->>>>>>> 60a612f3281729d6c0e23acc49f005b4811c8d08
+            // Servo.setAngle(0);
             // }
             // else{
             // speed =0;
@@ -180,24 +175,22 @@ public class climber extends SubsystemBase {
 
     public Command down() {
         return run(() -> {
-<<<<<<< HEAD
+
             // if (encoder.getPosition()>.5 && Servo.getAngle()>16){
-                speed=-.5;
+                // speed=-.5;
                 // Servo.setAngle(23);
             // }
             // else{
                 // speed=0;
                 // Servo.setAngle(23);
+            //
+            // if (encoder.getPosition() > .5 && Servo.getAngle() > 16) {
+            //     speed = -.1;
+            //     Servo.setAngle(23);
+            // } else {
+            //     speed = 0;
+            //     Servo.setAngle(23);
             // }
-=======
-            if (encoder.getPosition() > .5 && Servo.getAngle() > 16) {
-                speed = -.1;
-                Servo.setAngle(23);
-            } else {
-                speed = 0;
-                Servo.setAngle(23);
-            }
->>>>>>> 60a612f3281729d6c0e23acc49f005b4811c8d08
         });
     }
 

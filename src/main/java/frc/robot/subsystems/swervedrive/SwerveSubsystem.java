@@ -124,7 +124,7 @@ public class SwerveSubsystem extends SubsystemBase {
       throw new RuntimeException(e);
     }
 
-    swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via
+    swerveDrive.setHeadingCorrection(true); // Heading correction should only be used while controlling the robot via
                                              // angle.
     swerveDrive.setCosineCompensator(false);// !SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for
                                             // simulations since it causes discrepancies not seen in real life.
@@ -205,7 +205,7 @@ public class SwerveSubsystem extends SubsystemBase {
           Arrays.stream(distances).boxed().toArray(Double[]::new));
       double minDistance = Collections.min(distancesList);
       int index = distancesList.indexOf(minDistance);
-      closestTagId = tagIds[index];
+      closestTagId = 6;// tagIds[index];
 
       System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
     } else {
@@ -237,7 +237,7 @@ public class SwerveSubsystem extends SubsystemBase {
       run = false;
       closestTagId = -1;
     }
-
+    SmartDashboard.putNumber("Closest Tag", closestTagId);
     if (alliance.isPresent()) {
       Alliance currentAlliance = alliance.get();
 
@@ -252,6 +252,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public void driveToRedPose() {
+    // closestTagId = 6;
     if (closestTagId == 7) {
       LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
       RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));
@@ -350,9 +351,9 @@ public class SwerveSubsystem extends SubsystemBase {
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic
               // drive trains
-              new PIDConstants(.5, 0.0, 0.0),
+              new PIDConstants(3, 0.0, 0.01),
               // Translation PID constants
-              new PIDConstants(.1, 0.0, 0.0)
+              new PIDConstants(1, 0.0, 0.0)
           // Rotation PID constants
           ),
           config,
@@ -632,7 +633,7 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
       DoubleSupplier headingY) {
-    swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+   // swerveDrive.setHeadingCorrection(false); // Normally you would want heading correction for this kind of control.
     return run(() -> {
 
       Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
