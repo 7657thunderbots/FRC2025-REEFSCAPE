@@ -13,7 +13,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 public class elevator extends SubsystemBase {
     private final TalonFX KrakenLeader = new TalonFX(14);
     private final TalonFX KrakenFollower = new TalonFX(13);
-   // private PIDController pidController;
+    // private PIDController pidController;
     public double elbowSetPoint = 0;
     private double errorSum = 0;
     private double lastError = 0;
@@ -21,38 +21,40 @@ public class elevator extends SubsystemBase {
     private double kP = .085;
     private double kI = 0.0;
     private double kD = 0.0;
-    private double b= .04;
+    private double b = .04;
     private double hiLimit = 0.1; // Threshold for integral term
-    //private final int CURRENT_LIMIT = 10; // Current limit in amps
-    //private final double GRAVITY_FEEDFORWARD = 0.2; // Feedforward term to counteract gravity
+    // private final int CURRENT_LIMIT = 10; // Current limit in amps
+    // private final double GRAVITY_FEEDFORWARD = 0.2; // Feedforward term to
+    // counteract gravity
     public double positione;
     public boolean auto = true;
     public final elbow m_elbow = new elbow();
+
     public elevator() {
 
         // SmartDashboard.setDefaultNumber("Target Position", 0);
         // SmartDashboard.setDefaultNumber("Target Velocity", 0);
         // SmartDashboard.setDefaultBoolean("Control Mode", false);
         // SmartDashboard.setDefaultBoolean("Reset Encoder", false);
-    TalonFXConfiguration config = new TalonFXConfiguration();
-    config.CurrentLimits.SupplyCurrentLimit =10;
-    
-    config.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.6; // Adjust the value as needed
-    KrakenFollower.getConfigurator().apply(config);
-    KrakenLeader.getConfigurator().apply(config);
-KrakenLeader.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
-KrakenFollower.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
-KrakenLeader.setPosition(0);
-KrakenFollower.setPosition(0);
-    
+        TalonFXConfiguration config = new TalonFXConfiguration();
+        config.CurrentLimits.SupplyCurrentLimit = 10;
+
+        config.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.6; // Adjust the value as needed
+        KrakenFollower.getConfigurator().apply(config);
+        KrakenLeader.getConfigurator().apply(config);
+        KrakenLeader.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
+        KrakenFollower.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
+        KrakenLeader.setPosition(0);
+        KrakenFollower.setPosition(0);
+
     }
-   
 
     public Command elevatorL1() {
         return runOnce(() -> {
             this.elbowSetPoint = -12.5;
         });
     }
+
     public Command elevatorL2() {
         return runOnce(() -> {
             this.elbowSetPoint = -8.5;
@@ -75,8 +77,8 @@ KrakenFollower.setPosition(0);
 
         return runOnce(() -> {
             this.elbowSetPoint = -7;
-                //m_elbow.Human();
-                m_elbow.human_auto();
+            // m_elbow.Human();
+            m_elbow.human_auto();
         });
     }
 
@@ -92,16 +94,15 @@ KrakenFollower.setPosition(0);
         });
     }
 
-
     @Override
     public void periodic() {
-        if (elbowSetPoint<-32.){
-            elbowSetPoint=0;
+        if (elbowSetPoint < -32.) {
+            elbowSetPoint = 0;
         }
-        if (elbowSetPoint>0){
-            elbowSetPoint=0;
+        if (elbowSetPoint > 0) {
+            elbowSetPoint = 0;
         }
-         positione = KrakenLeader.getPosition().getValueAsDouble();
+        positione = KrakenLeader.getPosition().getValueAsDouble();
         double error = elbowSetPoint - KrakenLeader.getPosition().getValueAsDouble();
         double dt = Timer.getFPGATimestamp() - lastTimestamp;
 
@@ -111,23 +112,22 @@ KrakenFollower.setPosition(0);
 
         double errorRate = (error - lastError) / dt;
         double output = kP * error + kI * errorSum + kD * errorRate;
-        if (output<-.6){
-            output=-.6;
+        if (output < -.6) {
+            output = -.6;
         }
-        if (output>.2){
-            output=.2;
+        if (output > .2) {
+            output = .2;
         }
-
 
         KrakenLeader.set((output - b));
-        KrakenFollower.set((output - b ));
+        KrakenFollower.set((output - b));
 
         lastTimestamp = Timer.getFPGATimestamp();
         lastError = error;
 
         SmartDashboard.putNumber("elevator", KrakenLeader.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("elevator2", KrakenFollower.getPosition().getValueAsDouble());
-        SmartDashboard.putNumber("output",output);
+        SmartDashboard.putNumber("output", output);
         // SmartDashboard.putNumber("motor amp", motor.getSupplyCurrent());
     }
 }
