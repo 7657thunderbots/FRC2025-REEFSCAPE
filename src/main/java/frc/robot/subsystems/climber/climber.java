@@ -36,7 +36,7 @@ public class climber extends SubsystemBase {
     //motor = new SparkMax(25, MotorType.kBrushless);
     // closedLoopController = motor.getClosedLoopController();
     // encoder = motor.getAbsoluteEncoder();
-    Servo.setAngle(23);
+   // Servo.setAngle(23);
     
     
     /*
@@ -161,10 +161,10 @@ public class climber extends SubsystemBase {
         return run(() -> {
 
            // if (encoder.getPosition()<.8){
-                speed=1;
+               // speed=1;
                 // Servo.setAngle(0);
             // if (encoder.getPosition()<.8){
-            speed = .5;
+           speed = 1;
             // Servo.setAngle(0);
             // }
             // else{
@@ -177,7 +177,7 @@ public class climber extends SubsystemBase {
         return run(() -> {
 
             // if (encoder.getPosition()>.5 && Servo.getAngle()>16){
-                // speed=-.5;
+                speed=-.5;
                 // Servo.setAngle(23);
             // }
             // else{

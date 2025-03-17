@@ -20,7 +20,7 @@ public class elevator extends SubsystemBase {
     private double lastTimestamp = 0;
     private double kP = .085;
     private double kI = 0.0;
-    private double kD = 0.0;
+    private double kD = .01;
     private double b = .04;
     private double hiLimit = 0.1; // Threshold for integral term
     // private final int CURRENT_LIMIT = 10; // Current limit in amps
@@ -29,6 +29,7 @@ public class elevator extends SubsystemBase {
     public double positione;
     public boolean auto = true;
     public final elbow m_elbow = new elbow();
+    boolean home=true;
 
     public elevator() {
 
@@ -51,24 +52,28 @@ public class elevator extends SubsystemBase {
 
     public Command elevatorL1() {
         return runOnce(() -> {
+            this.home=false;
             this.elbowSetPoint = -12.5;
         });
     }
 
     public Command elevatorL2() {
         return runOnce(() -> {
+            this.home=false;
             this.elbowSetPoint = -8.5;
         });
     }
 
     public Command elevatorL3() {
         return runOnce(() -> {
+            this.home=false;
             this.elbowSetPoint = -15.5;
         });
     }
 
     public Command elevatorL4() {
         return runOnce(() -> {
+            this.home=false;
             this.elbowSetPoint = -29.000;
         });
     }
@@ -76,6 +81,7 @@ public class elevator extends SubsystemBase {
     public Command elevatorSource() {
 
         return runOnce(() -> {
+            this.home=false;
             this.elbowSetPoint = -7;
             // m_elbow.Human();
             m_elbow.human_auto();
@@ -84,12 +90,15 @@ public class elevator extends SubsystemBase {
 
     public Command Home() {
         return runOnce(() -> {
+            this.home=true;
             this.elbowSetPoint = -0;
+        
         });
     }
 
     public Command elevatorHighAlgae() {
         return runOnce(() -> {
+            this.home=false;
             this.elbowSetPoint = -30.5;
         });
     }
@@ -102,6 +111,14 @@ public class elevator extends SubsystemBase {
         if (elbowSetPoint > 0) {
             elbowSetPoint = 0;
         }
+        if (home){
+            kP=.085;
+            kD = .01;
+        }
+        else{
+            kP=.11;
+            kD = .01;
+        }
         positione = KrakenLeader.getPosition().getValueAsDouble();
         double error = elbowSetPoint - KrakenLeader.getPosition().getValueAsDouble();
         double dt = Timer.getFPGATimestamp() - lastTimestamp;
@@ -112,8 +129,8 @@ public class elevator extends SubsystemBase {
 
         double errorRate = (error - lastError) / dt;
         double output = kP * error + kI * errorSum + kD * errorRate;
-        if (output < -.6) {
-            output = -.6;
+        if (output < -.8) {
+            output = -.8;
         }
         if (output > .2) {
             output = .2;

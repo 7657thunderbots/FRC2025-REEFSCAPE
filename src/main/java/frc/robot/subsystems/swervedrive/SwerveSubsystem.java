@@ -116,6 +116,8 @@ public class SwerveSubsystem extends SubsystemBase {
           new Pose2d(new Translation2d(Meter.of(1),
               Meter.of(4)),
               Rotation2d.fromDegrees(0)));
+      swerveDrive.setChassisDiscretization(false, 0.0002);
+
       // Alternative method if you don't want to supply the conversion factor via JSON
       // files.
       // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed,
@@ -124,13 +126,13 @@ public class SwerveSubsystem extends SubsystemBase {
       throw new RuntimeException(e);
     }
 
-    swerveDrive.setHeadingCorrection(true); // Heading correction should only be used while controlling the robot via
+    swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via
                                              // angle.
     swerveDrive.setCosineCompensator(false);// !SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for
                                             // simulations since it causes discrepancies not seen in real life.
     swerveDrive.setAngularVelocityCompensation(true,
         true,
-        0.1); // Correct for skew that gets worse as angular velocity increases. Start with a
+        -0.125); // Correct for skew that gets worse as angular velocity increases. Start with a
               // coefficient of 0.1.
     swerveDrive.setModuleEncoderAutoSynchronize(false,
         1); // Enable if you want to resynchronize your absolute encoders and motor encoders
@@ -221,11 +223,11 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // if (visionDriveTest) {
+     if (visionDriveTest) {
     swerveDrive.updateOdometry();
     vision.updatePoseEstimation(swerveDrive);
     // vision.updateVisionField(swerveDrive);
-    // }
+    }
 
     // Use the triggers to control the robot actions
     if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean()) && (!run || rerun)) {
@@ -351,9 +353,9 @@ public class SwerveSubsystem extends SubsystemBase {
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic
               // drive trains
-              new PIDConstants(3, 0.0, 0.01),
+              new PIDConstants(3, 0.01, 0.5),
               // Translation PID constants
-              new PIDConstants(1, 0.0, 0.0)
+              new PIDConstants(1, 0.01, 0.05)
           // Rotation PID constants
           ),
           config,
@@ -442,7 +444,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public Command driveToPose(Pose2d pose) {
     // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 4.0,
+        swerveDrive.getMaximumChassisVelocity(), 1.0,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands
@@ -640,12 +642,14 @@ public class SwerveSubsystem extends SubsystemBase {
           translationY.getAsDouble()), 0.8);
 
       // Make the robot move
+      if ( !LeftTrigger.getAsBoolean()||!RightTrigger.getAsBoolean()){
       driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
           headingX.getAsDouble(),
           headingY.getAsDouble(),
           swerveDrive.getOdometryHeading().getRadians(),
           swerveDrive.getMaximumChassisVelocity()));
-    });
+      }});
+  
   }
 
   /**

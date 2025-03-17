@@ -174,6 +174,8 @@ public class RobotContainer {
     // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
     m_operatorController.button(8).onTrue(m_elevator.elevatorSource());
     m_operatorController.button(8).onTrue(m_elevator.m_elbow.Human());
+    drivebase.driverXbox.a().whileTrue(m_climber.down());
+    drivebase.driverXbox.b().whileTrue(m_climber.up());
     // *******home is in robot.java**********
 
     // m_operatorController.button(2).onFalse(drivebase.driveToPose(new Pose2d(new
@@ -221,27 +223,27 @@ public class RobotContainer {
       // drivebase.driveToPose(new Pose2d(new Translation2d(3.177, 4.167),
       // Rotation2d.fromDegrees(0)));
     }
-    if (DriverStation.isTest()) {
+    // if (DriverStation.isTest()) {
 
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+      // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-      drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      drivebase.driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      drivebase.driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      drivebase.driverXbox.leftBumper().onTrue(Commands.none());
-      drivebase.driverXbox.rightBumper().onTrue(Commands.none());
-    } else {
+      // drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      // drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
+      // drivebase.driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      // drivebase.driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+      // drivebase.driverXbox.leftBumper().onTrue(Commands.none());
+      // drivebase.driverXbox.rightBumper().onTrue(Commands.none());
+    // } else {
       // drivebase.driverXbox.button(2).onTrue((Commands.runOnce(drivebase::zeroGyro)));
       // drivebase.driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       // drivebase.driverXbox.b().whileTrue(
       // drivebase.driveToPose(
       // new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
       // );
-      drivebase.driverXbox.start().whileTrue(Commands.none());
-      drivebase.driverXbox.back().whileTrue(Commands.none());
-      drivebase.driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      drivebase.driverXbox.rightBumper().onTrue(Commands.none());
+      // drivebase.driverXbox.start().whileTrue(Commands.none());
+      // drivebase.driverXbox.back().whileTrue(Commands.none());
+      // drivebase.driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      // drivebase.driverXbox.rightBumper().onTrue(Commands.none());
     }
     // Path Planner commands
     // drivebase.driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new
@@ -251,7 +253,7 @@ public class RobotContainer {
     // drivebase.driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new
     // Translation2d(2, 4), Rotation2d.fromDegrees(180))));
 
-  }
+  // }
   // public void configurePathPlanner(){
   // drivebase.setupPathPlanner();
   // // NamedCommands.registerCommand("roller", System.out.println("I Work"));
