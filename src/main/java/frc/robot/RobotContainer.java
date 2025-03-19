@@ -118,7 +118,7 @@ public class RobotContainer {
 
   // here
   public RobotContainer() {
-    autoChooser = AutoBuilder.buildAutoChooser("");
+    
     // drivebase.setupPathPlanner();
     NamedCommands.registerCommand("human", m_elevator.elevatorSource());
     NamedCommands.registerCommand("home", m_elevator.Home());
@@ -130,6 +130,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("place", m_claw.outtake());
     NamedCommands.registerCommand("intake", m_claw.intake());
     NamedCommands.registerCommand("stop", m_claw.stop());
+    autoChooser = AutoBuilder.buildAutoChooser("");
 
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
