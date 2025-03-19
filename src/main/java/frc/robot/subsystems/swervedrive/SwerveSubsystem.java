@@ -116,7 +116,7 @@ public class SwerveSubsystem extends SubsystemBase {
           new Pose2d(new Translation2d(Meter.of(1),
               Meter.of(4)),
               Rotation2d.fromDegrees(0)));
-      swerveDrive.setChassisDiscretization(false, 0.0002);
+      //swerveDrive.setChassisDiscretization(false, 0.0002);
 
       // Alternative method if you don't want to supply the conversion factor via JSON
       // files.
@@ -233,6 +233,7 @@ public class SwerveSubsystem extends SubsystemBase {
     if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean()) && (!run || rerun)) {
       run = true;
       findClosestAprilTag();
+      //centerModulesCommand();
     }
 
     if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean()) {
@@ -322,7 +323,8 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Setup AutoBuilder for PathPlanner.
    */
-  public void setupPathPlanner() {
+  public void 
+  setupPathPlanner() {
     // Load the RobotConfig from the GUI settings. You should probably
     // store this in your Constants file
     RobotConfig config;
@@ -353,9 +355,9 @@ public class SwerveSubsystem extends SubsystemBase {
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic
               // drive trains
-              new PIDConstants(3, 0.01, 0.5),
+              new PIDConstants(3, 0.0, 0.01),
               // Translation PID constants
-              new PIDConstants(1, 0.01, 0.05)
+              new PIDConstants(1, 0.0, 0.0)
           // Rotation PID constants
           ),
           config,
@@ -444,7 +446,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public Command driveToPose(Pose2d pose) {
     // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 1.0,
+        swerveDrive.getMaximumChassisVelocity(), 4,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands

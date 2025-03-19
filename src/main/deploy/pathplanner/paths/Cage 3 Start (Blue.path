@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 7.2,
-        "y": 6.165052816901408
+        "y": 5.073767605633802
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.199999999999988,
-        "y": 6.165052816901408
+        "x": 6.1999999999999975,
+        "y": 5.073767605633802
       },
       "isLocked": true,
-      "linkedName": "Cage 2 Start (Blue)"
+      "linkedName": "Cage 3 Start (Blue) "
     },
     {
       "anchor": {
-        "x": 6.493221830985915,
-        "y": 6.165052816901408
+        "x": 6.833362676056338,
+        "y": 5.073767605633802
       },
       "prevControl": {
-        "x": 6.741291300164332,
-        "y": 6.134044133254106
+        "x": 7.3140845070422476,
+        "y": 5.05457746478873
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,12 +42,12 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.91137947432296
+    "rotation": -179.5867118716429
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": 180.0
   },
   "useDefaultConstraints": true

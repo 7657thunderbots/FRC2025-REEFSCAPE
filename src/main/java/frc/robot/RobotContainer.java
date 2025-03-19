@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  private final SendableChooser<Command> autoChooser;
   // Subsystems
   public final elevator m_elevator = new elevator();
   public final Wrist m_wrist = new Wrist();
@@ -113,10 +114,12 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
 
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
 
   // here
   public RobotContainer() {
+    autoChooser = AutoBuilder.buildAutoChooser("");
+    // drivebase.setupPathPlanner();
     NamedCommands.registerCommand("human", m_elevator.elevatorSource());
     NamedCommands.registerCommand("home", m_elevator.Home());
     NamedCommands.registerCommand("L4", m_elevator.elevatorL4());
@@ -128,12 +131,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", m_claw.intake());
     NamedCommands.registerCommand("stop", m_claw.stop());
 
-    autoChooser = AutoBuilder.buildAutoChooser("Simple Auto");
     Shuffleboard.getTab("Pre-Match").add("Auto Chooser", autoChooser);
     configureBindings();
     // SmartDashboard.putNumber("elevator in container", m_elevator.positione);
     SmartDashboard.putBoolean("elbow safe", m_elevator.m_elbow.safeL1);
-
+      drivebase.setupPathPlanner();
   }
 
   /**
@@ -171,7 +173,6 @@ public class RobotContainer {
     m_operatorController.y().onTrue(m_elevator.m_elbow.up());
     m_operatorController.button(1).onTrue(m_elevator.m_elbow.up());
     m_operatorController.leftBumper().onTrue(m_elevator.m_elbow.up());
-    // m_operatorController.leftBumper().onTrue(m_wrist.vertical());
     m_operatorController.button(8).onTrue(m_elevator.elevatorSource());
     m_operatorController.button(8).onTrue(m_elevator.m_elbow.Human());
     drivebase.driverXbox.a().whileTrue(m_climber.down());
@@ -225,33 +226,37 @@ public class RobotContainer {
     }
     // if (DriverStation.isTest()) {
 
-      // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+    // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides
+    // drive command above!
 
-      // drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      // drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      // drivebase.driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      // drivebase.driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      // drivebase.driverXbox.leftBumper().onTrue(Commands.none());
-      // drivebase.driverXbox.rightBumper().onTrue(Commands.none());
+    // drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock,
+    // drivebase).repeatedly());
+    // drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0,
+    // 0.2));
+    // drivebase.driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    // drivebase.driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+    // drivebase.driverXbox.leftBumper().onTrue(Commands.none());
+    // drivebase.driverXbox.rightBumper().onTrue(Commands.none());
     // } else {
-      // drivebase.driverXbox.button(2).onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      // drivebase.driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      // drivebase.driverXbox.b().whileTrue(
-      // drivebase.driveToPose(
-      // new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-      // );
-      // drivebase.driverXbox.start().whileTrue(Commands.none());
-      // drivebase.driverXbox.back().whileTrue(Commands.none());
-      // drivebase.driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      // drivebase.driverXbox.rightBumper().onTrue(Commands.none());
-    }
-    // Path Planner commands
-    // drivebase.driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new
-    // Translation2d(2, 2), Rotation2d.fromDegrees(0))));
-    // drivebase.driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new
-    // Translation2d(4, 2), Rotation2d.fromDegrees(90))));
-    // drivebase.driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new
-    // Translation2d(2, 4), Rotation2d.fromDegrees(180))));
+    // drivebase.driverXbox.button(2).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    // drivebase.driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+    // drivebase.driverXbox.b().whileTrue(
+    // drivebase.driveToPose(
+    // new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+    // );
+    // drivebase.driverXbox.start().whileTrue(Commands.none());
+    // drivebase.driverXbox.back().whileTrue(Commands.none());
+    // drivebase.driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock,
+    // drivebase).repeatedly());
+    // drivebase.driverXbox.rightBumper().onTrue(Commands.none());
+  }
+  // Path Planner commands
+  // drivebase.driverXbox.povUp().onTrue(drivebase.driveToPose(new Pose2d(new
+  // Translation2d(2, 2), Rotation2d.fromDegrees(0))));
+  // drivebase.driverXbox.povRight().onTrue(drivebase.driveToPose(new Pose2d(new
+  // Translation2d(4, 2), Rotation2d.fromDegrees(90))));
+  // drivebase.driverXbox.povDown().onTrue(drivebase.driveToPose(new Pose2d(new
+  // Translation2d(2, 4), Rotation2d.fromDegrees(180))));
 
   // }
   // public void configurePathPlanner(){

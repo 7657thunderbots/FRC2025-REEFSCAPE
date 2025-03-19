@@ -4,15 +4,15 @@
     {
       "anchor": {
         "x": 7.2,
-        "y": 7.256338028169014
+        "y": 6.165052816901408
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.2,
-        "y": 7.256338028169014
+        "x": 5.30211562399205,
+        "y": 6.079413147477928
       },
       "isLocked": false,
-      "linkedName": "Cage 1 Start (Blue)"
+      "linkedName": "Cage 2 Start (Blue)"
     },
     {
       "anchor": {
@@ -20,18 +20,42 @@
         "y": 5.286355633802816
       },
       "prevControl": {
-        "x": 3.456338028169013,
-        "y": 6.152381037587255
+        "x": 4.191056504739474,
+        "y": 5.200290328618659
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Hex 2L"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.794491525423728,
+      "rotationDegrees": -59.99999999999999
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "place",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "L4",
+      "waypointRelativePos": 0.5130718954248369,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "down",
+      "waypointRelativePos": 0.8300653594771228,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

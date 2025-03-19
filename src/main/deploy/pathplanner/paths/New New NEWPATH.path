@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 5.073767605633802
+        "x": 2.0,
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.1999999999999975,
-        "y": 5.073767605633802
+        "x": 3.0,
+        "y": 7.0
       },
-      "isLocked": true,
-      "linkedName": "Cage 3 Start (Blue) "
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.833362676056338,
-        "y": 5.073767605633802
+        "x": 4.0,
+        "y": 6.0
       },
       "prevControl": {
-        "x": 7.3140845070422476,
-        "y": 5.05457746478873
+        "x": 3.0,
+        "y": 6.0
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.5867118716429
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Do Not Use (Linked Waypoints)",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
