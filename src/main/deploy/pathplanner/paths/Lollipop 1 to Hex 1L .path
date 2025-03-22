@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "stop",
-      "waypointRelativePos": 0.4582132564841495,
+      "waypointRelativePos": 0.5792507204610963,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -47,11 +47,44 @@
           "name": "stop"
         }
       }
+    },
+    {
+      "name": "up",
+      "waypointRelativePos": 0.700288184438042,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "up"
+        }
+      }
+    },
+    {
+      "name": "L4",
+      "waypointRelativePos": 0.7896253602305475,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4"
+        }
+      }
+    },
+    {
+      "name": "down",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "down"
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -67,5 +100,5 @@
     "velocity": 0,
     "rotation": 133.7811247648687
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -110,7 +110,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public SwerveSubsystem(File directory) {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
     // objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.POSE;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
     try {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
           new Pose2d(new Translation2d(Meter.of(1),
@@ -189,7 +189,7 @@ public class SwerveSubsystem extends SubsystemBase {
             vision.getDistanceFromAprilTag(8), vision.getDistanceFromAprilTag(9),
             vision.getDistanceFromAprilTag(10), vision.getDistanceFromAprilTag(11)
         };
-        tagIds = new int[] { 1, 2, 6, 7, 8, 9, 10, 11 };
+        tagIds = new int[] {6, 7, 8, 9, 10, 11 };
       } else if (currentAlliance == Alliance.Blue) {
         distances = new double[] {
             vision.getDistanceFromAprilTag(12), vision.getDistanceFromAprilTag(13),
@@ -197,7 +197,7 @@ public class SwerveSubsystem extends SubsystemBase {
             vision.getDistanceFromAprilTag(19), vision.getDistanceFromAprilTag(20),
             vision.getDistanceFromAprilTag(21), vision.getDistanceFromAprilTag(22)
         };
-        tagIds = new int[] { 12, 13, 17, 18, 19, 20, 21, 22 };
+        tagIds = new int[] {17, 18, 19, 20, 21, 22 };
       } else {
         closestTagId = -1;
         return closestTagId;
@@ -207,7 +207,7 @@ public class SwerveSubsystem extends SubsystemBase {
           Arrays.stream(distances).boxed().toArray(Double[]::new));
       double minDistance = Collections.min(distancesList);
       int index = distancesList.indexOf(minDistance);
-      closestTagId = 6;// tagIds[index];
+      closestTagId = tagIds[index];
 
       System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
     } else {

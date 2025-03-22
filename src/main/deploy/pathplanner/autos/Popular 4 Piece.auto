@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "down"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Hex 3L to HuPl(L)"

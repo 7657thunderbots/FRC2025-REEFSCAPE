@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start(2) to Hex 3L"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Hex 3L to HuPl(L)"
+            "pathName": "New Path"
           }
         },
         {
@@ -23,27 +17,27 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "HuP(L) to Hex 2L"
+            "name": "place"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Hex 2L to HuP(L)"
+            "pathName": "New New Path"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "home"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "HuP(L) to Hex 2R"
+            "name": "stop"
           }
         }
       ]

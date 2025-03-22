@@ -54,6 +54,7 @@ public class elevator extends SubsystemBase {
         return runOnce(() -> {
             this.home=false;
             this.elbowSetPoint = -12.5;
+            m_elbow.l1();
         });
     }
 

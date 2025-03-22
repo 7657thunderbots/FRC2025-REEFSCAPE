@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.316901408450703,
-        "y": 5.102112676056337
+        "x": 5.047623239436619,
+        "y": 5.3005281690140835
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.509031348076244,
-        "y": 5.267864204251838
+        "x": 5.239753179062159,
+        "y": 5.466279697209584
       },
       "isLocked": false,
       "linkedName": "Hex 3L"
@@ -43,7 +43,7 @@
   "eventMarkers": [
     {
       "name": "up",
-      "waypointRelativePos": 0.16714697406340043,
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -109,8 +109,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -126,5 +126,5 @@
     "velocity": 0,
     "rotation": -119.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

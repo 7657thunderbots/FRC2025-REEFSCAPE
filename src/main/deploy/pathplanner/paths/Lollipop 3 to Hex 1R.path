@@ -31,10 +31,55 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "stop",
+      "waypointRelativePos": 0.0951008645533141,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "stop"
+        }
+      }
+    },
+    {
+      "name": "up",
+      "waypointRelativePos": 0.25648414985590756,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "up"
+        }
+      }
+    },
+    {
+      "name": "L4",
+      "waypointRelativePos": 0.33141210374639724,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4"
+        }
+      }
+    },
+    {
+      "name": "down",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "down"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -50,5 +95,5 @@
     "velocity": 0,
     "rotation": -118.73979529168803
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

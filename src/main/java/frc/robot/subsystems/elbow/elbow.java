@@ -16,7 +16,7 @@ public class elbow extends SubsystemBase {
     // private SparkClosedLoopController closedLoopController;
     public AbsoluteEncoder encoder;
     // private PIDController pidController;
-    public double elbowSetPoint = .76;
+    public double elbowSetPoint = .584;
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;

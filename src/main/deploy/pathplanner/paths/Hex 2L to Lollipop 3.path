@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.956338028169013,
-        "y": 5.286355633802816
+        "x": 3.9517551369863013,
+        "y": 5.279644691780822
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.781305373064667,
-        "y": 5.085185132876219
+        "x": 3.776722481881955,
+        "y": 5.078474190854226
       },
       "isLocked": false,
       "linkedName": "Hex 2L"
@@ -20,12 +20,12 @@
         "y": 4.002461472602739
       },
       "prevControl": {
-        "x": 3.1584921123560017,
-        "y": 5.089328069845482
+        "x": 2.6873586867530985,
+        "y": 4.51186148464989
       },
       "nextControl": {
-        "x": 0.5273979933693664,
-        "y": 1.5123513340223473
+        "x": 1.4052816901408434,
+        "y": 2.522711267605632
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 2.5149186643835617
       },
       "prevControl": {
-        "x": 2.001867245667191,
-        "y": 3.090340558029882
+        "x": 1.5455827080416347,
+        "y": 2.7162605019994555
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,8 +58,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -75,5 +75,5 @@
     "velocity": 0,
     "rotation": -59.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

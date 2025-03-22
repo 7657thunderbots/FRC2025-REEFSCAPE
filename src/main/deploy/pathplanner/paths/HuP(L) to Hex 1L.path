@@ -78,7 +78,12 @@
       "name": "up",
       "waypointRelativePos": 0.19596541786743515,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "up"
+        }
+      }
     },
     {
       "name": "L4",
@@ -115,8 +120,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -132,5 +137,5 @@
     "velocity": 0,
     "rotation": 126.52885536698511
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
