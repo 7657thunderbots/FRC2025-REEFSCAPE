@@ -11,15 +11,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "down"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Hex 3L to HuPl(L)"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {

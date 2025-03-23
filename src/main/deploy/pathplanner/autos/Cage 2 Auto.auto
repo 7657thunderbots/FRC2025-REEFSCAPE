@@ -7,25 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "Start(2) to Hex 3L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New Path"
+            "pathName": "Hex 3L to HuPl(L)"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "home"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stop"
+            "pathName": "HuP(L) to Hex 2L"
           }
         }
       ]

@@ -65,8 +65,8 @@ public class RobotContainer {
       () -> drivebase.driverXbox.getLeftY() * -1,
       () -> drivebase.driverXbox.getLeftX() * -1)
       .withControllerRotationAxis(() -> drivebase.driverXbox.getRightX() * -1)
-      .deadband(.2)
-      .scaleTranslation(0.8)
+      .deadband(.05)
+      .scaleTranslation(0.6)
       .allianceRelativeControl(true);
 
   /**

@@ -35,6 +35,7 @@ public class elbow extends SubsystemBase {
         motor = new SparkMax(16, MotorType.kBrushless);
 
         encoder = motor.getAbsoluteEncoder();
+        // encoder = motor.getEncoder();
 
         /*
          * Create a new SPARK MAX configuration object. This will store the
@@ -84,8 +85,8 @@ public class elbow extends SubsystemBase {
     // Desired position
 
     public void human_auto() {
-        this.elbowSetPoint = .57;
-
+         this.elbowSetPoint = .57;
+       //this.elbowSetPoint=.6;
     }
 
     public Command up() {

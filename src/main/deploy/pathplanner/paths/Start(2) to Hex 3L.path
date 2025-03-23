@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.978583788873371,
-        "y": 6.048971546016189
+        "x": 6.701455479452055,
+        "y": 6.346468321917809
       },
       "isLocked": false,
       "linkedName": "Cage 2 Start (Blue)"
     },
     {
       "anchor": {
-        "x": 5.047623239436619,
-        "y": 5.3005281690140835
+        "x": 4.988527397260274,
+        "y": 5.309696061643836
       },
       "prevControl": {
-        "x": 7.793567797789045,
-        "y": 6.842040879313965
+        "x": 6.05535102739726,
+        "y": 5.910723458904108
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.8909090909090909,
+      "waypointRelativePos": 0.3610389610389608,
       "rotationDegrees": -120.38900000000001
     }
   ],
@@ -50,7 +50,7 @@
     },
     {
       "name": "L4",
-      "waypointRelativePos": 0.2679738562091524,
+      "waypointRelativePos": 0.614379084967319,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -58,11 +58,22 @@
           "name": "L4"
         }
       }
+    },
+    {
+      "name": "down",
+      "waypointRelativePos": 0.979827089337176,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "down"
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

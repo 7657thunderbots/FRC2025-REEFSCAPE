@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.005105633802817,
-        "y": 6.533538732394366
+        "x": 2.5994434931506847,
+        "y": 6.376519691780822
       },
       "isLocked": false,
       "linkedName": "Cage 2 Start (Blue)"
     },
     {
       "anchor": {
-        "x": 3.9517551369863013,
-        "y": 5.279644691780822
+        "x": 3.8766267123287674,
+        "y": 5.294670376712329
       },
       "prevControl": {
-        "x": 4.186473613556762,
-        "y": 5.1935793865966655
+        "x": 4.111345188899229,
+        "y": 5.208605071528172
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "L4",
-      "waypointRelativePos": 0.5130718954248369,
+      "waypointRelativePos": 0.143790849673203,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -50,7 +50,7 @@
     },
     {
       "name": "down",
-      "waypointRelativePos": 0.9682997118155673,
+      "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -70,7 +70,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": -57.80426606528677
   },
   "reversed": false,
   "folder": null,

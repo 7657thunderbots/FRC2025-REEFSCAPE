@@ -177,7 +177,7 @@ public class climber extends SubsystemBase {
         return run(() -> {
 
             // if (encoder.getPosition()>.5 && Servo.getAngle()>16){
-                speed=-.5;
+                speed=-1;
                 // Servo.setAngle(23);
             // }
             // else{

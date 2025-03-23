@@ -15,7 +15,7 @@ public class Wrist extends SubsystemBase {
     // private SparkClosedLoopController closedLoopController;
     public AbsoluteEncoder encoder;
     // private PIDController pidController;
-    public double wristSetPoint = .264;
+    public double wristSetPoint = .75;
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;
@@ -91,13 +91,13 @@ public class Wrist extends SubsystemBase {
 
     public Command horizontal() {
         return runOnce(() -> {
-            this.wristSetPoint = .264;
+            this.wristSetPoint = .75;
         });
     }
 
     public Command vertical() {
         return runOnce(() -> {
-            this.wristSetPoint = .507;
+            this.wristSetPoint = .5;
         });
     }
 
@@ -107,10 +107,10 @@ public class Wrist extends SubsystemBase {
         return runOnce(() -> {
             if (isVertical) {
                 isVertical = false;
-                wristSetPoint = .264; // horizontal
+                wristSetPoint = .75; // horizontal
             } else {
                 isVertical = true;
-                wristSetPoint = .507; // vertical
+                wristSetPoint = .5; // vertical
             }
         });
     }
