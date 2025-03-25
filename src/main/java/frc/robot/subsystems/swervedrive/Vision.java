@@ -3,7 +3,7 @@ package frc.robot.subsystems.swervedrive;
 import static edu.wpi.first.units.Units.Microseconds;
 import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.Seconds;
-import frc.robot.subsystems.led.LED;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
@@ -48,7 +48,6 @@ import swervelib.telemetry.SwerveDriveTelemetry;
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
 public class Vision {
-  private LED m_ledSubsystem;
 
   /**
    * April Tag Field Layout of the year.
@@ -312,11 +311,10 @@ public class Vision {
     LEFT_CAM("bottom", new Rotation3d(Math.toRadians(0), Math.toRadians(0), Math.toRadians(30)),
         new Translation3d(Units.inchesToMeters(9.25), Units.inchesToMeters(-10.125), Units.inchesToMeters(18)),
         VecBuilder.fill(.25, .25, .5), VecBuilder.fill(0.5, 0.5, 1));
-
-    // RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
-    // new Translation3d(Units.inchesToMeters(3.5), Units.inchesToMeters(-8.25),
-    // Units.inchesToMeters(30)),
-    // VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)); // RIGHT_CAM("top1",
+    //  RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
+    //  new Translation3d(Units.inchesToMeters(3.5), Units.inchesToMeters(-8.25),
+    //  Units.inchesToMeters(30)),
+    //  VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)); // RIGHT_CAM("top1",
     // new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
     // // new Translation3d(Units.inchesToMeters(12.056),
     // Units.inchesToMeters(-10.981), Units.inchesToMeters(8.44)),
@@ -348,11 +346,6 @@ public class Vision {
     // Units.inchesToMeters(-10.687),
     // Units.inchesToMeters(16.129)),
     // VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
-    private LED ledSubsystem;
-
-    public void setLEDSubsystem(LED ledSubsystem) {
-      this.ledSubsystem = ledSubsystem;
-    }
 
     /**
      * Latency alert to use when high latency is detected.
@@ -570,7 +563,6 @@ public class Vision {
     private void updateEstimationStdDevs(
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
       if (estimatedPose.isEmpty()) {
-
         // No pose input. Default to single-tag std devs
         curStdDevs = singleTagStdDevs;
 
@@ -595,9 +587,7 @@ public class Vision {
               .getTranslation()
               .getDistance(estimatedPose.get().estimatedPose.toPose2d().getTranslation());
         }
-        if (numTags >= 1) {
-          ledSubsystem.setAllLEDsColorHSV(124, 91, 95); // setting led to green if anytags are seen
-        }
+
 
         if (numTags == 0) {
           // No tags visible. Default to single-tag std devs

@@ -116,7 +116,7 @@ public class SwerveSubsystem extends SubsystemBase {
           new Pose2d(new Translation2d(Meter.of(1),
               Meter.of(4)),
               Rotation2d.fromDegrees(0)));
-      // swerveDrive.setChassisDiscretization(false, 0.0002);
+      //swerveDrive.setChassisDiscretization(false, 0.0002);
 
       // Alternative method if you don't want to supply the conversion factor via JSON
       // files.
@@ -133,7 +133,7 @@ public class SwerveSubsystem extends SubsystemBase {
     swerveDrive.setAngularVelocityCompensation(true,
         true,
         -0.125); // Correct for skew that gets worse as angular velocity increases. Start with a
-    // coefficient of 0.1.
+              // coefficient of 0.1.
     swerveDrive.setModuleEncoderAutoSynchronize(false,
         1); // Enable if you want to resynchronize your absolute encoders and motor encoders
             // periodically when they are not moving.
@@ -189,7 +189,7 @@ public class SwerveSubsystem extends SubsystemBase {
             vision.getDistanceFromAprilTag(8), vision.getDistanceFromAprilTag(9),
             vision.getDistanceFromAprilTag(10), vision.getDistanceFromAprilTag(11)
         };
-        tagIds = new int[] { 6, 7, 8, 9, 10, 11 };
+        tagIds = new int[] {6, 7, 8, 9, 10, 11 };
       } else if (currentAlliance == Alliance.Blue) {
         distances = new double[] {
             vision.getDistanceFromAprilTag(12), vision.getDistanceFromAprilTag(13),
@@ -197,7 +197,7 @@ public class SwerveSubsystem extends SubsystemBase {
             vision.getDistanceFromAprilTag(19), vision.getDistanceFromAprilTag(20),
             vision.getDistanceFromAprilTag(21), vision.getDistanceFromAprilTag(22)
         };
-        tagIds = new int[] { 17, 18, 19, 20, 21, 22 };
+        tagIds = new int[] {17, 18, 19, 20, 21, 22 };
       } else {
         closestTagId = -1;
         return closestTagId;
@@ -223,17 +223,17 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (visionDriveTest) {
-      swerveDrive.updateOdometry();
-      vision.updatePoseEstimation(swerveDrive);
-      // vision.updateVisionField(swerveDrive);
+     if (visionDriveTest) {
+    swerveDrive.updateOdometry();
+    vision.updatePoseEstimation(swerveDrive);
+    // vision.updateVisionField(swerveDrive);
     }
 
     // Use the triggers to control the robot actions
     if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean()) && (!run || rerun)) {
       run = true;
       findClosestAprilTag();
-      // centerModulesCommand();
+      //centerModulesCommand();
     }
 
     if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean()) {
@@ -323,7 +323,8 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Setup AutoBuilder for PathPlanner.
    */
-  public void setupPathPlanner() {
+  public void 
+  setupPathPlanner() {
     // Load the RobotConfig from the GUI settings. You should probably
     // store this in your Constants file
     RobotConfig config;
@@ -636,23 +637,21 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
       DoubleSupplier headingY) {
-    // swerveDrive.setHeadingCorrection(false); // Normally you would want heading
-    // correction for this kind of control.
+   // swerveDrive.setHeadingCorrection(false); // Normally you would want heading correction for this kind of control.
     return run(() -> {
 
       Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
           translationY.getAsDouble()), 0.8);
 
       // Make the robot move
-      if (!LeftTrigger.getAsBoolean() || !RightTrigger.getAsBoolean()) {
-        driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-            headingX.getAsDouble(),
-            headingY.getAsDouble(),
-            swerveDrive.getOdometryHeading().getRadians(),
-            swerveDrive.getMaximumChassisVelocity()));
-      }
-    });
-
+      if ( !LeftTrigger.getAsBoolean()||!RightTrigger.getAsBoolean()){
+      driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
+          headingX.getAsDouble(),
+          headingY.getAsDouble(),
+          swerveDrive.getOdometryHeading().getRadians(),
+          swerveDrive.getMaximumChassisVelocity()));
+      }});
+  
   }
 
   /**
