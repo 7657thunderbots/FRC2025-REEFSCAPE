@@ -65,8 +65,8 @@ public class RobotContainer {
       () -> drivebase.driverXbox.getLeftY() * -1,
       () -> drivebase.driverXbox.getLeftX() * -1)
       .withControllerRotationAxis(() -> drivebase.driverXbox.getRightX() * -1)
-      .deadband(.05)
-      .scaleTranslation(0.6)
+      .deadband(.15)
+      .scaleTranslation(0.8)
       .allianceRelativeControl(true);
 
   /**
@@ -90,8 +90,8 @@ public class RobotContainer {
       () -> -drivebase.driverXbox.getLeftX())
       .withControllerRotationAxis(() -> drivebase.driverXbox.getRawAxis(
           2))
-      .deadband(.05)
-      .scaleTranslation(0.8)
+      .deadband(.1)
+      .scaleTranslation(0.6)
       .allianceRelativeControl(true);
   // Derive the heading axis with math!
   SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard.copy()
@@ -176,8 +176,8 @@ public class RobotContainer {
     m_operatorController.leftBumper().onTrue(m_elevator.m_elbow.up());
     m_operatorController.button(8).onTrue(m_elevator.elevatorSource());
     m_operatorController.button(8).onTrue(m_elevator.m_elbow.Human());
-    drivebase.driverXbox.a().whileTrue(m_climber.down());
-    drivebase.driverXbox.b().whileTrue(m_climber.up());
+    // drivebase.driverXbox.a().whileTrue(m_climber.down());
+    // drivebase.driverXbox.b().whileTrue(m_climber.up());
     // *******home is in robot.java**********
 
     // m_operatorController.button(2).onFalse(drivebase.driveToPose(new Pose2d(new
@@ -232,8 +232,8 @@ public class RobotContainer {
 
     // drivebase.driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock,
     // drivebase).repeatedly());
-    // drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0,
-    // 0.2));
+    drivebase.driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0,
+    0.2));
     // drivebase.driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     // drivebase.driverXbox.back().whileTrue(drivebase.centerModulesCommand());
     // drivebase.driverXbox.leftBumper().onTrue(Commands.none());
