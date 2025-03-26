@@ -23,7 +23,7 @@ CTRE [Phoenix 5 API](https://api.ctr-electronics.com/phoenix/release/java/)
 CTRE [Phoenix 6 Examples](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main)
 
 ### REVLib
-REV [REV API](https://codedocs.revrobotics.com/java/com/revrobotics/package-summary.html)
+REV [API](https://codedocs.revrobotics.com/java/com/revrobotics/package-summary.html)
 
-REV [REVLib Examples](https://github.com/REVrobotics/REVLib-Examples)
+REV [Lib Examples](https://github.com/REVrobotics/REVLib-Examples)
 
