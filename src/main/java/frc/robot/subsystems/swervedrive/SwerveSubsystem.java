@@ -28,12 +28,15 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
@@ -101,13 +104,17 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public Trigger RightTrigger;
   public Trigger LeftTrigger;
+  public Trigger RightBumper;// I think this similar in principle to trigger but using the Right Bumper
+                             // button
+  public Trigger LeftBumper;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
    * @param directory Directory of swerve drive config files.
    */
-  public SwerveSubsystem(File directory) {
+  public SwerveSubsystem(
+      File directory) {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
     // objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
@@ -129,10 +136,10 @@ public class SwerveSubsystem extends SubsystemBase {
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via
                                              // angle.
     swerveDrive.setCosineCompensator(false);// !SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for
-                                            //simulations since it causes discrepancies not seen in real life.
+                                            // simulations since it causes discrepancies not seen in real life.
     swerveDrive.setAngularVelocityCompensation(true,
         true,
-        -.035  ); // Correct for skew that gets worse as angular velocity increases. Start with a
+        -.035); // Correct for skew that gets worse as angular velocity increases. Start with a
     // coefficient of 0.1.
     swerveDrive.setModuleEncoderAutoSynchronize(false,
         1); // Enable if you want to resynchronize your absolute encoders and motor encoders
@@ -147,6 +154,8 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive.stopOdometryThread();
     }
     setupPathPlanner();
+    LeftBumper = driverXbox.leftBumper();// running these at the end so everything else is done
+    RightBumper = driverXbox.rightBumper();
   }
 
   /**
@@ -184,18 +193,20 @@ public class SwerveSubsystem extends SubsystemBase {
 
       if (currentAlliance == Alliance.Red) {
         distances = new double[] {
+            vision.getDistanceFromAprilTag(1), vision.getDistanceFromAprilTag(2),
             vision.getDistanceFromAprilTag(6), vision.getDistanceFromAprilTag(7),
             vision.getDistanceFromAprilTag(8), vision.getDistanceFromAprilTag(9),
             vision.getDistanceFromAprilTag(10), vision.getDistanceFromAprilTag(11)
         };
-        tagIds = new int[] { 6, 7, 8, 9, 10, 11 };
+        tagIds = new int[] { 1, 2, 6, 7, 8, 9, 10, 11 };
       } else if (currentAlliance == Alliance.Blue) {
         distances = new double[] {
+            vision.getDistanceFromAprilTag(12), vision.getDistanceFromAprilTag(13),
             vision.getDistanceFromAprilTag(17), vision.getDistanceFromAprilTag(18),
             vision.getDistanceFromAprilTag(19), vision.getDistanceFromAprilTag(20),
             vision.getDistanceFromAprilTag(21), vision.getDistanceFromAprilTag(22)
         };
-        tagIds = new int[] { 17, 18, 19, 20, 21, 22 };
+        tagIds = new int[] { 12, 13, 17, 18, 19, 20, 21, 22 };
       } else {
         closestTagId = -1;
         return closestTagId;
@@ -207,7 +218,10 @@ public class SwerveSubsystem extends SubsystemBase {
       int index = distancesList.indexOf(minDistance);
       closestTagId = tagIds[index];
 
-      System.out.println("The closest tag ID is: " + closestTagId + " with a distance of: " + minDistance);
+      // Comented out this line as it should only be used for debugging not during
+      // matches.
+      // System.out.println("The closest tag ID is: " + closestTagId + " with a
+      // distance of: " + minDistance);
     } else {
       closestTagId = -1;
     }
@@ -228,13 +242,15 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     // Use the triggers to control the robot actions
-    if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean()) && (!run || rerun)) {
+    if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean() || RightBumper.getAsBoolean()
+        || LeftBumper.getAsBoolean()) && (!run || rerun)) {
       run = true;
       findClosestAprilTag();
       // centerModulesCommand();
     }
 
-    if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean()) {
+    if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean() && !RightBumper.getAsBoolean()
+        && !LeftBumper.getAsBoolean()) {
       run = false;
       closestTagId = -1;
     }
@@ -255,6 +271,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public void driveToRedPose() {
     // closestTagId = 6;
     if (closestTagId == 7) {
+
       LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
       RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));
     } else if (closestTagId == 8) {
@@ -273,11 +290,11 @@ public class SwerveSubsystem extends SubsystemBase {
       LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120))));
       RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120))));
     } else if (closestTagId == 1) {
-      LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
-      RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));
+      LeftBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
+      RightBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));
     } else if (closestTagId == 2) {
-      LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
-      RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
+      LeftBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
+      RightBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
     }
   }
 
@@ -301,11 +318,11 @@ public class SwerveSubsystem extends SubsystemBase {
       LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
       RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));
     } else if (closestTagId == 12) {
-      LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
-      RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));
+      LeftBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
+      RightBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));
     } else if (closestTagId == 13) {
-      LeftTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
-      RightTrigger.whileTrue(driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));
+      LeftBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
+      RightBumper.whileTrue(driveToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));
     }
 
   }
