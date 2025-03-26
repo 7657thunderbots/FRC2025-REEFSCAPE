@@ -29,9 +29,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "stop"
+            "pathName": "1 piece to loli"
           }
         }
       ]

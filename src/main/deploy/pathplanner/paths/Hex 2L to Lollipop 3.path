@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.8766267123287674,
-        "y": 5.294670376712329
+        "x": 6.89,
+        "y": 4.209
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7015940572244213,
-        "y": 5.093499875785732
+        "x": 6.714967344895653,
+        "y": 4.007829499073403
       },
       "isLocked": false,
       "linkedName": "Hex 2L"
@@ -73,7 +73,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -57.80426606528677
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }
