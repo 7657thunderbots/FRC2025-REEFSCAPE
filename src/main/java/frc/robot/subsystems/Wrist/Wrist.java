@@ -148,6 +148,12 @@ public class Wrist extends SubsystemBase {
         if (output > .3) {
             output = .3;
         }
+        if (encoder.getPosition()>.75 && output >0){
+            output = 0; // Prevents the wrist from going past 90 degrees when in the upside down position
+        }
+        if (encoder.getPosition()<.25 && output <0){
+            output = 0; // Prevents the wrist from going past 90 degrees when in the upside down position
+        }
 
         motor.set(output);
 
