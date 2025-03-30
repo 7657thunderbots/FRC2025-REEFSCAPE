@@ -310,7 +310,7 @@ public class Vision {
   enum Cameras {
     LEFT_CAM("bottom", new Rotation3d(Math.toRadians(0), Math.toRadians(0), Math.toRadians(30)),
         new Translation3d(Units.inchesToMeters(9.25), Units.inchesToMeters(-10.125), Units.inchesToMeters(18)),
-        VecBuilder.fill(0.9, 0.9, 6), VecBuilder.fill(0.5, 0.5, 1));
+        VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1));
     // RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
     // new Translation3d(Units.inchesToMeters(3.5), Units.inchesToMeters(-8.25),
     // Units.inchesToMeters(30)),

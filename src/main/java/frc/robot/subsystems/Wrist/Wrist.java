@@ -15,13 +15,13 @@ public class Wrist extends SubsystemBase {
     // private SparkClosedLoopController closedLoopController;
     public AbsoluteEncoder encoder;
     // private PIDController pidController;
-    public double wristSetPoint = .75;
+    public double wristSetPoint = .5;
     private double errorSum = 0;
     private double lastError = 0;
     private double lastTimestamp = 0;
     private double kP = 4;
     private double kI = 0.0;
-    private double kD = 0.00;
+    private double kD = 0.010;
     private double hiLimit = 0.1; // Threshold for integral term
     private final int CURRENT_LIMIT = 10; // Current limit in amps
 
@@ -91,26 +91,32 @@ public class Wrist extends SubsystemBase {
 
     public Command horizontal() {
         return runOnce(() -> {
-            this.wristSetPoint = .75;
+            this.wristSetPoint = .5;
         });
     }
 
     public Command vertical() {
         return runOnce(() -> {
-            this.wristSetPoint = .5;
+            this.wristSetPoint = .25;
         });
     }
-
     private boolean isVertical = false;
 
+    public Command upsidedown() {
+        return runOnce(() -> {
+            this.wristSetPoint = .75;
+            isVertical=true;
+        });
+    }
+   
     public Command toggle() {
         return runOnce(() -> {
             if (isVertical) {
                 isVertical = false;
-                wristSetPoint = .75; // horizontal
+                wristSetPoint = .5; // horizontal
             } else {
                 isVertical = true;
-                wristSetPoint = .5; // vertical
+                wristSetPoint = .25; // vertical
             }
         });
     }
@@ -136,6 +142,12 @@ public class Wrist extends SubsystemBase {
 
         double errorRate = (error - lastError) / dt;
         double output = kP * error + kI * errorSum + kD * errorRate;
+        if (output < -.3) {
+            output = -.3;
+        }
+        if (output > .3) {
+            output = .3;
+        }
 
         motor.set(output);
 
