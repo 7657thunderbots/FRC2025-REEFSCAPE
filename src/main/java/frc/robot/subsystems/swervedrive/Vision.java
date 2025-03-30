@@ -49,7 +49,7 @@ import frc.robot.subsystems.led.LED;
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
 public class Vision {
-  private LED m_ledSubsystem;
+  private static LED m_ledSubsystem;
 
   /**
    * April Tag Field Layout of the year.
@@ -86,9 +86,10 @@ public class Vision {
    *                    {@link SwerveDrive#getPose()}
    * @param field       Current field, should be {@link SwerveDrive#field}
    */
-  public Vision(Supplier<Pose2d> currentPose, Field2d field) {
+  public Vision(Supplier<Pose2d> currentPose, Field2d field, LED led) {
     this.currentPose = currentPose;
     this.field2d = field;
+    m_ledSubsystem = led;
 
     if (Robot.isSimulation()) {
       visionSim = new VisionSystemSim("Vision");
@@ -349,11 +350,6 @@ public class Vision {
     // Units.inchesToMeters(-10.687),
     // Units.inchesToMeters(16.129)),
     // VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
-    private LED ledSubsystem;
-
-    public void setLEDSubsystem(LED ledSubsystem) {
-      this.ledSubsystem = ledSubsystem;
-    }
 
     /**
      * Latency alert to use when high latency is detected.
@@ -598,7 +594,7 @@ public class Vision {
 
         if (numTags == 0) {
           // No tags visible. Default to single-tag std devs
-          ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
+          m_ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
           curStdDevs = singleTagStdDevs;
         } else {
           // One or more tags visible, run the full heuristic.
