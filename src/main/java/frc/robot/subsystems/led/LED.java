@@ -9,8 +9,8 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     private final AddressableLEDBuffer m_ledBuffer;
 
     public LED() {
-        m_led = new AddressableLED(1);
-        m_ledBuffer = new AddressableLEDBuffer(1000);
+        m_led = new AddressableLED(3);
+        m_ledBuffer = new AddressableLEDBuffer(60);
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);
         m_led.start();
@@ -28,7 +28,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
 
     public void clearLEDs() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setRGB(i, 100, 0, 0);
+            m_ledBuffer.setRGB(i, 0, 0, 0);
         }
         m_led.setData(m_ledBuffer);
     }
@@ -90,8 +90,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         int b = rgb & 0xFF;
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             m_ledBuffer.setRGB(i, r, g, b);
-            m_led.setData(m_ledBuffer);
         }
-      
+        m_led.setData(m_ledBuffer);
     }
 }

@@ -239,11 +239,6 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // if (vision.numTags == 0) {
-    //   // No tags visible. Default to single-tag std devs
-    //   vision.ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
-  
-    // } 
     if (visionDriveTest) {
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);
