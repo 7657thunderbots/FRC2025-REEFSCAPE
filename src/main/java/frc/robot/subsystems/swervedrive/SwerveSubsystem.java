@@ -61,10 +61,12 @@ import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+import frc.robot.subsystems.led.led;
 
 public class SwerveSubsystem extends SubsystemBase {
 
   public final CommandXboxController driverXbox = new CommandXboxController(0);
+  public led m_ledSusbsystem;
   /**
    * Simulate the primary vision system to show where the robot thinks it is.
    */
@@ -176,7 +178,11 @@ public class SwerveSubsystem extends SubsystemBase {
    * Setup the photon vision class.
    */
   public void setupPhotonVision() {
-    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
+
+    int ledLength = 60;
+
+    m_ledSusbsystem = new led(3, ledLength);
+    vision = new Vision(swerveDrive::getPose, swerveDrive.field, m_ledSusbsystem);
   }
 
   Optional<Alliance> alliance = DriverStation.getAlliance();
