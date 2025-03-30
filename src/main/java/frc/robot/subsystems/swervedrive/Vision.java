@@ -568,7 +568,7 @@ public class Vision {
      * @param estimatedPose The estimated pose to guess standard deviations for.
      * @param targets       All targets in this camera frame
      */
-    private void updateEstimationStdDevs(
+    public void updateEstimationStdDevs(
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
       if (estimatedPose.isEmpty()) {
         // No pose input. Default to single-tag std devs

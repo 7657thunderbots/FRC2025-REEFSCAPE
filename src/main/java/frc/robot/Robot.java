@@ -5,10 +5,14 @@
 package frc.robot;
 
 import frc.robot.subsystems.led.LED;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -29,11 +33,11 @@ public class Robot extends TimedRobot {
   private Timer disabledTimer;
 
   private LED m_ledSubsystem;
-  // private AddressableLED m_led;
-  // private AddressableLEDBuffer m_ledBuffer;
-  // LEDPattern gradient =
-  // LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kOrange,
-  // Color.kBlue);
+   private AddressableLED m_led;
+   private AddressableLEDBuffer m_ledBuffer;
+  LEDPattern gradient =
+  LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kOrange,
+  Color.kBlue);
 
   // // Our LED strip has a density of 120 LEDs per meter
   // private static final Distance kLedSpacing = Meters.of(1 / 120.0);
@@ -60,9 +64,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // m_led = new AddressableLED(0);
-    // m_ledBuffer = new AddressableLEDBuffer(60);
+    // m_led = new AddressableLED(1);
+
+    // Reuse buffer
+    // Default to a length of 60, start empty output
+    // Length is expensive to set, so only set it once, then just update data
+    // m_ledBuffer = new AddressableLEDBuffer(1000);
     // m_led.setLength(m_ledBuffer.getLength());
+
+    // // Set the data
     // m_led.setData(m_ledBuffer);
     // m_led.start();
     // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -93,6 +103,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    // Create an LED pattern that sets the entire strip to solid red
+    m_ledSubsystem.setAllLEDsColorHSV(0,0,0);
+
+    
+// LEDPattern red = LEDPattern.solid(Color.kRed);
+
+// // Apply the LED pattern to the data buffer
+// red.applyTo(m_ledBuffer);
+
+// // Write the data to the LED strip
+// m_led.setData(m_ledBuffer);
+
     if (m_robotContainer.m_elevator.positione < -8) {
       m_robotContainer.m_elevator.m_elbow.safeL1 = true;
     } else {
