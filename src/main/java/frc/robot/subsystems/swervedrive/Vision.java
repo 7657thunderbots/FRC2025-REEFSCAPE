@@ -41,6 +41,7 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import swervelib.SwerveDrive;
 import swervelib.telemetry.SwerveDriveTelemetry;
+import frc.robot.subsystems.led.LED;
 
 /**
  * Example PhotonVision class to aid in the pursuit of accurate odometry. Taken
@@ -48,6 +49,7 @@ import swervelib.telemetry.SwerveDriveTelemetry;
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
 public class Vision {
+  private LED m_ledSubsystem;
 
   /**
    * April Tag Field Layout of the year.
@@ -311,6 +313,7 @@ public class Vision {
     LEFT_CAM("bottom", new Rotation3d(Math.toRadians(0), Math.toRadians(0), Math.toRadians(30)),
         new Translation3d(Units.inchesToMeters(9.25), Units.inchesToMeters(-10.125), Units.inchesToMeters(18)),
         VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1));
+
     // RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
     // new Translation3d(Units.inchesToMeters(3.5), Units.inchesToMeters(-8.25),
     // Units.inchesToMeters(30)),
@@ -346,6 +349,11 @@ public class Vision {
     // Units.inchesToMeters(-10.687),
     // Units.inchesToMeters(16.129)),
     // VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    private LED ledSubsystem;
+
+    public void setLEDSubsystem(LED ledSubsystem) {
+      this.ledSubsystem = ledSubsystem;
+    }
 
     /**
      * Latency alert to use when high latency is detected.
@@ -590,6 +598,7 @@ public class Vision {
 
         if (numTags == 0) {
           // No tags visible. Default to single-tag std devs
+          ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
           curStdDevs = singleTagStdDevs;
         } else {
           // One or more tags visible, run the full heuristic.

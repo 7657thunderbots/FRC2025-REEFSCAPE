@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.led.LED;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -26,6 +27,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
+
+  private LED m_ledSubsystem;
   // private AddressableLED m_led;
   // private AddressableLEDBuffer m_ledBuffer;
   // LEDPattern gradient =
@@ -71,6 +74,7 @@ public class Robot extends TimedRobot {
     // let the robot stop
     // immediately when disabled, but then also let it be pushed more
     disabledTimer = new Timer();
+    m_ledSubsystem = new LED();
 
     if (isSimulation()) {
       DriverStation.silenceJoystickConnectionWarning(true);
