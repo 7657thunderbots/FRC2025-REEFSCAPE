@@ -71,54 +71,6 @@ public class RobotContainer {
             .scaleTranslation(0.8)
             .allianceRelativeControl(true);
 
-    /**
-     * Clone's the angular velocity input stream and converts it to a fieldRelative
-     * input stream.
-     */
-    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
-            .withControllerHeadingAxis(drivebase.driverXbox::getRightX,
-                    drivebase.driverXbox::getRightY)
-            .headingWhile(true);
-
-    /**
-     * Clone's the angular velocity input stream and converts it to a robotRelative
-     * input stream.
-     */
-    SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-            .allianceRelativeControl(false);
-
-    SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
-            () -> -drivebase.driverXbox.getLeftY() * .7,
-            () -> -drivebase.driverXbox.getLeftX() * .7)
-            .withControllerRotationAxis(() -> drivebase.driverXbox.getRawAxis(
-                    2))
-            .deadband(.1)
-            .scaleTranslation(0.6)
-            .allianceRelativeControl(true);
-    // Derive the heading axis with math!
-    SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard.copy()
-            .withControllerHeadingAxis(() -> Math.sin(
-                    drivebase.driverXbox.getRawAxis(
-                            2) *
-                            Math.PI)
-                    *
-                    (Math.PI *
-                            2),
-                    () -> Math.cos(
-                            drivebase.driverXbox.getRawAxis(
-                                    2) *
-                                    Math.PI)
-                            *
-                            (Math.PI * 2))
-            .headingWhile(true);
-
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
-
-    // private final SendableChooser<Command> autoChooser;
-
-    // here
     public RobotContainer() {
 
         // drivebase.setupPathPlanner();(m_elevator.m_elbow.l1()
