@@ -25,19 +25,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HuP(L) to Hex 2L"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Hex 2L to HuP(L)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "HuP(L) to Hex 2R"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {

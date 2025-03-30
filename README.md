@@ -13,7 +13,7 @@ To debug the robot in a simulation place a breakpoint in the side of the code ed
 
 ## Resources
 ### WPILib
-WPILib [API](https://docs.wpilib.org/en/stable/?_gl=1*kx0ixm*_gcl_au*OTY1Mzk5MjAxLjE3Mzg4ODY3MTQ.*_ga*MTYzMjU3MTY0NC4xNzM4ODg2NzE0*_ga_RE35PKQB7J*MTczOTExMTU4Mi4yLjEuMTczOTExMTU5MS41MS4wLjA.)
+WPILib [API](https://github.wpilib.org/allwpilib/docs/release/java/index.html)
 
 ### CTRE
 CTRE [Phoenix 6 API](https://api.ctr-electronics.com/phoenix6/release/java/)
