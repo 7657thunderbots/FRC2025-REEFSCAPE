@@ -40,6 +40,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.subsystems.led.LED;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -113,8 +114,7 @@ public class SwerveSubsystem extends SubsystemBase {
    *
    * @param directory Directory of swerve drive config files.
    */
-  public SwerveSubsystem(
-      File directory) {
+  public SwerveSubsystem(File directory, LED led) {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
     // objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
@@ -148,7 +148,7 @@ public class SwerveSubsystem extends SubsystemBase {
     // over the internal encoder and push the offsets onto it. Throws warning if not
     // possible
     if (visionDriveTest) {
-      setupPhotonVision();
+      setupPhotonVision(led);
       // Stop the odometry thread if we are using vision that way we can synchronize
       // updates better.
       swerveDrive.stopOdometryThread();
@@ -175,8 +175,8 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Setup the photon vision class.
    */
-  public void setupPhotonVision() {
-    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
+  public void setupPhotonVision(LED led) {
+    vision = new Vision(swerveDrive::getPose, swerveDrive.field, led);
   }
 
   Optional<Alliance> alliance = DriverStation.getAlliance();
