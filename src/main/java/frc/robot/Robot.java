@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.led.led;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,7 +26,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
-  private led m_ledSubsystem;
+  // private AddressableLED m_led;
   // private AddressableLEDBuffer m_ledBuffer;
   // LEDPattern gradient =
   // LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kOrange,
@@ -67,7 +66,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_ledSubsystem = new led(3, 60);
 
     // Create a timer to disable motor brake a few seconds after disable. This will
     // let the robot stop

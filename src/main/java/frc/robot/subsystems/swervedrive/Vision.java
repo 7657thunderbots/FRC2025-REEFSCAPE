@@ -22,7 +22,6 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import java.awt.Desktop;
@@ -42,7 +41,6 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import swervelib.SwerveDrive;
 import swervelib.telemetry.SwerveDriveTelemetry;
-import frc.robot.subsystems.led.led;
 
 /**
  * Example PhotonVision class to aid in the pursuit of accurate odometry. Taken
@@ -50,9 +48,9 @@ import frc.robot.subsystems.led.led;
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
 public class Vision {
-  public led m_ledSubsystem;
+
   /**
-   * * April Tag Field Layout of the year.
+   * April Tag Field Layout of the year.
    */
   public static final AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(
       AprilTagFields.k2025ReefscapeAndyMark);
@@ -86,10 +84,9 @@ public class Vision {
    *                    {@link SwerveDrive#getPose()}
    * @param field       Current field, should be {@link SwerveDrive#field}
    */
-  public Vision(Supplier<Pose2d> currentPose, Field2d field, led ledSubsystem) {
+  public Vision(Supplier<Pose2d> currentPose, Field2d field) {
     this.currentPose = currentPose;
     this.field2d = field;
-    this.m_ledSubsystem = ledSubsystem;
 
     if (Robot.isSimulation()) {
       visionSim = new VisionSystemSim("Vision");
@@ -353,8 +350,6 @@ public class Vision {
     /**
      * Latency alert to use when high latency is detected.
      */
-    public led ledSubsystem;
-
     public final Alert latencyAlert;
     /**
      * Camera instance for comms.
@@ -592,16 +587,11 @@ public class Vision {
               .getTranslation()
               .getDistance(estimatedPose.get().estimatedPose.toPose2d().getTranslation());
         }
-        SmartDashboard.putNumber("Tag Visibility", numTags);
+
         if (numTags == 0) {
           // No tags visible. Default to single-tag std devs
           curStdDevs = singleTagStdDevs;
-          ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
-
         } else {
-          if (numTags >= 1) {
-            ledSubsystem.setAllLEDsColorHSV(117, 100, 100);
-          }
           // One or more tags visible, run the full heuristic.
           avgDist /= numTags;
           // Decrease std devs if multiple targets are visible
