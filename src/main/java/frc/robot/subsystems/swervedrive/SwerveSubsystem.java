@@ -261,7 +261,7 @@ public class SwerveSubsystem extends SubsystemBase {
         || LeftBumper.getAsBoolean()) && (!run)) {
       run = true;
       findClosestAprilTag();
-      // centerModulesCommand();
+      centerRobotIfBothTriggersHeld(); // Call the center logic here
     }
 
     if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean() && !RightBumper.getAsBoolean()
@@ -283,94 +283,109 @@ public class SwerveSubsystem extends SubsystemBase {
     }
   }
 
-  public void driveToRedPose() {
-    // closestTagId = 6;
-    if (closestTagId == 7) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));
-    } else if (closestTagId == 8) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-120))));
-    } else if (closestTagId == 9) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-60))));
-    } else if (closestTagId == 10) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(0))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(0))));
-    } else if (closestTagId == 11) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(60))));
-    } else if (closestTagId == 6) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120))));
-    } else if (closestTagId == 1) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));
-    } else if (closestTagId == 2) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
-    }
+  /**
+   * Retrieves the pose of a specific AprilTag based on its ID.
+   *
+   * @param tagId The ID of the AprilTag.
+   * @return The pose of the tag as a Pose2d object, or null if the tag is not found.
+   */
+  private Pose2d getTagPose(int tagId) {
+    Optional<Pose2d> tagPose = aprilTagFieldLayout.getTagPose(tagId)
+        .map(pose3d -> new Pose2d(pose3d.getTranslation().getX(), pose3d.getTranslation().getY(), pose3d.getRotation().toRotation2d()));
+    return tagPose.orElse(null);
   }
 
-  public void driveToBluePose() {
-    if (closestTagId == 19) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-60))));
-    } else if (closestTagId == 20) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-120))));
-    } else if (closestTagId == 21) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(180))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(180))));
-    } else if (closestTagId == 22) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(120))));
-    } else if (closestTagId == 17) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(60))));
-    } else if (closestTagId == 18) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));
-    } else if (closestTagId == 12) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));
-    } else if (closestTagId == 13) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));
+  /**
+   * Applies an offset to a given pose to calculate a new target pose.
+   *
+   * @param initialPose The initial pose of the robot.
+   * @param isLeft      Whether the offset should be applied to the left (-x direction) or right (+x direction).
+   * @return The new pose with the applied offset, or null if the initial pose is null.
+   */
+  private Pose2d applyOffset(Pose2d initialPose, boolean isLeft) {
+    if (initialPose == null) {
+      return null;
     }
 
+    double xOffset = isLeft ? -0.3048 : 0.3048; // Offset in meters (0.3048m = 1ft), adjust as needed.
+    double yOffset = 0; // No Y offset applied, but can be modified if needed.
+
+    // Calculate the offset translation based on the robot's rotation.
+    Translation2d offsetTranslation = new Translation2d(xOffset, yOffset).rotateBy(initialPose.getRotation());
+    Translation2d finalTranslation = initialPose.getTranslation().plus(offsetTranslation);
+
+    // Return the new pose with the updated translation and the same rotation.
+    return new Pose2d(finalTranslation, initialPose.getRotation());
+  }
+
+  /**
+   * Drives the robot to a specific pose relative to the closest AprilTag for the Red Alliance.
+   * The robot will move to either the left or right offset position based on trigger input.
+   */
+  public void driveToRedPose() {
+    if (closestTagId <= 0) {
+      return; // Exit if no valid tag is detected.
+    }
+
+    // Get the pose of the closest AprilTag.
+    Pose2d tagPose = getTagPose((int) closestTagId);
+
+    // Drive to the left offset position when the LeftTrigger is held.
+    LeftTrigger.whileTrue(Commands.run(() -> {
+      Pose2d targetPose = applyOffset(tagPose, true); // Apply left offset.
+      if (targetPose != null) {
+        applyPIDToPose(targetPose).schedule(); // Use PID to drive to the target pose.
+      }
+    }, this));
+
+    // Drive to the right offset position when the RightTrigger is held.
+    RightTrigger.whileTrue(Commands.run(() -> {
+      Pose2d targetPose = applyOffset(tagPose, false); // Apply right offset.
+      if (targetPose != null) {
+        applyPIDToPose(targetPose).schedule(); // Use PID to drive to the target pose.
+      }
+    }, this));
+  }
+
+  /**
+   * Drives the robot to a specific pose relative to the closest AprilTag for the Blue Alliance.
+   * The robot will move to either the left or right offset position based on trigger input.
+   */
+  public void driveToBluePose() {
+    if (closestTagId <= 0) {
+      return; // Exit if no valid tag is detected.
+    }
+
+    // Get the pose of the closest AprilTag.
+    Pose2d tagPose = getTagPose((int) closestTagId);
+
+    // Drive to the left offset position when the LeftTrigger is held.
+    LeftTrigger.whileTrue(Commands.run(() -> {
+      Pose2d targetPose = applyOffset(tagPose, true); // Apply left offset.
+      if (targetPose != null) {
+        applyPIDToPose(targetPose).schedule(); // Use PID to drive to the target pose.
+      }
+    }, this));
+
+    // Drive to the right offset position when the RightTrigger is held.
+    RightTrigger.whileTrue(Commands.run(() -> {
+      Pose2d targetPose = applyOffset(tagPose, false); // Apply right offset.
+      if (targetPose != null) {
+        applyPIDToPose(targetPose).schedule(); // Use PID to drive to the target pose.
+      }
+    }, this));
+  }
+  /**
+   * Center the robot when both triggers are held.
+   */
+  private void centerRobotIfBothTriggersHeld() {
+    if (LeftTrigger.getAsBoolean() && RightTrigger.getAsBoolean()) {
+      Pose2d tagPose = getTagPose((int) closestTagId);
+      if (tagPose != null) {
+        Pose2d targetPose = applyOffset(tagPose, false); // Use the tag's pose without additional offset.
+        applyPIDToPose(targetPose).schedule(); // Use PID to drive to the centered pose.
+      }
+    }
   }
 
   // PID controllers for X, Y, and Rotation
@@ -379,36 +394,48 @@ public class SwerveSubsystem extends SubsystemBase {
   private final PIDController rotationController = new PIDController(1.0, 0.0, 0.0);
 
   private Command applyPIDToPose(Pose2d targetPose) {
-    return run(() -> {
-      Pose2d currentPose = getPose();
+    Timer timer = new Timer();
+    timer.start();
+    return Commands.sequence(
+        Commands.run(() -> {
+          vision.m_ledSubsystem.startBlinkingOrange();
+          Pose2d currentPose = getPose();
 
-      // Calculate errors
-      double xError = targetPose.getX() - currentPose.getX();
-      double yError = targetPose.getY() - currentPose.getY();
-      double rotationError = targetPose.getRotation().getRadians() - currentPose.getRotation().getRadians();
+          // Calculate errors
+          double xError = targetPose.getX() - currentPose.getX();
+          double yError = targetPose.getY() - currentPose.getY();
+          double rotationError = targetPose.getRotation().getRadians() - currentPose.getRotation().getRadians();
 
-      // Calculate PID outputs
-      double xSpeed = xController.calculate(currentPose.getX(), targetPose.getX());
-      double ySpeed = yController.calculate(currentPose.getY(), targetPose.getY());
-      double rotationSpeed = rotationController.calculate(currentPose.getRotation().getRadians(),
-          targetPose.getRotation().getRadians());
+          // Calculate PID outputs
+          double xSpeed = xController.calculate(currentPose.getX(), targetPose.getX());
+          double ySpeed = yController.calculate(currentPose.getY(), targetPose.getY());
+          double rotationSpeed = rotationController.calculate(currentPose.getRotation().getRadians(),
+              targetPose.getRotation().getRadians());
 
-      // Normalize speeds if necessary
-      double maxAbsSpeed = Math.max(Math.max(Math.abs(xSpeed), Math.abs(ySpeed)), Math.abs(rotationSpeed));
-      if (maxAbsSpeed > 1.0) {
-        xSpeed /= maxAbsSpeed;
-        ySpeed /= maxAbsSpeed;
-        rotationSpeed /= maxAbsSpeed;
-      }
+          // Normalize speeds if necessary
+          double maxAbsSpeed = Math.max(Math.max(Math.abs(xSpeed), Math.abs(ySpeed)), Math.abs(rotationSpeed));
+          if (maxAbsSpeed > 1.0) {
+            xSpeed /= maxAbsSpeed;
+            ySpeed /= maxAbsSpeed;
+            rotationSpeed /= maxAbsSpeed;
+          }
 
-      // Create chassis speeds from PID outputs
-      ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed * Constants.MAX_SPEED,
-          ySpeed * Constants.MAX_SPEED,
-          rotationSpeed * swerveDrive.getMaximumChassisAngularVelocity());
+          // Create chassis speeds from PID outputs
+          ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed * Constants.MAX_SPEED,
+              ySpeed * Constants.MAX_SPEED,
+              rotationSpeed * swerveDrive.getMaximumChassisAngularVelocity());
 
-      // Drive the robot
-      driveFieldOriented(chassisSpeeds);
-    });
+          // Drive the robot
+          driveFieldOriented(chassisSpeeds);
+        }),
+        Commands.waitUntil(() -> {
+          Pose2d currentPose = getPose();
+          double xError = Math.abs(targetPose.getX() - currentPose.getX());
+          double yError = Math.abs(targetPose.getY() - currentPose.getY());
+          double rotationError = Math.abs(targetPose.getRotation().getRadians() - currentPose.getRotation().getRadians());
+          return xError < 0.1 && yError < 0.1 && rotationError < 0.1; // Adjust tolerances as needed
+        }).andThen(Commands.run(() -> vision.m_ledSubsystem.startBlinkingGreen())));
+    
   }
 
   @Override

@@ -50,7 +50,7 @@ import frc.robot.subsystems.led.LED;
  */
 public class Vision {
 
-  private static LED m_ledSubsystem;
+  public static LED m_ledSubsystem;
 
   /**
    * April Tag Field Layout of the year.
