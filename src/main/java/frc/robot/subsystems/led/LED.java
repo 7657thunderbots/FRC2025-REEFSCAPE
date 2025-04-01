@@ -16,7 +16,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     private boolean m_isGreen = false;
 
     public LED() {
-        m_led = new AddressableLED(1);
+        m_led = new AddressableLED(5);
         m_led.setColorOrder(ColorOrder.kRGB);
         m_ledBuffer = new AddressableLEDBuffer(100);
         m_led.setLength(m_ledBuffer.getLength());
@@ -39,6 +39,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
                 }
                 m_blinkTimer.reset();
             }
+            m_isBlinkingGreen=false;
         } else if (m_isBlinkingOrange) {
             if (m_blinkTimer.get() > 0.1) {
                 if (m_isGreen) {
@@ -50,6 +51,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
                 }
                 m_blinkTimer.reset();
             }
+            m_isBlinkingOrange=false;
         }
     }
 

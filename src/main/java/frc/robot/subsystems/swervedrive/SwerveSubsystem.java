@@ -119,7 +119,7 @@ public class SwerveSubsystem extends SubsystemBase {
       File directory) {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
     // objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE;
     try {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
           new Pose2d(new Translation2d(Meter.of(1),
@@ -374,22 +374,23 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   // PID controllers for X, Y, and Rotation
-  private final PIDController xController = new PIDController(1.0, 0.0, 0.0);
-  private final PIDController yController = new PIDController(1.0, 0.0, 0.0);
-  private final PIDController rotationController = new PIDController(1.0, 0.0, 0.0);
+  private final PIDController xController = new PIDController(1.5, 0.00, .001);
+  private final PIDController yController = new PIDController(1.5, 0.01, .001);
+  private final PIDController rotationController = new PIDController(1.5, 0.0, 001);
 
   private Command applyPIDToPose(Pose2d targetPose) {
     Timer timer = new Timer();
-    timer.start();
     return Commands.sequence(
+        Commands.runOnce(() -> {
+          xController.reset();
+          yController.reset();
+          rotationController.reset();
+          timer.reset();
+          timer.start();
+        }),
         Commands.run(() -> {
-          vision.m_ledSubsystem.startBlinkingOrange();
-          Pose2d currentPose = getPose();
 
-          // Calculate errors
-          double xError = targetPose.getX() - currentPose.getX();
-          double yError = targetPose.getY() - currentPose.getY();
-          double rotationError = targetPose.getRotation().getRadians() - currentPose.getRotation().getRadians();
+          Pose2d currentPose = getPose();
 
           // Calculate PID outputs
           double xSpeed = xController.calculate(currentPose.getX(), targetPose.getX());
@@ -406,8 +407,8 @@ public class SwerveSubsystem extends SubsystemBase {
           }
 
           // Create chassis speeds from PID outputs
-          ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed * Constants.MAX_SPEED,
-              ySpeed * Constants.MAX_SPEED,
+          ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed * 2,
+              ySpeed * 2,
               rotationSpeed * swerveDrive.getMaximumChassisAngularVelocity());
 
           // Drive the robot
@@ -418,9 +419,11 @@ public class SwerveSubsystem extends SubsystemBase {
           double xError = Math.abs(targetPose.getX() - currentPose.getX());
           double yError = Math.abs(targetPose.getY() - currentPose.getY());
           double rotationError = Math.abs(targetPose.getRotation().getRadians() - currentPose.getRotation().getRadians());
-          return xError < 0.1 && yError < 0.1 && rotationError < 0.1; // Adjust tolerances as needed
-        }).andThen(Commands.run(() -> vision.m_ledSubsystem.startBlinkingGreen())));
-    
+          return xError < 0.05 && yError < 0.05 && rotationError < 0.05; // Adjust tolerances as needed
+        }),
+        Commands.runOnce(() -> {
+          timer.stop();
+        }));
   }
 
   @Override
