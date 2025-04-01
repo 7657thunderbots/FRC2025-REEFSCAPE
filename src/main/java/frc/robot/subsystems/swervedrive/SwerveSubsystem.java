@@ -375,7 +375,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   // PID controllers for X, Y, and Rotation
   private final PIDController xController = new PIDController(1.5, 0.00, .001);
-  private final PIDController yController = new PIDController(1.5, 0.01, .001);
+  private final PIDController yController = new PIDController(1.5, 0.0, .001);
   private final PIDController rotationController = new PIDController(1.5, 0.0, 001);
 
   private Command applyPIDToPose(Pose2d targetPose) {
@@ -414,13 +414,7 @@ public class SwerveSubsystem extends SubsystemBase {
           // Drive the robot
           driveFieldOriented(chassisSpeeds);
         }),
-        Commands.waitUntil(() -> {
-          Pose2d currentPose = getPose();
-          double xError = Math.abs(targetPose.getX() - currentPose.getX());
-          double yError = Math.abs(targetPose.getY() - currentPose.getY());
-          double rotationError = Math.abs(targetPose.getRotation().getRadians() - currentPose.getRotation().getRadians());
-          return xError < 0.05 && yError < 0.05 && rotationError < 0.05; // Adjust tolerances as needed
-        }),
+       
         Commands.runOnce(() -> {
           timer.stop();
         }));
