@@ -41,6 +41,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.subsystems.led.LED;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -114,8 +115,7 @@ public class SwerveSubsystem extends SubsystemBase {
    *
    * @param directory Directory of swerve drive config files.
    */
-  public SwerveSubsystem(
-      File directory) {
+  public SwerveSubsystem(File directory, LED led) {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
     // objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
@@ -148,11 +148,20 @@ public class SwerveSubsystem extends SubsystemBase {
     // swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used
     // over the internal encoder and push the offsets onto it. Throws warning if not
     // possible
+<<<<<<< HEAD
 
     setupPhotonVision();
     // Stop the odometry thread if we are using vision that way we can synchronize
     // updates better.
 
+=======
+    if (visionDriveTest) {
+      setupPhotonVision(led);
+      // Stop the odometry thread if we are using vision that way we can synchronize
+      // updates better.
+      swerveDrive.stopOdometryThread();
+    }
+>>>>>>> 56fb950afd9985a1e89bf76e4320cefb5ecff460
     setupPathPlanner();
     LeftBumper = driverXbox.leftBumper();// running these at the end so everything else is done
     RightBumper = driverXbox.rightBumper();
@@ -176,11 +185,16 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Setup the photon vision class.
    */
+<<<<<<< HEAD
   public void setupPhotonVision() {
     if (vision == null) {
       vision = new Vision(swerveDrive::getPose, swerveDrive.field);
     }
 
+=======
+  public void setupPhotonVision(LED led) {
+    vision = new Vision(swerveDrive::getPose, swerveDrive.field, led);
+>>>>>>> 56fb950afd9985a1e89bf76e4320cefb5ecff460
   }
 
   Optional<Alliance> alliance = DriverStation.getAlliance();
@@ -243,6 +257,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+<<<<<<< HEAD
     // if (vision.numTags == 0) {
     // // No tags visible. Default to single-tag std devs
     // vision.ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
@@ -254,6 +269,13 @@ public class SwerveSubsystem extends SubsystemBase {
     vision.updatePoseEstimation(swerveDrive);
     // vision.updateVisionField(swerveDrive);
     // }
+=======
+    if (visionDriveTest) {
+      swerveDrive.updateOdometry();
+      vision.updatePoseEstimation(swerveDrive);
+      // vision.updateVisionField(swerveDrive);
+    }
+>>>>>>> 56fb950afd9985a1e89bf76e4320cefb5ecff460
 
     // Use the triggers to control the robot actions
     if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean() || RightBumper.getAsBoolean()

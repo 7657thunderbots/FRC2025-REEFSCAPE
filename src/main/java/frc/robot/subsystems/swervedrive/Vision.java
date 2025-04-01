@@ -88,13 +88,10 @@ public class Vision {
    *                    {@link SwerveDrive#getPose()}
    * @param field       Current field, should be {@link SwerveDrive#field}
    */
-  public Vision(Supplier<Pose2d> currentPose, Field2d field) {
+  public Vision(Supplier<Pose2d> currentPose, Field2d field, LED led) {
     this.currentPose = currentPose;
     this.field2d = field;
-    m_ledSubsystem = new LED();
-    for (Cameras c : Cameras.values()) {
-      System.out.printf("Camera: %s\n", c.name());
-    }
+
     if (Robot.isSimulation()) {
       visionSim = new VisionSystemSim("Vision");
       visionSim.addAprilTags(fieldLayout);
@@ -353,6 +350,12 @@ public class Vision {
     // new Translation3d(Units.inchesToMeters(-4.628),
     // Units.inchesToMeters(-10.687),
     // Units.inchesToMeters(16.129)),
+    // VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    private LED ledSubsystem;
+
+    public void setLEDSubsystem(LED ledSubsystem) {
+      this.ledSubsystem = ledSubsystem;
+    }
 
     /**
      * Latency alert to use when high latency is detected.
@@ -567,7 +570,7 @@ public class Vision {
      * @param estimatedPose The estimated pose to guess standard deviations for.
      * @param targets       All targets in this camera frame
      */
-    public void updateEstimationStdDevs(
+    private void updateEstimationStdDevs(
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
 
       if (estimatedPose.isEmpty()) {
@@ -600,6 +603,7 @@ public class Vision {
 
         if (numTags == 0) {
           // No tags visible. Default to single-tag std devs
+          ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
           curStdDevs = singleTagStdDevs;
         } else {
           // One or more tags visible, run the full heuristic.
