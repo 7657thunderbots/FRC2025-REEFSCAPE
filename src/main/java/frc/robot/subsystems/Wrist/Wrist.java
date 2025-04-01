@@ -21,7 +21,7 @@ public class Wrist extends SubsystemBase {
     private double lastTimestamp = 0;
     private double kP = 4;
     private double kI = 0.0;
-    private double kD = 0.010;
+    private double kD = 0.00;
     private double hiLimit = 0.1; // Threshold for integral term
     private final int CURRENT_LIMIT = 10; // Current limit in amps
 

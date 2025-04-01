@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
 
   private Timer disabledTimer;
 
-  private LED m_ledSubsystem;
    private AddressableLED m_led;
    private AddressableLEDBuffer m_ledBuffer;
   LEDPattern gradient =
@@ -64,6 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+   
     // m_led = new AddressableLED(1);
 
     // Reuse buffer
@@ -84,7 +84,8 @@ public class Robot extends TimedRobot {
     // let the robot stop
     // immediately when disabled, but then also let it be pushed more
     disabledTimer = new Timer();
-    m_ledSubsystem = new LED();
+   
+
 
     if (isSimulation()) {
       DriverStation.silenceJoystickConnectionWarning(true);
@@ -103,9 +104,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Create an LED pattern that sets the entire strip to solid red
-    m_ledSubsystem.setAllLEDsColorHSV(0,0,0);
 
+   
     
 // LEDPattern red = LEDPattern.solid(Color.kRed);
 

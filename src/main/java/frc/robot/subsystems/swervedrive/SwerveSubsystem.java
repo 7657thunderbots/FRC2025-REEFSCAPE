@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
@@ -100,7 +101,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * PhotonVision class to keep an accurate odometry.
    */
-  public Vision vision;
+  private Vision vision;
 
   public Trigger RightTrigger;
   public Trigger LeftTrigger;
@@ -147,15 +148,15 @@ public class SwerveSubsystem extends SubsystemBase {
     // swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used
     // over the internal encoder and push the offsets onto it. Throws warning if not
     // possible
-    if (visionDriveTest) {
-      setupPhotonVision();
-      // Stop the odometry thread if we are using vision that way we can synchronize
-      // updates better.
-      swerveDrive.stopOdometryThread();
-    }
+
+    setupPhotonVision();
+    // Stop the odometry thread if we are using vision that way we can synchronize
+    // updates better.
+
     setupPathPlanner();
     LeftBumper = driverXbox.leftBumper();// running these at the end so everything else is done
     RightBumper = driverXbox.rightBumper();
+
   }
 
   /**
@@ -176,7 +177,10 @@ public class SwerveSubsystem extends SubsystemBase {
    * Setup the photon vision class.
    */
   public void setupPhotonVision() {
-    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
+    if (vision == null) {
+      vision = new Vision(swerveDrive::getPose, swerveDrive.field);
+    }
+
   }
 
   Optional<Alliance> alliance = DriverStation.getAlliance();
@@ -240,15 +244,16 @@ public class SwerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // if (vision.numTags == 0) {
-    //   // No tags visible. Default to single-tag std devs
-    //   vision.ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
-  
-    // } 
-    if (visionDriveTest) {
-      swerveDrive.updateOdometry();
-      vision.updatePoseEstimation(swerveDrive);
-      // vision.updateVisionField(swerveDrive);
-    }
+    // // No tags visible. Default to single-tag std devs
+    // vision.ledSubsystem.setAllLEDsColorHSV(348, 100, 100);
+
+    // }
+    // if (visionDriveTest) {
+
+    swerveDrive.updateOdometry();
+    vision.updatePoseEstimation(swerveDrive);
+    // vision.updateVisionField(swerveDrive);
+    // }
 
     // Use the triggers to control the robot actions
     if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean() || RightBumper.getAsBoolean()
