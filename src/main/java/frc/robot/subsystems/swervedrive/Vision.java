@@ -49,7 +49,8 @@ import frc.robot.subsystems.led.LED;
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
 public class Vision {
-  private LED m_ledSubsystem;
+
+  private static LED m_ledSubsystem;
 
   /**
    * April Tag Field Layout of the year.
@@ -74,6 +75,7 @@ public class Vision {
    * Current pose from the pose estimator using wheel odometry.
    */
   private Supplier<Pose2d> currentPose;
+
   /**
    * Field from {@link swervelib.SwerveDrive#field}
    */
@@ -86,7 +88,7 @@ public class Vision {
    *                    {@link SwerveDrive#getPose()}
    * @param field       Current field, should be {@link SwerveDrive#field}
    */
-  public Vision(Supplier<Pose2d> currentPose, Field2d field) {
+  public Vision(Supplier<Pose2d> currentPose, Field2d field, LED led) {
     this.currentPose = currentPose;
     this.field2d = field;
 
@@ -312,12 +314,12 @@ public class Vision {
   enum Cameras {
     LEFT_CAM("bottom", new Rotation3d(Math.toRadians(0), Math.toRadians(0), Math.toRadians(30)),
         new Translation3d(Units.inchesToMeters(9.25), Units.inchesToMeters(-10.125), Units.inchesToMeters(18)),
-        VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1));
+        VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1)),
 
-    // RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
-    // new Translation3d(Units.inchesToMeters(3.5), Units.inchesToMeters(-8.25),
-    // Units.inchesToMeters(30)),
-    // VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)); // RIGHT_CAM("top1",
+    RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
+        new Translation3d(Units.inchesToMeters(-7), Units.inchesToMeters(0), Units.inchesToMeters(14.75)),
+        VecBuilder.fill(1.8, 1.8, 8), VecBuilder.fill(0.5, 0.5, 1));
+    // RIGHT_CAM("top1",
     // new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
     // // new Translation3d(Units.inchesToMeters(12.056),
     // Units.inchesToMeters(-10.981), Units.inchesToMeters(8.44)),
@@ -568,11 +570,13 @@ public class Vision {
      * @param estimatedPose The estimated pose to guess standard deviations for.
      * @param targets       All targets in this camera frame
      */
-    public void updateEstimationStdDevs(
+    private void updateEstimationStdDevs(
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+
       if (estimatedPose.isEmpty()) {
         // No pose input. Default to single-tag std devs
         curStdDevs = singleTagStdDevs;
+        m_ledSubsystem.setLEDsRed();
 
       } else {
         // Pose present. Start running Heuristic
@@ -580,6 +584,7 @@ public class Vision {
         int numTags = 0;
         double avgDist = 0;
 
+        m_ledSubsystem.setLEDsOrange();
         // Precalculation - see how many tags we found, and calculate an
         // average-distance metric
         for (var tgt : targets) {
