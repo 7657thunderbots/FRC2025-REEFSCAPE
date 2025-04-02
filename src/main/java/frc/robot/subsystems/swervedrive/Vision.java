@@ -571,17 +571,17 @@ public class Vision {
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
 
       if (estimatedPose.isEmpty()) {
+        m_ledSubsystem.setLEDsRed();
         // No pose input. Default to single-tag std devs
         curStdDevs = singleTagStdDevs;
-        m_ledSubsystem.setLEDsRed();
-
       } else {
+
         // Pose present. Start running Heuristic
         var estStdDevs = singleTagStdDevs;
         int numTags = 0;
         double avgDist = 0;
+        m_ledSubsystem.setLedsGreen();
 
-        m_ledSubsystem.setLEDsOrange();
         // Precalculation - see how many tags we found, and calculate an
         // average-distance metric
         for (var tgt : targets) {
@@ -599,6 +599,7 @@ public class Vision {
         }
 
         if (numTags == 0) {
+
           // No tags visible. Default to single-tag std devs
           curStdDevs = singleTagStdDevs;
         } else {
