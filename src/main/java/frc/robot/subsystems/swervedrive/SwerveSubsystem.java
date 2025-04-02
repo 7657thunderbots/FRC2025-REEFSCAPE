@@ -254,171 +254,171 @@ public class SwerveSubsystem extends SubsystemBase {
     swerveDrive.updateOdometry();
     vision.updatePoseEstimation(swerveDrive);
     // vision.updateVisionField(swerveDrive);
-    // }
+     }
 
     // Use the triggers to control the robot actions
-    if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean() || RightBumper.getAsBoolean()
-        || LeftBumper.getAsBoolean()) && (!run)) {
-      run = true;
-      findClosestAprilTag();
-      // centerModulesCommand();
-    }
+  //   if ((LeftTrigger.getAsBoolean() || RightTrigger.getAsBoolean() || RightBumper.getAsBoolean()
+  //       || LeftBumper.getAsBoolean()) && (!run)) {
+  //     run = true;
+  //     findClosestAprilTag();
+  //     // centerModulesCommand();
+  //   }
 
-    if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean() && !RightBumper.getAsBoolean()
-        && !LeftBumper.getAsBoolean()) {
-      run = false;
-      closestTagId = -1;
-    }
-    SmartDashboard.putNumber("Closest Tag", closestTagId);
-    if (alliance.isPresent()) {
-      Alliance currentAlliance = alliance.get();
+  //   if (!LeftTrigger.getAsBoolean() && !RightTrigger.getAsBoolean() && !RightBumper.getAsBoolean()
+  //       && !LeftBumper.getAsBoolean()) {
+  //     run = false;
+  //     closestTagId = -1;
+  //   }
+  //   SmartDashboard.putNumber("Closest Tag", closestTagId);
+  //   if (alliance.isPresent()) {
+  //     Alliance currentAlliance = alliance.get();
 
-      if (currentAlliance == Alliance.Red) {
-        driveToRedPose();
-      } else if (currentAlliance == Alliance.Blue) {
-        driveToBluePose();
-      } else {
-        System.out.println("Alliance color not determined yet.");
-      }
-    }
-  }
+  //     if (currentAlliance == Alliance.Red) {
+  //       driveToRedPose();
+  //     } else if (currentAlliance == Alliance.Blue) {
+  //       driveToBluePose();
+  //     } else {
+  //       System.out.println("Alliance color not determined yet.");
+  //     }
+  //   }
+  // }
 
-  public void driveToRedPose() {
-    // closestTagId = 6;
-    if (closestTagId == 7) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));
-    } else if (closestTagId == 8) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-120))));
-    } else if (closestTagId == 9) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-60))));
-    } else if (closestTagId == 10) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(0))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(0))));
-    } else if (closestTagId == 11) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(60))));
-    } else if (closestTagId == 6) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120))));
-    } else if (closestTagId == 1) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));
-    } else if (closestTagId == 2) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
-    }
-  }
+  // public void driveToRedPose() {
+  //   // closestTagId = 6;
+  //   if (closestTagId == 7) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180))));
+  //   } else if (closestTagId == 8) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-120))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-120))));
+  //   } else if (closestTagId == 9) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-60))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-60))));
+  //   } else if (closestTagId == 10) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(0))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(0))));
+  //   } else if (closestTagId == 11) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(60))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(60))));
+  //   } else if (closestTagId == 6) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120))));
+  //     //RightTrigger.whileTrue(
+  //       //  applyPIDToPose(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120))));
+  //   } else if (closestTagId == 1) {
+  //     LeftBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(16.844, 1.358), Rotation2d.fromDegrees(-55))));
+  //     RightBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(15.942, 0.682), Rotation2d.fromDegrees(-55))));
+  //   } else if (closestTagId == 2) {
+  //     LeftBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(16.799, 6.704), Rotation2d.fromDegrees(55))));
+  //     RightBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(15.897, 7.353), Rotation2d.fromDegrees(55))));
+  //   }
+  // }
 
-  public void driveToBluePose() {
-    if (closestTagId == 19) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-60))));
-    } else if (closestTagId == 20) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-120))));
-    } else if (closestTagId == 21) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(180))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(180))));
-    } else if (closestTagId == 22) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(120))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(120))));
-    } else if (closestTagId == 17) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(60))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(60))));
-    } else if (closestTagId == 18) {
-      LeftTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
-      RightTrigger.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));
-    } else if (closestTagId == 12) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));
-    } else if (closestTagId == 13) {
-      LeftBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
-      RightBumper.whileTrue(
-          applyPIDToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));
-    }
+  // public void driveToBluePose() {
+  //   if (closestTagId == 19) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-60))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-60))));
+  //   } else if (closestTagId == 20) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-120))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-120))));
+  //   } else if (closestTagId == 21) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(180))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(180))));
+  //   } else if (closestTagId == 22) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(120))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(120))));
+  //   } else if (closestTagId == 17) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(60))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(60))));
+  //   } else if (closestTagId == 18) {
+  //     LeftTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0))));
+  //     RightTrigger.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0))));
+  //   } else if (closestTagId == 12) {
+  //     LeftBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(1.816, 0.595), Rotation2d.fromDegrees(-125))));
+  //     RightBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(1.023, 1.162), Rotation2d.fromDegrees(-125))));
+  //   } else if (closestTagId == 13) {
+  //     LeftBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(1.632, 7.313), Rotation2d.fromDegrees(125))));
+  //     RightBumper.whileTrue(
+  //         applyPIDToPose(new Pose2d(new Translation2d(0.782, 6.704), Rotation2d.fromDegrees(125))));
+  //   }
 
-  }
+  // }
 
-  // PID controllers for X, Y, and Rotation
-  private final PIDController xController = new PIDController(1.5, 0.00, .001);
-  private final PIDController yController = new PIDController(1.5, 0.0, .001);
-  private final PIDController rotationController = new PIDController(1.5, 0.0, 001);
+  // // PID controllers for X, Y, and Rotation
+  // private final PIDController xController = new PIDController(1.5, 0.00, .001);
+  // private final PIDController yController = new PIDController(1.5, 0.0, .001);
+  // private final PIDController rotationController = new PIDController(1.5, 0.0, 001);
 
-  private Command applyPIDToPose(Pose2d targetPose) {
-    Timer timer = new Timer();
-    return Commands.sequence(
-        Commands.runOnce(() -> {
-          xController.reset();
-          yController.reset();
-          rotationController.reset();
-          timer.reset();
-          timer.start();
-        }),
-        Commands.run(() -> {
+  // private Command applyPIDToPose(Pose2d targetPose) {
+  //   Timer timer = new Timer();
+  //   return Commands.sequence(
+  //       Commands.runOnce(() -> {
+  //         xController.reset();
+  //         yController.reset();
+  //         rotationController.reset();
+  //         timer.reset();
+  //         timer.start();
+  //       }),
+  //       Commands.run(() -> {
 
-          Pose2d currentPose = getPose();
+  //         Pose2d currentPose = getPose();
 
-          // Calculate PID outputs
-          double xSpeed = xController.calculate(currentPose.getX(), targetPose.getX());
-          double ySpeed = yController.calculate(currentPose.getY(), targetPose.getY());
-          double rotationSpeed = rotationController.calculate(currentPose.getRotation().getRadians(),
-              targetPose.getRotation().getRadians());
+  //         // Calculate PID outputs
+  //         double xSpeed = xController.calculate(currentPose.getX(), targetPose.getX());
+  //         double ySpeed = yController.calculate(currentPose.getY(), targetPose.getY());
+  //         double rotationSpeed = rotationController.calculate(currentPose.getRotation().getRadians(),
+  //             targetPose.getRotation().getRadians());
 
-          // Normalize speeds if necessary
-          double maxAbsSpeed = Math.max(Math.max(Math.abs(xSpeed), Math.abs(ySpeed)), Math.abs(rotationSpeed));
-          if (maxAbsSpeed > 1.0) {
-            xSpeed /= maxAbsSpeed;
-            ySpeed /= maxAbsSpeed;
-            rotationSpeed /= maxAbsSpeed;
-          }
+  //         // Normalize speeds if necessary
+  //         double maxAbsSpeed = Math.max(Math.max(Math.abs(xSpeed), Math.abs(ySpeed)), Math.abs(rotationSpeed));
+  //         if (maxAbsSpeed > 1.0) {
+  //           xSpeed /= maxAbsSpeed;
+  //           ySpeed /= maxAbsSpeed;
+  //           rotationSpeed /= maxAbsSpeed;
+  //         }
 
-          // Create chassis speeds from PID outputs
-          ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed * 2,
-              ySpeed * 2,
-              rotationSpeed * swerveDrive.getMaximumChassisAngularVelocity());
+  //         // Create chassis speeds from PID outputs
+  //         ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed * 2,
+  //             ySpeed * 2,
+  //             rotationSpeed * swerveDrive.getMaximumChassisAngularVelocity());
 
-          // Drive the robot
-          driveFieldOriented(chassisSpeeds);
-        }),
+  //         // Drive the robot
+  //         driveFieldOriented(chassisSpeeds);
+  //       }),
        
-        Commands.runOnce(() -> {
-          timer.stop();
-        }));
-  }
+  //       Commands.runOnce(() -> {
+  //         timer.stop();
+  //       }));
+  // }
 
   @Override
   public void simulationPeriodic() {
