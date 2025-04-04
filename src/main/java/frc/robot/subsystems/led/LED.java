@@ -17,13 +17,14 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
 
     public LED() {
         m_led = new AddressableLED(5);
-        m_led.setColorOrder(ColorOrder.kRGB);
         m_ledBuffer = new AddressableLEDBuffer(100);
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);
         m_led.start();
-        setLedsWhite();
-        m_blinkTimer.start();
+
+        clearLEDs();
+        startUp();
+
     }
 
     @Override
@@ -84,30 +85,19 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
 
     public void setLEDsRed() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setLED(i, Color.kRed);
-            m_led.setData(m_ledBuffer);
+            m_ledBuffer.setHSV(i, 60, 255, 255);
         }
+        m_led.setData(m_ledBuffer);
     }
 
     public void setLEDsOrange() {
-        if (m_isBlinkingGreen|| m_isBlinkingOrange) {
-        }
-        else{
-        Color orange = new Color("#b37400");
+        // Color orange = new Color("#b37400");
+        // Color orange = new Color(242, 112, 5);
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setLED(i, orange);
-            m_led.setData(m_ledBuffer);
-        }}
-    }
+            m_ledBuffer.setHSV(i, 55, 255, 255);
 
-    public void setLEDsGreen() {
-        if (m_isBlinkingGreen|| m_isBlinkingOrange) {
         }
-        else{
-        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setLED(i, Color.kGreen);
-            m_led.setData(m_ledBuffer);
-        }}
+        m_led.setData(m_ledBuffer);
     }
 
     public void setLedsWhite() {
@@ -125,5 +115,20 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
             m_ledBuffer.setRGB(i, 0, 0, 0);
             m_led.setData(m_ledBuffer);
         }
+    }
+
+    public void setLedsGreen() {
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+            m_ledBuffer.setHSV(i, 180, 255, 255);
+
+        }
+        m_led.setData(m_ledBuffer);
+    }
+
+    public void startUp() {
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+            m_ledBuffer.setHSV(i, 160, 252, 255);
+        }
+        m_led.setData(m_ledBuffer);
     }
 }
