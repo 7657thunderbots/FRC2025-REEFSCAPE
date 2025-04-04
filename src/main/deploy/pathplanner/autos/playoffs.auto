@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Hex 3L to HuPl(L)"
@@ -19,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 1.6
           }
         },
         {
@@ -29,21 +35,9 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Hex 2R to HuP(L)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "HuP(L) to Hex 1L"
           }
         }
       ]

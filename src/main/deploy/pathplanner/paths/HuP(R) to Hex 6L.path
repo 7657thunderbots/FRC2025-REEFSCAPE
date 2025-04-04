@@ -30,13 +30,80 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9216101694915255,
+      "waypointRelativePos": 0.6781818181818179,
       "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "stop",
+      "waypointRelativePos": 0.32271762208067956,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "stop"
+        }
+      }
+    },
+    {
+      "name": "up",
+      "waypointRelativePos": 0.33333333333333337,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "up"
+        }
+      }
+    },
+    {
+      "name": "home",
+      "waypointRelativePos": 0.5201698513800425,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "home"
+        }
+      }
+    },
+    {
+      "name": "L4",
+      "waypointRelativePos": 0.7006369426751592,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4"
+        }
+      }
+    },
+    {
+      "name": "down",
+      "waypointRelativePos": 0.9150743099787686,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "down"
+        }
+      }
+    },
+    {
+      "name": "place",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "place"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,
