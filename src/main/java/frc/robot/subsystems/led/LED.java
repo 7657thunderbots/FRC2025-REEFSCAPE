@@ -28,26 +28,6 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     }
 
 
-    public void startBlinkingGreen() {
-        m_isBlinkingGreen = true;
-        m_isBlinkingOrange = false;
-        m_isGreen = false;
-        m_blinkTimer.reset();
-    }
-
-    public void startBlinkingOrange() {
-        m_isBlinkingOrange = true;
-        m_isBlinkingGreen = false;
-        m_isGreen = false;
-        m_blinkTimer.reset();
-    }
-
-    public void stopBlinking() {
-        m_isBlinkingGreen = false;
-        m_isBlinkingOrange = false;
-        setLedsWhite(); // Revert to default color
-    }
-
     public void clearLEDs() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             m_ledBuffer.setRGB(i, 100, 0, 0);

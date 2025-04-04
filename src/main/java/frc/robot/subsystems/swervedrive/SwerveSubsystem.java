@@ -450,8 +450,8 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     // PID controllers for X, Y, and Rotation
-    private final PIDController xController = new PIDController(1.5, 0.00, .001);
-    private final PIDController yController = new PIDController(1.5, 0.0, .001);
+    private final PIDController xController = new PIDController(1.8, 0.00, .001);
+    private final PIDController yController = new PIDController(1.8, 0.0, .001);
     private final PIDController rotationController = new PIDController(0.3, 0.0, 001);
     Timer timer = new Timer();
     private boolean isDrivingToPose = false;
@@ -475,6 +475,22 @@ public class SwerveSubsystem extends SubsystemBase {
       xSpeed /= maxAbsSpeed;
       ySpeed /= maxAbsSpeed;
       rotationSpeed /= maxAbsSpeed;
+    }
+    if (xSpeed<-.5){
+      xSpeed=-.5;
+
+    }
+    if (ySpeed<-.5){
+      ySpeed=-.5;
+
+    }
+    if (xSpeed>.5){
+      xSpeed=.5;
+
+    }
+    if (ySpeed>.5){
+      ySpeed=.5;
+
     }
 
     xSpeedOutput = xSpeed;

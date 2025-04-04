@@ -18,7 +18,7 @@ import swervelib.SwerveInputStream;
 import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.claw.claw;
 import frc.robot.subsystems.elbow.elbow;
-import frc.robot.subsystems.climber.climber;
+//import frc.robot.subsystems.climber.climber;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -42,7 +42,7 @@ public class RobotContainer {
   public final Wrist m_wrist = new Wrist();
   public final claw m_claw = new claw();
   // public final elbow m_elevator.m_elbow = new elbow();
-  public final climber m_climber = new climber(); // public final SwerveSubsystem m_drivebase =
+  //public final climber m_climber = new climber(); // public final SwerveSubsystem m_drivebase =
                                                   // SwerveSubsystem.getInstance();
   // public final Vision m_vision = new vision();
   // Controllers
@@ -156,8 +156,8 @@ public class RobotContainer {
 
     drivebase.LeftTrigger = drivebase.driverXbox.leftTrigger();
     drivebase.RightTrigger = drivebase.driverXbox.rightTrigger();
-    drivebase.driverXbox.a().whileTrue(m_climber.down());
-    drivebase.driverXbox.b().whileTrue(m_climber.up());
+    // drivebase.driverXbox.a().whileTrue(m_climber.down());
+    // drivebase.driverXbox.b().whileTrue(m_climber.up());
     m_operatorController.x().onTrue(m_elevator.elevatorL4());
     m_operatorController.x().onTrue(m_elevator.m_elbow.up());
     m_operatorController.back().onTrue(m_wrist.toggle());
