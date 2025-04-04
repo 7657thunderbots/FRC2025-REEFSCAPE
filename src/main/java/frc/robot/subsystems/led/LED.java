@@ -27,54 +27,6 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
 
     }
 
-    @Override
-    public void periodic() {
-        if (m_isBlinkingGreen) {
-            if (m_blinkTimer.get() > 0.1) {
-                if (m_isGreen) {
-                    setLEDsBlack(); // Turn off LEDs
-                    m_isGreen = false;
-                } else {
-                    setLEDsGreen(); // Turn on green LEDs
-                    m_isGreen = true;
-                }
-                m_blinkTimer.reset();
-            }
-            m_isBlinkingGreen=false;
-        } else if (m_isBlinkingOrange) {
-            if (m_blinkTimer.get() > 0.1) {
-                if (m_isGreen) {
-                    setLEDsBlack(); // Turn off LEDs
-                    m_isGreen = false;
-                } else {
-                    setLEDsOrange(); // Turn on orange LEDs
-                    m_isGreen = true;
-                }
-                m_blinkTimer.reset();
-            }
-            m_isBlinkingOrange=false;
-        }
-    }
-
-    public void startBlinkingGreen() {
-        m_isBlinkingGreen = true;
-        m_isBlinkingOrange = false;
-        m_isGreen = false;
-        m_blinkTimer.reset();
-    }
-
-    public void startBlinkingOrange() {
-        m_isBlinkingOrange = true;
-        m_isBlinkingGreen = false;
-        m_isGreen = false;
-        m_blinkTimer.reset();
-    }
-
-    public void stopBlinking() {
-        m_isBlinkingGreen = false;
-        m_isBlinkingOrange = false;
-        setLedsWhite(); // Revert to default color
-    }
 
     public void clearLEDs() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {

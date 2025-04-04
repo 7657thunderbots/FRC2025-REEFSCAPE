@@ -36,7 +36,74 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "place",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "place"
+        }
+      }
+    },
+    {
+      "name": "home",
+      "waypointRelativePos": 0.19320594479830147,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "home"
+        }
+      }
+    },
+    {
+      "name": "up",
+      "waypointRelativePos": 0.524416135881104,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "up"
+        }
+      }
+    },
+    {
+      "name": "human",
+      "waypointRelativePos": 0.7070063694267515,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "human"
+        }
+      }
+    },
+    {
+      "name": "vertical",
+      "waypointRelativePos": 0.7282377919320593,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "vertical"
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.9171974522292993,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,
