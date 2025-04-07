@@ -76,7 +76,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         m_led.setData(m_ledBuffer);
     }
 
-    public void setLEDSBlue() {
+    public void setLEDSLightBlue() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             m_ledBuffer.setHSV(i, 160, 252, 255);
         }

@@ -572,7 +572,7 @@ public class Vision {
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
 
       if (estimatedPose.isEmpty()) {
-        m_ledSubsystem.setLEDSBlue();
+        m_ledSubsystem.setLEDSLightBlue();
         // No pose input. Default to single-tag std devs
         curStdDevs = singleTagStdDevs;
       } else {
