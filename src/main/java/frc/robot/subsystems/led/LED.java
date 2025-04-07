@@ -23,10 +23,9 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         m_led.start();
 
         clearLEDs();
-        startUp();
+        setLedsWhite();
 
     }
-
 
     public void clearLEDs() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -53,13 +52,13 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     }
 
     public void setLedsWhite() {
-        if (m_isBlinkingGreen|| m_isBlinkingOrange) {
+        if (m_isBlinkingGreen || m_isBlinkingOrange) {
+        } else {
+            for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                m_ledBuffer.setLED(i, Color.kWhite);
+                m_led.setData(m_ledBuffer);
+            }
         }
-        else{
-        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setLED(i, Color.kWhite);
-            m_led.setData(m_ledBuffer);
-        }}
     }
 
     public void setLEDsBlack() {
@@ -77,7 +76,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         m_led.setData(m_ledBuffer);
     }
 
-    public void startUp() {
+    public void setLEDSBlue() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             m_ledBuffer.setHSV(i, 160, 252, 255);
         }

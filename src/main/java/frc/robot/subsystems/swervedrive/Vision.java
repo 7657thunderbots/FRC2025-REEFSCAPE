@@ -320,8 +320,9 @@ public class Vision {
         VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1));
 
     // RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
-    //     new Translation3d(Units.inchesToMeters(-7), Units.inchesToMeters(0), Units.inchesToMeters(14.75)),
-    //     VecBuilder.fill(1.8, 1.8, 8), VecBuilder.fill(0.5, 0.5, 1));
+    // new Translation3d(Units.inchesToMeters(-7), Units.inchesToMeters(0),
+    // Units.inchesToMeters(14.75)),
+    // VecBuilder.fill(1.8, 1.8, 8), VecBuilder.fill(0.5, 0.5, 1));
     // RIGHT_CAM("top1",
     // new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
     // // new Translation3d(Units.inchesToMeters(12.056),
@@ -571,7 +572,7 @@ public class Vision {
         Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
 
       if (estimatedPose.isEmpty()) {
-        m_ledSubsystem.setLEDsRed();
+        m_ledSubsystem.setLEDSBlue();
         // No pose input. Default to single-tag std devs
         curStdDevs = singleTagStdDevs;
       } else {
@@ -580,7 +581,7 @@ public class Vision {
         var estStdDevs = singleTagStdDevs;
         int numTags = 0;
         double avgDist = 0;
-        m_ledSubsystem.setLedsGreen();
+        m_ledSubsystem.setLEDsOrange();
 
         // Precalculation - see how many tags we found, and calculate an
         // average-distance metric
