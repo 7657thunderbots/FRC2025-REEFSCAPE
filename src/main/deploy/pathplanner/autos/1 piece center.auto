@@ -11,12 +11,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "down"
-          }
-        },
-        {
           "type": "wait",
           "data": {
             "waitTime": 1.0

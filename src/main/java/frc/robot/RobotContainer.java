@@ -169,7 +169,7 @@ public class RobotContainer {
     m_operatorController.rightBumper().onTrue(m_elevator.elevatorL1());
     m_operatorController.rightBumper().onTrue(m_elevator.m_elbow.l1());
     m_operatorController.leftBumper().onTrue(m_elevator.Home());
-    m_operatorController.b().onTrue(m_elevator.elevatorHighAlgae());
+    m_operatorController.button(12).onTrue(m_elevator.elevatorHighAlgae());
     m_operatorController.leftBumper().onTrue(m_wrist.vertical());
     m_operatorController.y().onTrue(m_elevator.m_elbow.up());
     m_operatorController.button(1).onTrue(m_elevator.m_elbow.up());
