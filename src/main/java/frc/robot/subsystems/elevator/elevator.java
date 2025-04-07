@@ -38,7 +38,7 @@ public class elevator extends SubsystemBase {
         // SmartDashboard.setDefaultBoolean("Control Mode", false);
         // SmartDashboard.setDefaultBoolean("Reset Encoder", false);
         TalonFXConfiguration config = new TalonFXConfiguration();
-        config.CurrentLimits.SupplyCurrentLimit = 10;
+        config.CurrentLimits.SupplyCurrentLimit = 20;
 
        // config.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.; // Adjust the value as needed
         KrakenFollower.getConfigurator().apply(config);
