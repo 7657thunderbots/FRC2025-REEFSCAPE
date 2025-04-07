@@ -317,11 +317,11 @@ public class Vision {
   enum Cameras {
     LEFT_CAM("bottom", new Rotation3d(Math.toRadians(0), Math.toRadians(0), Math.toRadians(30)),
         new Translation3d(Units.inchesToMeters(9.25), Units.inchesToMeters(-10.125), Units.inchesToMeters(18)),
-        VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1));
+        VecBuilder.fill(.9, .9, 6), VecBuilder.fill(0.5, 0.5, 1)),
 
-    // RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
-    //     new Translation3d(Units.inchesToMeters(-7), Units.inchesToMeters(0), Units.inchesToMeters(14.75)),
-    //     VecBuilder.fill(1.8, 1.8, 8), VecBuilder.fill(0.5, 0.5, 1));
+    RIGHT_CAM("top", new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
+        new Translation3d(Units.inchesToMeters(-7), Units.inchesToMeters(0), Units.inchesToMeters(14.75)),
+        VecBuilder.fill(1.8, 1.8, 8), VecBuilder.fill(0.5, 0.5, 1));
     // RIGHT_CAM("top1",
     // new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
     // // new Translation3d(Units.inchesToMeters(12.056),
