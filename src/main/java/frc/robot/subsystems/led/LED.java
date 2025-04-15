@@ -26,7 +26,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         m_led.start();
 
         clearLEDs();
-        setLEDsRed();
+        setLedsWhite();
 
     }
 
