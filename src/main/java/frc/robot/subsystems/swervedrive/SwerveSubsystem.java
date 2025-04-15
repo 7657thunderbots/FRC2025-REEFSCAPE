@@ -504,10 +504,15 @@ public class SwerveSubsystem extends SubsystemBase {
     // Check if the robot is close enough to the target pose
     double positionError = currentPose.getTranslation().getDistance(targetPose.getTranslation());
     double angleError = Math.abs(currentPose.getRotation().getRadians() - targetPose.getRotation().getRadians());
-
+    vision.mledSubsystem.setLEDsRed();
     if (positionError < 0.1 && angleError < 0.1) {
       isDrivingToPose = false;
+      xSpeedOutput = 0;
+      ySpeedOutput = 0;
+      rotationSpeedOutput = 0;
+      vision.mledSubsystem.setLedsGreen();
     }
+
     }
 
     @Override

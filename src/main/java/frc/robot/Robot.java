@@ -115,11 +115,7 @@ public class Robot extends TimedRobot {
 // // Write the data to the LED strip
 // m_led.setData(m_ledBuffer);
 
-    if (m_robotContainer.m_elevator.positione < -8) {
-      m_robotContainer.m_elevator.m_elbow.safeL1 = true;
-    } else {
-      m_robotContainer.m_elevator.m_elbow.safeL1 = false;
-    }
+    
 
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled

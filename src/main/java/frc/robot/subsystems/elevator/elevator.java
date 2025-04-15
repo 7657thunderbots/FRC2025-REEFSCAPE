@@ -20,7 +20,7 @@ public class elevator extends SubsystemBase {
     private double lastTimestamp = 0;
     private double kP = .085;
     private double kI = 0.0;
-    private double kD = .01;
+    private double kD = .005;
     private double b = .04;
     private double hiLimit = 0.1; // Threshold for integral term
     // private final int CURRENT_LIMIT = 10; // Current limit in amps
@@ -38,9 +38,9 @@ public class elevator extends SubsystemBase {
         // SmartDashboard.setDefaultBoolean("Control Mode", false);
         // SmartDashboard.setDefaultBoolean("Reset Encoder", false);
         TalonFXConfiguration config = new TalonFXConfiguration();
-        config.CurrentLimits.SupplyCurrentLimit = 10;
+        config.CurrentLimits.SupplyCurrentLimit = 20;
 
-        config.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.6; // Adjust the value as needed
+       // config.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.; // Adjust the value as needed
         KrakenFollower.getConfigurator().apply(config);
         KrakenLeader.getConfigurator().apply(config);
         KrakenLeader.setNeutralMode(com.ctre.phoenix6.signals.NeutralModeValue.Brake);
@@ -53,7 +53,7 @@ public class elevator extends SubsystemBase {
     public Command elevatorL1() {
         return runOnce(() -> {
             this.home=false;
-            this.elbowSetPoint = -12.5;
+            this.elbowSetPoint = -11.75;//-12.5
             m_elbow.l1();
         });
     }
@@ -61,21 +61,21 @@ public class elevator extends SubsystemBase {
     public Command elevatorL2() {
         return runOnce(() -> {
             this.home=false;
-            this.elbowSetPoint = -8.5;
+            this.elbowSetPoint = -7.75;//-8.5
         });
     }
 
     public Command elevatorL3() {
         return runOnce(() -> {
             this.home=false;
-            this.elbowSetPoint = -15.5;
+            this.elbowSetPoint = -14.75;//15.5
         });
     }
 
     public Command elevatorL4() {
         return runOnce(() -> {
             this.home=false;
-            this.elbowSetPoint = -29.000;
+            this.elbowSetPoint = -28.25;//29
         });
     }
 
@@ -83,7 +83,7 @@ public class elevator extends SubsystemBase {
 
         return runOnce(() -> {
             this.home=false;
-            this.elbowSetPoint = -7;
+            this.elbowSetPoint = -6.25;//-7
             // m_elbow.Human();
             m_elbow.human_auto();
         });
@@ -130,18 +130,24 @@ public class elevator extends SubsystemBase {
 
         double errorRate = (error - lastError) / dt;
         double output = kP * error + kI * errorSum + kD * errorRate;
-        if (output < -.8) {
-            output = -.8;
+        if (output < -1) {
+            output = -1;
         }
         if (output > .2) {
             output = .2;
         }
-
-        KrakenLeader.set((output - b));
-        KrakenFollower.set((output - b));
-
-        lastTimestamp = Timer.getFPGATimestamp();
-        lastError = error;
+        if (positione < -8) {
+            m_elbow.safeL1 = true;
+          } else {
+            m_elbow.safeL1 = false;
+          }
+           KrakenLeader.set((output - b));
+            
+                KrakenFollower.set((output - b));
+           
+    
+            lastTimestamp = Timer.getFPGATimestamp();
+            lastError = error;
 
         SmartDashboard.putNumber("elevator", KrakenLeader.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("elevator2", KrakenFollower.getPosition().getValueAsDouble());

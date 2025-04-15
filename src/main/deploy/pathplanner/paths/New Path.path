@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 5.980222602739726,
+        "x": 5.950171232876712,
         "y": 4.195070422535211
       },
       "prevControl": {
-        "x": 6.228292071918143,
+        "x": 6.198240702055129,
         "y": 4.164061738887907
       },
       "nextControl": null,
@@ -42,6 +42,12 @@
           "name": "L4"
         }
       }
+    },
+    {
+      "name": "down",
+      "waypointRelativePos": 0.99,
+      "endWaypointRelativePos": null,
+      "command": null
     }
   ],
   "globalConstraints": {
