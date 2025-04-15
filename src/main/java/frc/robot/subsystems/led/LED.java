@@ -20,11 +20,11 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     public LED() {
         auto_drive = false;
         m_led = new AddressableLED(5);
-        // m_led.setColorOrder(ColorOrder.kRGB);
         m_ledBuffer = new AddressableLEDBuffer(100);
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);
         m_led.start();
+
         clearLEDs();
         setLEDsRed();
 
@@ -52,7 +52,6 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
 
         }
         m_led.setData(m_ledBuffer);
-
     }
 
     public void setLedsWhite() {
