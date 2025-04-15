@@ -15,7 +15,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     private boolean m_isBlinkingGreen = false;
     private boolean m_isBlinkingOrange = false;
     private boolean m_isGreen = false;
-    private boolean auto_drive;
+    public boolean auto_drive;
 
     public LED() {
         auto_drive = false;
@@ -45,6 +45,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     }
 
     public void setLEDsOrange() {
+        if (!auto_drive){
         // Color orange = new Color("#b37400");
         // Color orange = new Color(242, 112, 5);
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -52,6 +53,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
 
         }
         m_led.setData(m_ledBuffer);
+    }
     }
 
     public void setLedsWhite() {
@@ -80,9 +82,11 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     }
 
     public void setLEDSLightBlue() {
-        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setHSV(i, 160, 252, 255);
+        if (!auto_drive){
+            for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                m_ledBuffer.setHSV(i, 160, 252, 255);
+            }
+         m_led.setData(m_ledBuffer);
         }
-        m_led.setData(m_ledBuffer);
     }
 }

@@ -582,6 +582,7 @@ public class Vision {
         var estStdDevs = singleTagStdDevs;
         int numTags = 0;
         double avgDist = 0;
+        
         m_ledSubsystem.setLEDsOrange();
 
         // Precalculation - see how many tags we found, and calculate an

@@ -297,7 +297,9 @@ public class SwerveSubsystem extends SubsystemBase {
       ySpeed=-driverXbox.getLeftY();
       rotspeed = -driverXbox.getRightX();
     }
+    vision.mledSubsystem.auto_drive =false;
   }
+
 
     public void driveToRedPose() {
     // closestTagId = 6;
@@ -492,7 +494,7 @@ public class SwerveSubsystem extends SubsystemBase {
       ySpeed=.5;
 
     }
-
+    vision.mledSubsystem.auto_drive=true;
     xSpeedOutput = xSpeed;
     ySpeedOutput = ySpeed;
     rotationSpeedOutput = Math.max(Math.min(rotationSpeed, 1), -1);
@@ -511,7 +513,9 @@ public class SwerveSubsystem extends SubsystemBase {
       ySpeedOutput = 0;
       rotationSpeedOutput = 0;
       vision.mledSubsystem.setLedsGreen();
+      
     }
+   
 
     }
 
