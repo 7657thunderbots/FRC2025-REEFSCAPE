@@ -1,3 +1,4 @@
+// 
 package frc.robot.subsystems.led;
 
 import edu.wpi.first.wpilibj.AddressableLED;
@@ -14,8 +15,10 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     private boolean m_isBlinkingGreen = false;
     private boolean m_isBlinkingOrange = false;
     private boolean m_isGreen = false;
+    private boolean auto_drive;
 
     public LED() {
+        auto_drive = false;
         m_led = new AddressableLED(5);
         m_ledBuffer = new AddressableLEDBuffer(100);
         m_led.setLength(m_ledBuffer.getLength());
