@@ -1,3 +1,4 @@
+// 
 package frc.robot.subsystems.led;
 
 import edu.wpi.first.wpilibj.AddressableLED;
@@ -14,8 +15,10 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     private boolean m_isBlinkingGreen = false;
     private boolean m_isBlinkingOrange = false;
     private boolean m_isGreen = false;
+    private boolean auto_drive;
 
     public LED() {
+        auto_drive = false;
         m_led = new AddressableLED(5);
         // m_led.setColorOrder(ColorOrder.kRGB);
         m_ledBuffer = new AddressableLEDBuffer(100);
@@ -23,10 +26,9 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         m_led.setData(m_ledBuffer);
         m_led.start();
         clearLEDs();
-        startUp();
+        setLEDsRed();
 
     }
-
 
     public void clearLEDs() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -54,13 +56,13 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
     }
 
     public void setLedsWhite() {
-        if (m_isBlinkingGreen|| m_isBlinkingOrange) {
+        if (m_isBlinkingGreen || m_isBlinkingOrange) {
+        } else {
+            for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                m_ledBuffer.setLED(i, Color.kWhite);
+                m_led.setData(m_ledBuffer);
+            }
         }
-        else{
-        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            m_ledBuffer.setLED(i, Color.kWhite);
-            m_led.setData(m_ledBuffer);
-        }}
     }
 
     public void setLEDsBlack() {
@@ -78,7 +80,7 @@ public class LED extends SubsystemBase { // using subsystem to keep robot functi
         m_led.setData(m_ledBuffer);
     }
 
-    public void startUp() {
+    public void setLEDSLightBlue() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             m_ledBuffer.setHSV(i, 160, 252, 255);
         }
