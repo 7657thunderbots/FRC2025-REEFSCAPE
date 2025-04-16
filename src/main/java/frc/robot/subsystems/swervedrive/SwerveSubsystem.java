@@ -304,55 +304,77 @@ public class SwerveSubsystem extends SubsystemBase {
     public void driveToRedPose() {
     // closestTagId = 6;
     if (closestTagId == 7) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(14.395, 3.9), Rotation2d.fromDegrees(180)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(14.380, 3.852), Rotation2d.fromDegrees(180)));
       }
-      if (RightTrigger.getAsBoolean()) {
+
+     else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(14.395, 4.168), Rotation2d.fromDegrees(180)));
       }
     }
 
     else if (closestTagId == 8) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(13.749, 5.144), Rotation2d.fromDegrees(-120)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(13.869, 5.099), Rotation2d.fromDegrees(-120)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(13.583, 5.265), Rotation2d.fromDegrees(-120)));
       }
     }
 
     else if (closestTagId == 9) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(12.411, 5.189), Rotation2d.fromDegrees(-60)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(12.516, 5.280), Rotation2d.fromDegrees(-60)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(12.201, 5.099), Rotation2d.fromDegrees(-60)));
       }
     }
 
     else if (closestTagId == 10) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(11.75, 4.063), Rotation2d.fromDegrees(0)));
+      }
+
+
+      
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(11.735, 4.183), Rotation2d.fromDegrees(0)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(11.750, 3.852), Rotation2d.fromDegrees(0)));
       }
     }
 
     else if (closestTagId == 11) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(12.396, 2.891), Rotation2d.fromDegrees(60)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(12.231, 2.966), Rotation2d.fromDegrees(60)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(12.546, 2.815), Rotation2d.fromDegrees(60)));
       }
     }
 
     else if (closestTagId == 6) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(13.733, 2.876), Rotation2d.fromDegrees(120)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(13.568, 2.755), Rotation2d.fromDegrees(120)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(13.869, 2.951), Rotation2d.fromDegrees(120)));
       }
     }
@@ -378,55 +400,74 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void driveToBluePose() {
     if (closestTagId == 19) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+      calculatePIDOutputs(new Pose2d(new Translation2d(3.847, 5.189), Rotation2d.fromDegrees(-60)));}
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(3.630, 5.088), Rotation2d.fromDegrees(-60)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(3.927, 5.309), Rotation2d.fromDegrees(-60)));
       }
     }
 
     else if (closestTagId == 20) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(5.139, 5.189), Rotation2d.fromDegrees(-120)));
+
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(5.019, 5.272), Rotation2d.fromDegrees(-120)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(5.294, 5.088), Rotation2d.fromDegrees(-120)));
       }
     }
 
     else if (closestTagId == 21) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(5.800, 4.033), Rotation2d.fromDegrees(180)));
+      }
+
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(5.813, 4.181), Rotation2d.fromDegrees(180)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(5.841, 3.827), Rotation2d.fromDegrees(180)));
       }
     }
 
     else if (closestTagId == 22) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(5.139, 2.876), Rotation2d.fromDegrees(120)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(5.294, 2.990), Rotation2d.fromDegrees(120)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(5.019, 2.806), Rotation2d.fromDegrees(120)));
       }
     }
 
     else if (closestTagId == 17) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(3.832, 2.876), Rotation2d.fromDegrees(60)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(3.956, 2.806), Rotation2d.fromDegrees(60)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(3.673, 2.976), Rotation2d.fromDegrees(60)));
       }
     }
 
     else if (closestTagId == 18) {
-      if (LeftTrigger.getAsBoolean()) {
+      if (LeftTrigger.getAsBoolean()&&RightTrigger.getAsBoolean()){
+        calculatePIDOutputs(new Pose2d(new Translation2d(3.170, 4.017), Rotation2d.fromDegrees(0)));
+      }
+      else if (LeftTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(3.177, 4.167), Rotation2d.fromDegrees(0)));
       }
-      if (RightTrigger.getAsBoolean()) {
+      else if (RightTrigger.getAsBoolean()) {
       calculatePIDOutputs(new Pose2d(new Translation2d(3.177, 3.855), Rotation2d.fromDegrees(0)));
       }
     }
